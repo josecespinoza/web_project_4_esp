@@ -1,20 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>De Portland a Portland</title>
+    <title>Around the U.S.</title>
     <link rel="stylesheet" href="./pages/index.css">
 </head>
 
-<body class="page">
+<body class="page page_theme_dark">
     <header class="header page__header">
         <img class="header__logo" src="./images/logo.svg" alt="Around the U.S. logo">
         <div class="header__division"></div>
     </header>
-    <section class="profile"></section>
+    <section class="profile page__profile">
+        <div class="profile__avatar-mask">
+            <img class="profile__avatar" src="./images/image.jpg">
+        </div>
+        <div class="profile__info">
+            <h1 class="profile__name">Jacques Cousteau</h1>
+            <h2 class="profile__occupation">Explorador</h2>
+            <div class="button button_theme_dark button_action_edit button_location_profile-info">
+                <div class="button__icon button__icon_action_edit"></div>
+            </div>
+        </div>
+        <div class="button button_theme_dark button_action_add button_location_profile">
+            <div class="button__icon button__icon_action_add"></div>
+        </div>
+    </section>
     <main class="destinations"></main>
     <footer class="footer"></footer>
     <script src="./scripts/script.js"></script>

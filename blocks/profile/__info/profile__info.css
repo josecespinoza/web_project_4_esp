@@ -1,0 +1,13 @@
+.profile__info {
+  display: grid;
+  justify-content: start;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    "name button"
+    "occupation .";
+  grid-area: info;
+  column-gap: 17px;
+  row-gap: 16px;
+  align-self: center;
+}

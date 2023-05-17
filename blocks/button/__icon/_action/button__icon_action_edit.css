@@ -1,0 +1,8 @@
+.button__icon_action_edit {
+  background-image: url("../../../../images/edit-symbol.svg");
+  background-size: contain;
+  background-position: center;
+  width: 10px;
+  height: 10px;
+  margin: 7px;
+}

@@ -1,0 +1,10 @@
+.profile {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 882px;
+  display: grid;
+  grid-template-columns: 120px 3fr 1fr;
+  grid-template-areas: "avatar info options";
+  column-gap: 30px;
+}
