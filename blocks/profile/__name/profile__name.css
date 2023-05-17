@@ -6,3 +6,15 @@
   font-size: 42px;
   grid-area: name;
 }
+
+@media screen and (max-width: 432px) {
+  .profile__name {
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 433px) and (max-width: 896px) {
+  .profile__name {
+    font-size: 32px;
+  }
+}
