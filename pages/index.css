@@ -32,3 +32,5 @@
 @import url("../blocks/button/__icon/button__icon.css");
 @import url("../blocks/button/__icon/_action/button__icon_action_edit.css");
 @import url("../blocks/button/__icon/_action/button__icon_action_add.css");
+@import url("../blocks/button/_action/button_action_like.css");
+@import url("../blocks/button/__icon/_action/button__icon_action_like.css");
