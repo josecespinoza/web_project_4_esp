@@ -15,6 +15,7 @@
 @import url("../blocks/profile/__avatar-mask/profile__avatar-mask.css");
 @import url("../blocks/profile/__options/profile__options.css");
 @import url("../blocks/destinations/destinations.css");
+@import url("../blocks/page/__destinations/page__destinations.css");
 @import url("../blocks/destinations/__item/destinations__item.css");
 @import url("../blocks/destinations/__list/destinations__list.css");
 @import url("../blocks/destination/destination.css");
