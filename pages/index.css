@@ -15,6 +15,13 @@
 @import url("../blocks/profile/__avatar-mask/profile__avatar-mask.css");
 @import url("../blocks/profile/__options/profile__options.css");
 @import url("../blocks/destinations/destinations.css");
+@import url("../blocks/destinations/__item/destinations__item.css");
+@import url("../blocks/destinations/__list/destinations__list.css");
+@import url("../blocks/destination/destination.css");
+@import url("../blocks/destination/_theme/destination_theme_dark.css");
+@import url("../blocks/destination/__info/destination__info.css");
+@import url("../blocks/destination/__name/destination__name.css");
+@import url("../blocks/destination/__photo/destination__photo.css");
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/button/button.css");
 @import url("../blocks/button/_theme/button_theme_dark.css");

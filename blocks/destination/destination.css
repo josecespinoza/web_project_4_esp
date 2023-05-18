@@ -1,0 +1,11 @@
+.destination {
+  width: 282px;
+  display: grid;
+  grid-template-rows: auto 79px;
+  grid-template-columns: auto;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+}
