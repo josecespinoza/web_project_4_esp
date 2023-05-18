@@ -1,8 +1,13 @@
 .destination {
+  margin: 0;
+  padding: 0;
   width: 282px;
   display: grid;
   grid-template-rows: auto 79px;
   grid-template-columns: auto;
+  grid-template-areas:
+    "photo"
+    "info";
   border-radius: 10px;
   overflow: hidden;
   justify-content: center;

@@ -14,10 +14,14 @@
 
 @media screen and (max-width: 896px) {
   .profile__info {
-    grid-template-columns: 1fr auto auto;
-    grid-template-rows: 1fr auto 1fr;
+    grid-template-columns: auto auto;
+    grid-template-rows: 1fr auto;
     grid-template-areas:
       ". name button"
       ". occupation .";
+    margin: 0 auto;
+    margin-bottom: 36px;
+    width: calc(100% - 19px);
+    justify-content: center;
   }
 }

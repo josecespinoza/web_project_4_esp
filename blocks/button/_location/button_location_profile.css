@@ -2,3 +2,11 @@
   align-self: center;
   width: 100%;
 }
+
+@media screen and (max-width: 896px) {
+  .button_location_profile {
+    width: 100%;
+    margin: 0 19px;
+    max-width: 578px;
+  }
+}
