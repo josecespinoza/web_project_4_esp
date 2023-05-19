@@ -1,0 +1,9 @@
+.button__icon_action_close {
+  background-image: url("../../../../images/plus-symbol.svg");
+  background-size: contain;
+  background-position: center;
+  width: 40.7px;
+  height: 40.7px;
+  z-index: 5;
+  transform: rotate(45deg);
+}

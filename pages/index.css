@@ -30,6 +30,7 @@
 @import url("../blocks/button/_theme/button_theme_dark.css");
 @import url("../blocks/button/_action/button_action_edit.css");
 @import url("../blocks/button/_action/button_action_add.css");
+@import url("../blocks/button/_action/button_action_save.css");
 @import url("../blocks/button/_location/button_location_profile.css");
 @import url("../blocks/button/_location/button_location_profile-info.css");
 @import url("../blocks/button/_location/button_location_destination.css");
@@ -38,3 +39,14 @@
 @import url("../blocks/button/__icon/_action/button__icon_action_add.css");
 @import url("../blocks/button/_action/button_action_like.css");
 @import url("../blocks/button/__icon/_action/button__icon_action_like.css");
+@import url("../blocks/profile-form/profile-form.css");
+@import url("../blocks/page/__profile-form-container/page__profile-form-container.css");
+@import url("../blocks/profile-form/__inputs/profile-form__inputs.css");
+@import url("../blocks/profile-form/_theme/profile-form_theme_dark.css");
+@import url("../blocks/profile-form/__title/profile-form__title.css");
+@import url("../blocks/profile-form/__input/profile-form__input.css");
+@import url("../blocks/profile-form/__backdrop/profile-form__backdrop.css");
+@import url("../blocks/button/_action/button_action_save.css");
+@import url("../blocks/button/_theme/button_theme_light.css");
+@import url("../blocks/button/_action/button_action_close.css");
+@import url("../blocks/button/__icon/_action/button_icon_action_close.css");
