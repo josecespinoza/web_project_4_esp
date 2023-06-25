@@ -1,0 +1,9 @@
+.modal-container__profile-form {
+  margin: 36px;
+}
+
+@media screen and (max-width: 430px) {
+  .modal-container__profile-form {
+    margin: 8%;
+  }
+}

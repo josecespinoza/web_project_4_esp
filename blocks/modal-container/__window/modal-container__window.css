@@ -1,0 +1,9 @@
+.modal-container__window {
+  background-color: white;
+  z-index: 2;
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  grid-area: window;
+}

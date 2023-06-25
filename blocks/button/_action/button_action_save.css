@@ -5,3 +5,10 @@
   height: 50.15px;
   border-radius: 4px;
 }
+
+@media screen and (max-width: 400px) {
+  .button_action_save {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
