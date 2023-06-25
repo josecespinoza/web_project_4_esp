@@ -2,9 +2,8 @@ let page = document.querySelector(".page");
 let editButton = page.querySelector(".button_action_edit");
 
 function handleCloseButtonClick() {
-  let profileFormContainer = page.querySelector(
-    ".page__profile-form-container"
-  );
+  console.log("button was clicked");
+  let profileFormContainer = page.querySelector(".modal-container");
   profileFormContainer.remove();
 }
 
@@ -28,7 +27,7 @@ function handleEditButtonClick() {
             </form>
         </div>
         <div class="modal-container__close-button">
-            <div class="button button_theme_dark button_action_close modal-container__button_action_close">
+            <div class="button button_theme_dark button_action_close">
                 <div class="button__icon button__icon_action_close"></div>
             </div>
         </div>
