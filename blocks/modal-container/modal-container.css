@@ -13,6 +13,7 @@
     ". . button "
     ". window . "
     ". . . ";
+  z-index: 2;
 }
 
 @media screen and (max-width: 512px) {

@@ -20,6 +20,7 @@
       ". name button"
       ". occupation .";
     margin: 0 auto;
+    margin-top: 10.25px;
     margin-bottom: 36px;
     width: calc(100% - 19px);
     justify-content: center;
