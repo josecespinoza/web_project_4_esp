@@ -44,7 +44,6 @@
 @import url("../blocks/profile-form/_theme/profile-form_theme_dark.css");
 @import url("../blocks/profile-form/__title/profile-form__title.css");
 @import url("../blocks/profile-form/__input/profile-form__input.css");
-@import url("../blocks/profile-form/__backdrop/profile-form__backdrop.css");
 @import url("../blocks/button/_action/button_action_save.css");
 @import url("../blocks/button/_location/button_location_profile-form.css");
 @import url("../blocks/button/_theme/button_theme_light.css");
@@ -54,3 +53,6 @@
 @import url("../blocks/modal-container/modal-container.css");
 @import url("../blocks/modal-container/__window/modal-container__window.css");
 @import url("../blocks/modal-container/__profile-form/modal-container__profile-form.css");
+@import url("../blocks/modal-container/__backdrop/modal-container__backdrop.css");
+@import url("../blocks/modal-container/__window/_content/modal-container__window_content_image.css");
+@import url("../blocks/destination-popup/destination-popup.css");

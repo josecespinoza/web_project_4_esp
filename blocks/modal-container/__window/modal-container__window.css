@@ -3,7 +3,7 @@
   z-index: 2;
   border-radius: 10px;
   position: relative;
-  width: 100%;
+  width: 430px;
   height: 100%;
   grid-area: window;
 }

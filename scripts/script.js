@@ -45,7 +45,7 @@ function handleEditButtonClick() {
                 <span class="button__icon button__icon_action_close"></span>
             </button>
         </div>
-        <div class="profile-form__backdrop">
+        <div class="modal-container__backdrop">
         </div>
     </div>`
   );
@@ -54,5 +54,36 @@ function handleEditButtonClick() {
   closeButton.addEventListener("click", handleCloseButtonClick);
   profileForm.addEventListener("submit", handleFormSubmit);
 }
+
+function handleDestinationCardClick(evt) {
+  let photoSource = evt.target.getAttribute("src");
+  let photoAlt = evt.target.getAttribute("alt");
+  page.insertAdjacentHTML(
+    "afterbegin",
+    `<div class="modal-container modal-container_content_image">
+      <div class="modal-container__window modal-container__window_content_image">
+          <img class="destination-popup" src="${photoSource}" alt="${photoAlt}">
+      </div>
+      <div class="modal-container__close-button">
+          <button class="button button_theme_dark button_action_close">
+              <span class="button__icon button__icon_action_close"></span>
+          </button>
+      </div>
+      <div class="modal-container__backdrop">
+      </div>
+    </div>`
+  );
+  let closeButton = page.querySelector(".button_action_close");
+  closeButton.addEventListener("click", handleCloseButtonClick);
+}
+
+function addEventListenerToDestinations() {
+  let images = page.querySelectorAll(".destination__photo");
+  for (let i = 0; i < images.length; i++) {
+    images[i].addEventListener("click", handleDestinationCardClick);
+  }
+}
+
+addEventListenerToDestinations();
 
 editButton.addEventListener("click", handleEditButtonClick);
