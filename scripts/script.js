@@ -1,5 +1,8 @@
 let page = document.querySelector(".page");
 let editButton = page.querySelector(".button_action_edit");
+editButton.addEventListener("click", handleEditButtonClick);
+addEventListenerToDestinations();
+addEventListenerToLikeButtons();
 
 function closeModal() {
   let profileFormContainer = page.querySelector(".modal-container");
@@ -84,6 +87,21 @@ function addEventListenerToDestinations() {
   }
 }
 
-addEventListenerToDestinations();
+function handleLikeButtonClick(evt) {
+  console.log("clicked");
+  let clickedButton = evt.target;
+  if (clickedButton.classList.contains("button__icon_action_like")) {
+    clickedButton.classList.remove("button__icon_action_like");
+    clickedButton.classList.add("button__icon_action_liked");
+  } else if (clickedButton.classList.contains("button__icon_action_liked")) {
+    clickedButton.classList.remove("button__icon_action_liked");
+    clickedButton.classList.add("button__icon_action_like");
+  }
+}
 
-editButton.addEventListener("click", handleEditButtonClick);
+function addEventListenerToLikeButtons() {
+  let likeButtons = page.querySelectorAll(".button__icon_action_like");
+  for (let i = 0; i < likeButtons.length; i++) {
+    likeButtons[i].addEventListener("click", handleLikeButtonClick);
+  }
+}

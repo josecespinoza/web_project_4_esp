@@ -1,0 +1,7 @@
+.button__icon_action_liked {
+  background-image: url("../../../../images/liked-symbol.svg");
+  background-size: contain;
+  background-position: center;
+  width: 21px;
+  height: 19px;
+}

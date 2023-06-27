@@ -56,3 +56,4 @@
 @import url("../blocks/modal-container/__backdrop/modal-container__backdrop.css");
 @import url("../blocks/modal-container/__window/_content/modal-container__window_content_image.css");
 @import url("../blocks/destination-popup/destination-popup.css");
+@import url("../blocks/button/__icon/_action/button__icon_action_liked.css");
