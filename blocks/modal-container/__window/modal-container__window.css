@@ -7,3 +7,9 @@
   height: 100%;
   grid-area: window;
 }
+
+@media screen and (max-width: 650px) {
+  .modal-container__window {
+    width: auto;
+  }
+}

@@ -1,2 +1,9 @@
 .destination-popup {
+  width: 100%;
+}
+
+@media screen and (max-width: 544px) {
+  .destination-popup {
+    width: 100%;
+  }
 }
