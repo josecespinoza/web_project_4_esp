@@ -2,15 +2,19 @@
 
 ### Descripción general
 
-* Figma
-* Imágenes
+El presente proyecto brinda una presentación visual de distintos destinos turísticos dentro de los Estados Unidos.
 
-**Figma**
+### Tecnologías
 
-* [Enlace al proyecto en Figma](https://www.figma.com/file/LDMgqWesKpQkIwhOfEBuTS/WEB%2C-Sprint-5%3A-Around-The-U.S.-%7C-desktop-%2B-mobile?node-id=0%3A1)
+Se utilizaron las siguientes tecnologías:
 
-**Imágenes**
+- HTML
+- CSS
+- JavaScript
 
-A la hora de trabajar, debes optar por exportar las imágenes directamente desde Figma; te recomendamos hacerlo para practicar más. No olvides optimizarlas [aquí](https://tinypng.com/), para que tu proyecto cargue más rápido. 
+Para la organización de los archivos CSS se utilizó la metodología BEM.
 
-¡Esperamos que te diviertas con JavaScript!
+### Sitio en Vivo
+
+Puede visitar el sitio en:
+https://josecespinoza.github.io/web_project_4_esp/
