@@ -1,11 +1,11 @@
-let page = document.querySelector(".page");
-let editButton = page.querySelector(".button_action_edit");
+const page = document.querySelector(".page");
+const editButton = page.querySelector(".button_action_edit");
 editButton.addEventListener("click", handleEditButtonClick);
 addEventListenerToDestinations();
 addEventListenerToLikeButtons();
 
 function closeModal() {
-  let profileFormContainer = page.querySelector(".modal-container");
+  const profileFormContainer = page.querySelector(".modal-container");
   profileFormContainer.remove();
 }
 
@@ -15,10 +15,10 @@ function handleCloseButtonClick() {
 
 function handleFormSubmit() {
   console.log("button was clicked");
-  let newProfileName = page.querySelector(".profile-form__name");
-  let newProfileOccupation = page.querySelector(".profile-form__about");
-  let profileName = page.querySelector(".profile__name");
-  let profileOccupation = page.querySelector(".profile__occupation");
+  const newProfileName = page.querySelector(".profile-form__name");
+  const newProfileOccupation = page.querySelector(".profile-form__about");
+  const profileName = page.querySelector(".profile__name");
+  const profileOccupation = page.querySelector(".profile__occupation");
   profileName.textContent = newProfileName.value;
   profileOccupation.textContent = newProfileOccupation.value;
   closeModal();
@@ -26,8 +26,8 @@ function handleFormSubmit() {
 
 function handleEditButtonClick() {
   if (!page.querySelector(".modal-container")) {
-    let profileName = page.querySelector(".profile__name");
-    let profileOccupation = page.querySelector(".profile__occupation");
+    const profileName = page.querySelector(".profile__name");
+    const profileOccupation = page.querySelector(".profile__occupation");
     page.insertAdjacentHTML(
       "afterbegin",
       `<div class="modal-container">
@@ -56,8 +56,8 @@ function handleEditButtonClick() {
 
     page.querySelector(".profile-form__input.profile-form__name").focus();
     page.querySelector(".profile-form__input.profile-form__name").select();
-    let profileForm = page.querySelector(".profile-form");
-    let closeButton = page.querySelector(".button_action_close");
+    const profileForm = page.querySelector(".profile-form");
+    const closeButton = page.querySelector(".button_action_close");
     closeButton.addEventListener("click", handleCloseButtonClick);
     profileForm.addEventListener("submit", handleFormSubmit);
     /* profileForm.addEventListener("keypress", function handleKeyPress(evt) {
@@ -70,8 +70,8 @@ function handleEditButtonClick() {
 }
 
 function handleDestinationCardClick(evt) {
-  let photoSource = evt.target.getAttribute("src");
-  let photoAlt = evt.target.getAttribute("alt");
+  const photoSource = evt.target.getAttribute("src");
+  const photoAlt = evt.target.getAttribute("alt");
   page.insertAdjacentHTML(
     "afterbegin",
     `<div class="modal-container modal-container_content_image">
@@ -87,12 +87,12 @@ function handleDestinationCardClick(evt) {
       </div>
     </div>`
   );
-  let closeButton = page.querySelector(".button_action_close");
+  const closeButton = page.querySelector(".button_action_close");
   closeButton.addEventListener("click", handleCloseButtonClick);
 }
 
 function addEventListenerToDestinations() {
-  let images = page.querySelectorAll(".destination__photo");
+  const images = page.querySelectorAll(".destination__photo");
   for (let i = 0; i < images.length; i++) {
     images[i].addEventListener("click", handleDestinationCardClick);
   }
@@ -100,7 +100,7 @@ function addEventListenerToDestinations() {
 
 function handleLikeButtonClick(evt) {
   console.log("clicked");
-  let clickedButton = evt.target;
+  const clickedButton = evt.target;
   if (clickedButton.classList.contains("button__icon_action_like")) {
     clickedButton.classList.remove("button__icon_action_like");
     clickedButton.classList.add("button__icon_action_liked");
@@ -111,7 +111,7 @@ function handleLikeButtonClick(evt) {
 }
 
 function addEventListenerToLikeButtons() {
-  let likeButtons = page.querySelectorAll(".button__icon_action_like");
+  const likeButtons = page.querySelectorAll(".button__icon_action_like");
   for (let i = 0; i < likeButtons.length; i++) {
     likeButtons[i].addEventListener("click", handleLikeButtonClick);
   }
