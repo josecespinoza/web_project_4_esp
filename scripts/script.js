@@ -25,8 +25,6 @@ function handleFormSubmit() {
 
 function handleEditButtonClick() {
   if (!page.querySelector(".modal-container")) {
-    const profileName = page.querySelector(".profile__name");
-    const profileOccupation = page.querySelector(".profile__occupation");
     page.insertAdjacentHTML(
       "afterbegin",
       `<div class="modal-container">
@@ -34,9 +32,8 @@ function handleEditButtonClick() {
               <form class="profile-form profile-form_theme_dark modal-container__profile-form">
                   <h2 class="profile-form__title">Editar Perfil</h2>
                   <div class="profile-form__inputs">
-                      <input class="profile-form__input profile-form__name" placeholder="Nombre" value="${profileName.textContent}"></input>
-                      <input class="profile-form__input profile-form__about" placeholder="Acerca de mí"
-                          value="${profileOccupation.textContent}"></input>
+                      <input class="profile-form__input profile-form__name" placeholder="Nombre"></input>
+                      <input class="profile-form__input profile-form__about" placeholder="Acerca de mí"></input>
                   </div>
                   <button class="button button_theme_light button_action_save button_location_profile-form">
                       Guardar
@@ -52,9 +49,18 @@ function handleEditButtonClick() {
           </div>
       </div>`
     );
-
-    page.querySelector(".profile-form__input.profile-form__name").focus();
-    page.querySelector(".profile-form__input.profile-form__name").select();
+    const profileName = page.querySelector(".profile__name");
+    const profileOccupation = page.querySelector(".profile__occupation");
+    const nameInput = page.querySelector(
+      ".profile-form__input.profile-form__name"
+    );
+    const occupationInput = page.querySelector(
+      ".profile-form__input.profile-form__about"
+    );
+    nameInput.value = profileName.textContent;
+    occupationInput.value = profileOccupation.textContent;
+    nameInput.focus();
+    nameInput.select();
     const profileForm = page.querySelector(".profile-form");
     const closeButton = page.querySelector(".button_action_close");
     closeButton.addEventListener("click", handleCloseButtonClick);
@@ -63,13 +69,11 @@ function handleEditButtonClick() {
 }
 
 function handleDestinationCardClick(evt) {
-  const photoSource = evt.target.getAttribute("src");
-  const photoAlt = evt.target.getAttribute("alt");
   page.insertAdjacentHTML(
     "afterbegin",
     `<div class="modal-container modal-container_content_image">
       <div class="modal-container__window modal-container__window_content_image">
-          <img class="destination-popup" src="${photoSource}" alt="${photoAlt}">
+          <img class="destination-popup">
       </div>
       <div class="modal-container__close-button">
           <button class="button button_theme_dark button_action_close">
@@ -80,6 +84,11 @@ function handleDestinationCardClick(evt) {
       </div>
     </div>`
   );
+  const photoSource = evt.target.getAttribute("src");
+  const photoAlt = evt.target.getAttribute("alt");
+  const cardPhoto = page.querySelector(".destination-popup");
+  cardPhoto.src = photoSource;
+  cardPhoto.alt = photoAlt;
   const closeButton = page.querySelector(".button_action_close");
   closeButton.addEventListener("click", handleCloseButtonClick);
 }
