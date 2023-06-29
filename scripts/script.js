@@ -95,9 +95,9 @@ function handleDestinationCardClick(evt) {
 
 function addEventListenerToDestinations() {
   const images = page.querySelectorAll(".destination__photo");
-  for (let i = 0; i < images.length; i++) {
-    images[i].addEventListener("click", handleDestinationCardClick);
-  }
+  images.forEach((image) => {
+    image.addEventListener("click", handleDestinationCardClick);
+  });
 }
 
 function handleLikeButtonClick(evt) {
@@ -113,7 +113,7 @@ function handleLikeButtonClick(evt) {
 
 function addEventListenerToLikeButtons() {
   const likeButtons = page.querySelectorAll(".button__icon_action_like");
-  for (let i = 0; i < likeButtons.length; i++) {
-    likeButtons[i].addEventListener("click", handleLikeButtonClick);
-  }
+  likeButtons.forEach((likeButton) => {
+    likeButton.addEventListener("click", handleLikeButtonClick);
+  });
 }
