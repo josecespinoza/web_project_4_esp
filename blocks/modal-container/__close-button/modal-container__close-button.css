@@ -7,7 +7,7 @@
   justify-content: start;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 896px) {
   .modal-container__close-button {
     align-items: end;
     justify-content: end;

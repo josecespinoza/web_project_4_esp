@@ -71,9 +71,10 @@ function handleEditButtonClick() {
 function handleDestinationCardClick(evt) {
   page.insertAdjacentHTML(
     "afterbegin",
-    `<div class="modal-container modal-container_content_image">
-      <div class="modal-container__window modal-container__window_content_image">
-          <img class="destination-popup">
+    `<div class="modal-container">
+      <div class="destination-popup">
+          <img class="destination-popup__photo">
+          <p class="destination-popup__description"></p>
       </div>
       <div class="modal-container__close-button">
           <button class="button button_theme_dark button_action_close">
@@ -85,10 +86,16 @@ function handleDestinationCardClick(evt) {
     </div>`
   );
   const photoSource = evt.target.getAttribute("src");
+  const photoFileName = photoSource.substring(photoSource.lastIndexOf("/") + 1);
+  const photoOriginalSizePath = "./images/destinations/originals/";
   const photoAlt = evt.target.getAttribute("alt");
-  const cardPhoto = page.querySelector(".destination-popup");
-  cardPhoto.src = photoSource;
-  cardPhoto.alt = photoAlt;
+  const popupPhoto = page.querySelector(".destination-popup__photo");
+  popupPhoto.src = photoOriginalSizePath + photoFileName;
+  popupPhoto.alt = photoAlt;
+  const popupDescription = page.querySelector(
+    ".destination-popup__description"
+  );
+  popupDescription.textContent = photoAlt;
   const closeButton = page.querySelector(".button_action_close");
   closeButton.addEventListener("click", handleCloseButtonClick);
 }

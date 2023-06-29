@@ -6,10 +6,11 @@
   width: 430px;
   height: 100%;
   grid-area: window;
+  margin: auto;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 490px) {
   .modal-container__window {
-    width: auto;
+    width: 100%;
   }
 }

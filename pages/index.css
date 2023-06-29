@@ -25,6 +25,8 @@
 @import url("../blocks/destination/__name/destination__name.css");
 @import url("../blocks/destination/__photo/destination__photo.css");
 @import url("../blocks/destination-popup/destination-popup.css");
+@import url("../blocks/destination-popup/__photo/destination-popup__photo.css");
+@import url("../blocks/destination-popup/__description/destination-popup__description.css");
 @import url("../blocks/button/button.css");
 @import url("../blocks/button/_theme/button_theme_dark.css");
 @import url("../blocks/button/_theme/button_theme_light.css");

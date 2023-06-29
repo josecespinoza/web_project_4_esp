@@ -16,7 +16,7 @@
   z-index: 2;
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 896px) {
   .modal-container {
     row-gap: 13.23px;
     grid-template-columns: 1fr 88% 1fr;
