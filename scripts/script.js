@@ -105,10 +105,9 @@ function handleLikeButtonClick(evt) {
   if (clickedButton.classList.contains("button__icon_action_like")) {
     clickedButton.classList.remove("button__icon_action_like");
     clickedButton.classList.add("button__icon_action_liked");
-  } else if (clickedButton.classList.contains("button__icon_action_liked")) {
+  } else {
     clickedButton.classList.remove("button__icon_action_liked");
     clickedButton.classList.add("button__icon_action_like");
-  }
 }
 
 function addEventListenerToLikeButtons() {
