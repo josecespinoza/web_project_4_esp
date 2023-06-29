@@ -14,7 +14,6 @@ function handleCloseButtonClick() {
 }
 
 function handleFormSubmit() {
-  console.log("button was clicked");
   const newProfileName = page.querySelector(".profile-form__name");
   const newProfileOccupation = page.querySelector(".profile-form__about");
   const profileName = page.querySelector(".profile__name");
@@ -60,12 +59,6 @@ function handleEditButtonClick() {
     const closeButton = page.querySelector(".button_action_close");
     closeButton.addEventListener("click", handleCloseButtonClick);
     profileForm.addEventListener("submit", handleFormSubmit);
-    /* profileForm.addEventListener("keypress", function handleKeyPress(evt) {
-      if (evt.key === "Enter") {
-        handleFormSubmit(evt);
-      }
-      console.log("test");
-    }); */
   }
 }
 
@@ -99,7 +92,6 @@ function addEventListenerToDestinations() {
 }
 
 function handleLikeButtonClick(evt) {
-  console.log("clicked");
   const clickedButton = evt.target;
   if (clickedButton.classList.contains("button__icon_action_like")) {
     clickedButton.classList.remove("button__icon_action_like");
