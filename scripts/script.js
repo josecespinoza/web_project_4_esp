@@ -32,8 +32,8 @@ function handleEditButtonClick() {
               <form class="profile-form profile-form_theme_dark modal-container__profile-form">
                   <h2 class="profile-form__title">Editar Perfil</h2>
                   <div class="profile-form__inputs">
-                      <input class="profile-form__input profile-form__name" placeholder="Nombre"></input>
-                      <input class="profile-form__input profile-form__about" placeholder="Acerca de mí"></input>
+                      <input class="profile-form__input profile-form__name" maxlength="250" placeholder="Nombre"></input>
+                      <input class="profile-form__input profile-form__about" maxlength="50" placeholder="Acerca de mí"></input>
                   </div>
                   <button class="button button_theme_light button_action_save button_location_profile-form">
                       Guardar
