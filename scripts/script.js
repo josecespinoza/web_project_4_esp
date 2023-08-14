@@ -4,6 +4,54 @@ editButton.addEventListener("click", handleEditButtonClick);
 addEventListenerToDestinations();
 addEventListenerToLikeButtons();
 
+const initialCards = [
+  {
+    name: "Valle de Yosemite",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/yosemite.jpg",
+  },
+  {
+    name: "Lago Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lake-louise.jpg",
+  },
+  {
+    name: "Montañas Calvas",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/bald-mountains.jpg",
+  },
+  {
+    name: "Latemar",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/latemar.jpg",
+  },
+  {
+    name: "Parque Nacional de la Vanoise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/vanoise.jpg",
+  },
+  {
+    name: "Lago di Braies",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/new-markets/WEB_sprint_5/ES/lago.jpg",
+  },
+];
+
+loadDestinationCards(...initialCards);
+
+function loadDestinationCards(...destinationCards) {
+  const destinationsContainer = document.querySelector(".destinations__list");
+  initialCards.forEach((destination) => {
+    const destinationCard = document
+      .querySelector("#destinations__item-template")
+      .content.cloneNode(true);
+    destinationCard.querySelector(".destination__name").textContent =
+      destination.name;
+    const destinationPhoto = destinationCard.querySelector(
+      ".destination__photo"
+    );
+    destinationPhoto.setAttribute("alt", destination.name);
+    destinationPhoto.setAttribute("src", destination.link);
+    destinationsContainer.append(destinationCard);
+  });
+
+  //destinationTemplate.initialCards.forEach((destination) => {});
+}
+
 function closeModal() {
   const profileFormContainer = page.querySelector(".modal-container");
   profileFormContainer.remove();

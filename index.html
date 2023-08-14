@@ -33,7 +33,7 @@
     </section>
     <main class="destinations page__destinations">
         <ul class="destinations__list">
-            <li class="destinations__item">
+            <!-- <li class="destinations__item">
                 <div class="destination">
                     <img class="destination__photo" src="./images/destinations/kirill-pershin-1088404-unsplash.jpg"
                         alt="Valle de Yosemite">
@@ -44,72 +44,25 @@
                         </button>
                     </div>
                 </div>
-            </li>
-            <li class="destinations__item">
-                <div class="destination">
-                    <img class="destination__photo" src="./images/destinations/kirill-pershin-1404681-unsplash.jpg"
-                        alt="Lago Louise">
-                    <div class="destination__info destination__info_theme_dark">
-                        <p class="destination__name">Lago Louise</p>
-                        <button class="button button_theme_dark button_action_like button_location_destination">
-                            <span class="button__icon button__icon_action_like"></span>
-                        </button>
-                    </div>
-                </div>
-            </li>
-            <li class="destinations__item">
-                <div class="destination">
-                    <img class="destination__photo" src="./images/destinations/kirill-pershin-1556355-unsplash.jpg"
-                        alt="Montañas Calvas">
-                    <div class="destination__info destination__info_theme_dark">
-                        <p class="destination__name">Montañas Calvas</p>
-                        <button class="button button_theme_dark button_action_like button_location_destination">
-                            <span class="button__icon button__icon_action_like"></span>
-                        </button>
-                    </div>
-                </div>
-            </li>
-            <li class="destinations__item">
-                <div class="destination">
-                    <img class="destination__photo" src="./images/destinations/kirill-pershin-1404682-unsplash.jpg"
-                        alt="Latemar">
-                    <div class="destination__info destination__info_theme_dark">
-                        <p class="destination__name">Latemar</p>
-                        <button class="button button_theme_dark button_action_like button_location_destination">
-                            <span class="button__icon button__icon_action_like"></span>
-                        </button>
-                    </div>
-                </div>
-            </li>
-            <li class="destinations__item">
-                <div class="destination">
-                    <img class="destination__photo" src="./images/destinations/kirill-pershin-1556356-unsplash.jpg"
-                        alt="Vanois National Park">
-                    <div class="destination__info destination__info_theme_dark">
-                        <p class="destination__name">Vanois National Park</p>
-                        <button class="button button_theme_dark button_action_like button_location_destination">
-                            <span class="button__icon button__icon_action_like"></span>
-                        </button>
-                    </div>
-                </div>
-            </li>
-            <li class="destinations__item">
-                <div class="destination">
-                    <img class="destination__photo" src="./images/destinations/kirill-pershin-1088405-unsplash.jpg"
-                        alt="Lago di Braies">
-                    <div class="destination__info destination__info_theme_dark">
-                        <p class="destination__name">Lago di Braies</p>
-                        <button class="button button_theme_dark button_action_like button_location_destination">
-                            <span class="button__icon button__icon_action_like"></span>
-                        </button>
-                    </div>
-                </div>
-            </li>
+            </li> -->
         </ul>
     </main>
     <footer class="footer">
         <p class="footer__copyright">&copy; 2023 Jos&eacute; Espinoza</p>
     </footer>
+    <template id="destinations__item-template">
+        <li class="destinations__item">
+            <div class="destination">
+                <img class="destination__photo">
+                <div class="destination__info destination__info_theme_dark">
+                    <p class="destination__name"></p>
+                    <button class="button button_theme_dark button_action_like button_location_destination">
+                        <span class="button__icon button__icon_action_like"></span>
+                    </button>
+                </div>
+            </div>
+        </li>
+    </template>
     <script src="./scripts/script.js"></script>
 </body>
 
