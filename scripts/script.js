@@ -37,22 +37,28 @@ loadDestinationCards(...initialCards);
 function loadDestinationCards(...destinationCards) {
   const destinationsContainer = document.querySelector(".destinations__list");
   initialCards.forEach((destination) => {
-    const destinationCard = document
-      .querySelector("#destinations__item-template")
-      .content.cloneNode(true);
-    destinationCard.querySelector(".destination__name").textContent =
-      destination.name;
-    const destinationPhoto = destinationCard.querySelector(
-      ".destination__photo"
-    );
-    destinationPhoto.setAttribute("alt", destination.name);
-    destinationPhoto.setAttribute("src", destination.link);
-    const destinationLikeButton = destinationCard.querySelector(
-      ".button__icon_action_like"
-    );
-    destinationLikeButton.addEventListener("click", handleLikeButtonClick);
+    const destinationCard = createDestinationCard(destination);
     destinationsContainer.append(destinationCard);
   });
+}
+
+function createDestinationCard(destination) {
+  const destinationCardClone = document
+    .querySelector("#destinations__item-template")
+    .content.cloneNode(true);
+  const destinationCard = destinationCardClone.querySelector(
+    ".destinations__item"
+  );
+  destinationCard.querySelector(".destination__name").textContent =
+    destination.name;
+  const destinationPhoto = destinationCard.querySelector(".destination__photo");
+  destinationPhoto.setAttribute("alt", destination.name);
+  destinationPhoto.setAttribute("src", destination.link);
+  const destinationLikeButton = destinationCard.querySelector(
+    ".button__icon_action_like"
+  );
+  destinationLikeButton.addEventListener("click", handleLikeButtonClick);
+  return destinationCard;
 }
 
 function closeModal() {
@@ -64,7 +70,7 @@ function handleCloseButtonClick() {
   closeModal();
 }
 
-function handleFormSubmit() {
+function handleProfileEditSubmit() {
   const newProfileName = page.querySelector(".profile-form__name");
   const newProfileOccupation = page.querySelector(".profile-form__about");
   const profileName = page.querySelector(".profile__name");
@@ -115,7 +121,7 @@ function handleEditButtonClick() {
     const profileForm = page.querySelector(".profile-form");
     const closeButton = page.querySelector(".button_action_close");
     closeButton.addEventListener("click", handleCloseButtonClick);
-    profileForm.addEventListener("submit", handleFormSubmit);
+    profileForm.addEventListener("submit", handleProfileEditSubmit);
   }
 }
 
@@ -171,22 +177,31 @@ function handleLikeButtonClick(evt) {
 
 function handleAddCardButtonClick(evt) {
   const newCardModal = createModal("Nuevo Lugar");
-  const inputTitle = createModalInput("Título");
-  const inputImageUrl = createModalInput("Enlace a la imagen");
+  const inputTitle = createModalInput("title", "Título", true);
+  const inputImageUrl = createModalInput(
+    "imageUrl",
+    "Enlace a la imagen",
+    true
+  );
   const newCardModalInputsSection = newCardModal.querySelector(
     ".profile-form__inputs"
   );
   newCardModalInputsSection.append(inputTitle, inputImageUrl);
   page.prepend(newCardModal);
-  console.log(newCardModal);
+  const modalForm = newCardModal.querySelector(
+    ".modal-container__profile-form"
+  );
+  modalForm.addEventListener("submit", handleAddCardFormSubmit);
 }
 
-function createModalInput(placeholder) {
+function createModalInput(name, placeholder, isRequired) {
   const modalInputTemplate = page.querySelector("#modal__input-template");
   const modalInput = modalInputTemplate
     .cloneNode("true")
     .content.querySelector(".profile-form__input");
+  modalInput.setAttribute("name", name);
   modalInput.setAttribute("placeholder", placeholder);
+  modalInput.setAttribute("required", isRequired);
   return modalInput;
 }
 
@@ -199,4 +214,18 @@ function createModal(modalTitle) {
   const closeButton = modal.querySelector(".button__icon_action_close");
   closeButton.addEventListener("click", handleCloseButtonClick);
   return modal;
+}
+
+function handleAddCardFormSubmit(evt) {
+  evt.preventDefault();
+  closeModal();
+  const form = evt.target;
+  const cardTitle = form.title;
+  const cardImageUrl = form.imageUrl;
+  const newDestination = {
+    name: cardTitle.value,
+    link: cardImageUrl.value,
+  };
+  const destinationsList = page.querySelector(".destinations__list");
+  destinationsList.prepend(createDestinationCard(newDestination));
 }
