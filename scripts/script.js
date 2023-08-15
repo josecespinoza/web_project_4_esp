@@ -48,8 +48,6 @@ function loadDestinationCards(...destinationCards) {
     destinationPhoto.setAttribute("src", destination.link);
     destinationsContainer.append(destinationCard);
   });
-
-  //destinationTemplate.initialCards.forEach((destination) => {});
 }
 
 function closeModal() {
