@@ -2,7 +2,6 @@ const page = document.querySelector(".page");
 const editButton = page.querySelector(".button_action_edit");
 editButton.addEventListener("click", handleEditButtonClick);
 addEventListenerToDestinations();
-addEventListenerToLikeButtons();
 
 const initialCards = [
   {
@@ -46,6 +45,10 @@ function loadDestinationCards(...destinationCards) {
     );
     destinationPhoto.setAttribute("alt", destination.name);
     destinationPhoto.setAttribute("src", destination.link);
+    const destinationLikeButton = destinationCard.querySelector(
+      ".button__icon_action_like"
+    );
+    destinationLikeButton.addEventListener("click", handleLikeButtonClick);
     destinationsContainer.append(destinationCard);
   });
 }
@@ -162,11 +165,4 @@ function handleLikeButtonClick(evt) {
     clickedButton.classList.remove("button__icon_action_liked");
     clickedButton.classList.add("button__icon_action_like");
   }
-}
-
-function addEventListenerToLikeButtons() {
-  const likeButtons = page.querySelectorAll(".button__icon_action_like");
-  likeButtons.forEach((likeButton) => {
-    likeButton.addEventListener("click", handleLikeButtonClick);
-  });
 }
