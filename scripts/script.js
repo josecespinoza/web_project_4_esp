@@ -1,6 +1,8 @@
 const page = document.querySelector(".page");
 const editButton = page.querySelector(".button_action_edit");
+const addCardButton = page.querySelector(".button_action_add");
 editButton.addEventListener("click", handleEditButtonClick);
+addCardButton.addEventListener("click", handleAddCardButtonClick);
 addEventListenerToDestinations();
 
 const initialCards = [
@@ -165,4 +167,36 @@ function handleLikeButtonClick(evt) {
     clickedButton.classList.remove("button__icon_action_liked");
     clickedButton.classList.add("button__icon_action_like");
   }
+}
+
+function handleAddCardButtonClick(evt) {
+  const newCardModal = createModal("Nuevo Lugar");
+  const inputTitle = createModalInput("Título");
+  const inputImageUrl = createModalInput("Enlace a la imagen");
+  const newCardModalInputsSection = newCardModal.querySelector(
+    ".profile-form__inputs"
+  );
+  newCardModalInputsSection.append(inputTitle, inputImageUrl);
+  page.prepend(newCardModal);
+  console.log(newCardModal);
+}
+
+function createModalInput(placeholder) {
+  const modalInputTemplate = page.querySelector("#modal__input-template");
+  const modalInput = modalInputTemplate
+    .cloneNode("true")
+    .content.querySelector(".profile-form__input");
+  modalInput.setAttribute("placeholder", placeholder);
+  return modalInput;
+}
+
+function createModal(modalTitle) {
+  const modalTemplate = page.querySelector("#modal-template");
+  const modal = modalTemplate
+    .cloneNode(true)
+    .content.querySelector(".modal-container");
+  modal.querySelector(".profile-form__title").textContent = modalTitle;
+  const closeButton = modal.querySelector(".button__icon_action_close");
+  closeButton.addEventListener("click", handleCloseButtonClick);
+  return modal;
 }

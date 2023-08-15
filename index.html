@@ -51,6 +51,30 @@
             </div>
         </li>
     </template>
+    <template id="modal-template">
+        <div class="modal-container">
+            <div class="modal-container__window">
+                <form class="profile-form profile-form_theme_dark modal-container__profile-form">
+                    <h2 class="profile-form__title"></h2>
+                    <div class="profile-form__inputs">
+                    </div>
+                    <button class="button button_theme_light button_action_save button_location_profile-form">
+                        Guardar
+                    </button>
+                </form>
+            </div>
+            <div class="modal-container__close-button">
+                <button class="button button_theme_dark button_action_close">
+                    <span class="button__icon button__icon_action_close"></span>
+                </button>
+            </div>
+            <div class="modal-container__backdrop">
+            </div>
+        </div>
+    </template>
+    <template id="modal__input-template">
+        <input class="profile-form__input" maxlength="" placeholder=""></input>
+    </template>
     <script src="./scripts/script.js"></script>
 </body>
 
