@@ -1,0 +1,7 @@
+.button__icon_action_delete {
+  background-image: url("../../../../images/trash-symbol.svg");
+  background-size: contain;
+  background-position: center;
+  width: 18px;
+  height: 19.3px;
+}
