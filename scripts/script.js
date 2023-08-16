@@ -177,8 +177,9 @@ function handleLikeButtonClick(evt) {
 
 function handleAddCardButtonClick(evt) {
   const newCardModal = createModal("Nuevo Lugar");
-  const inputTitle = createModalInput("title", "Título", true);
+  const inputTitle = createModalInput("text", "title", "Título", true);
   const inputImageUrl = createModalInput(
+    "url",
     "imageUrl",
     "Enlace a la imagen",
     true
@@ -194,11 +195,12 @@ function handleAddCardButtonClick(evt) {
   modalForm.addEventListener("submit", handleAddCardFormSubmit);
 }
 
-function createModalInput(name, placeholder, isRequired) {
+function createModalInput(type, name, placeholder, isRequired) {
   const modalInputTemplate = page.querySelector("#modal__input-template");
   const modalInput = modalInputTemplate
     .cloneNode("true")
     .content.querySelector(".profile-form__input");
+  modalInput.setAttribute("type", type);
   modalInput.setAttribute("name", name);
   modalInput.setAttribute("placeholder", placeholder);
   modalInput.setAttribute("required", isRequired);
