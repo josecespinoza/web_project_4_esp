@@ -54,6 +54,7 @@ function createDestinationCard(destination) {
   const destinationPhoto = destinationCard.querySelector(".destination__photo");
   destinationPhoto.setAttribute("alt", destination.name);
   destinationPhoto.setAttribute("src", destination.link);
+  destinationPhoto.addEventListener("click", handleDestinationCardClick);
   const destinationLikeButton = destinationCard.querySelector(
     ".button__icon_action_like"
   );
@@ -131,35 +132,10 @@ function handleEditButtonClick() {
 }
 
 function handleDestinationCardClick(evt) {
-  page.insertAdjacentHTML(
-    "afterbegin",
-    `<div class="modal-container">
-      <div class="destination-popup">
-          <img class="destination-popup__photo">
-          <p class="destination-popup__description"></p>
-      </div>
-      <div class="modal-container__close-button">
-          <button class="button button_theme_dark button_action_close">
-              <span class="button__icon button__icon_action_close"></span>
-          </button>
-      </div>
-      <div class="modal-container__backdrop">
-      </div>
-    </div>`
-  );
-  const photoSource = evt.target.getAttribute("src");
-  const photoFileName = photoSource.substring(photoSource.lastIndexOf("/") + 1);
-  const photoOriginalSizePath = "./images/destinations/originals/";
-  const photoAlt = evt.target.getAttribute("alt");
-  const popupPhoto = page.querySelector(".destination-popup__photo");
-  popupPhoto.src = photoOriginalSizePath + photoFileName;
-  popupPhoto.alt = photoAlt;
-  const popupDescription = page.querySelector(
-    ".destination-popup__description"
-  );
-  popupDescription.textContent = photoAlt;
-  const closeButton = page.querySelector(".button_action_close");
-  closeButton.addEventListener("click", handleCloseButtonClick);
+  const description = evt.target.alt;
+  const imageUrl = evt.target.src;
+  const destinationPopUp = createDestinationPopUp(imageUrl, description);
+  page.prepend(destinationPopUp);
 }
 
 function addEventListenerToDestinations() {
@@ -239,4 +215,25 @@ function handleAddCardFormSubmit(evt) {
 
 function handleDeleteButtonClick(evt) {
   evt.target.closest(".destinations__item").remove();
+}
+
+function createDestinationPopUp(imageUrl, description) {
+  const destinationPopUpTemplate = page
+    .querySelector("#destination-popup-template")
+    .cloneNode(true).content;
+  const destinationPopUp =
+    destinationPopUpTemplate.querySelector(".modal-container");
+  const destinationPhoto = destinationPopUp.querySelector(
+    ".destination-popup__photo"
+  );
+  destinationPhoto.setAttribute("src", imageUrl);
+  const destinationDescription = destinationPopUp.querySelector(
+    ".destination-popup__description"
+  );
+  destinationDescription.textContent = description;
+  const closeButton = destinationPopUp.querySelector(
+    ".button__icon_action_close"
+  );
+  closeButton.addEventListener("click", handleCloseButtonClick);
+  return destinationPopUp;
 }
