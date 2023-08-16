@@ -58,6 +58,11 @@ function createDestinationCard(destination) {
     ".button__icon_action_like"
   );
   destinationLikeButton.addEventListener("click", handleLikeButtonClick);
+  const destinationDeleteButton = destinationCard.querySelector(
+    ".button__icon_action_delete"
+  );
+  destinationDeleteButton.addEventListener("click", handleDeleteButtonClick);
+
   return destinationCard;
 }
 
@@ -230,4 +235,8 @@ function handleAddCardFormSubmit(evt) {
   };
   const destinationsList = page.querySelector(".destinations__list");
   destinationsList.prepend(createDestinationCard(newDestination));
+}
+
+function handleDeleteButtonClick(evt) {
+  evt.target.closest(".destinations__item").remove();
 }
