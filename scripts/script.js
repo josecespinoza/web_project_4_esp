@@ -55,11 +55,12 @@ function loadDestinationCards(...destinationCards) {
 
 function handleEditButtonClick() {
   const modal = createModal("Editar Perfil");
-  const inputName = createModalInput("text", "name", "Nombre", true);
+  const inputName = createModalInput("text", "name", "Nombre", 250, true);
   const inputAboutMe = createModalInput(
     "text",
     "aboutMe",
     "Acerca de mí",
+    50,
     true
   );
   const profileModal = buildModal(modal, inputName, inputAboutMe);
@@ -81,11 +82,12 @@ function handleProfileEditSubmit(evt) {
 
 function handleAddCardButtonClick(evt) {
   const modal = createModal("Nuevo Lugar");
-  const inputTitle = createModalInput("text", "title", "Título", true);
+  const inputTitle = createModalInput("text", "title", "Título", 50, true);
   const inputImageUrl = createModalInput(
     "url",
     "imageUrl",
     "Enlace a la imagen",
+    500,
     true
   );
   const newCardModal = buildModal(modal, inputTitle, inputImageUrl);
@@ -118,7 +120,7 @@ function createModal(modalTitle) {
   return modal;
 }
 
-function createModalInput(type, name, placeholder, isRequired) {
+function createModalInput(type, name, placeholder, maxlength, isRequired) {
   const modalInputTemplate = page.querySelector("#modal__input-template");
   const modalInput = modalInputTemplate
     .cloneNode("true")
@@ -126,6 +128,7 @@ function createModalInput(type, name, placeholder, isRequired) {
   modalInput.setAttribute("type", type);
   modalInput.setAttribute("name", name);
   modalInput.setAttribute("placeholder", placeholder);
+  modalInput.setAttribute("maxlength", maxlength);
   modalInput.setAttribute("required", isRequired);
   return modalInput;
 }
