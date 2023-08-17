@@ -1,4 +1,4 @@
 .destination-popup__photo {
   max-height: 540px;
-  width: auto;
+  max-width: 75vw;
 }
