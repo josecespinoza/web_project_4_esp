@@ -41,6 +41,106 @@ function loadDestinationCards(...destinationCards) {
   });
 }
 
+function handleEditButtonClick() {
+  const modal = createModal("Editar Perfil");
+  const inputName = createModalInput("text", "name", "Nombre", true);
+  const inputAboutMe = createModalInput(
+    "text",
+    "aboutMe",
+    "Acerca de mí",
+    true
+  );
+  const profileModal = buildModal(modal, inputName, inputAboutMe);
+  page.append(profileModal);
+  inputName.value = page.querySelector(".profile__name").textContent;
+  inputAboutMe.value = page.querySelector(".profile__occupation").textContent;
+  inputName.focus();
+  inputName.select();
+  profileModal.addEventListener("submit", handleProfileEditSubmit);
+}
+
+function handleProfileEditSubmit(evt) {
+  evt.preventDefault();
+  const form = evt.target;
+  page.querySelector(".profile__name").textContent = form.name.value;
+  page.querySelector(".profile__occupation").textContent = form.aboutMe.value;
+  closeModal();
+}
+
+function handleAddCardButtonClick(evt) {
+  const modal = createModal("Nuevo Lugar");
+  const inputTitle = createModalInput("text", "title", "Título", true);
+  const inputImageUrl = createModalInput(
+    "url",
+    "imageUrl",
+    "Enlace a la imagen",
+    true
+  );
+  const newCardModal = buildModal(modal, inputTitle, inputImageUrl);
+  newCardModal.addEventListener("submit", handleAddCardFormSubmit);
+  openModal(newCardModal);
+}
+
+function handleAddCardFormSubmit(evt) {
+  evt.preventDefault();
+  closeModal();
+  const form = evt.target;
+  const cardTitle = form.title;
+  const cardImageUrl = form.imageUrl;
+  const newDestination = {
+    name: cardTitle.value,
+    link: cardImageUrl.value,
+  };
+  const destinationsList = page.querySelector(".destinations__list");
+  destinationsList.prepend(createDestinationCard(newDestination));
+}
+
+function createModal(modalTitle) {
+  const modalTemplate = page.querySelector("#modal-template");
+  const modal = modalTemplate
+    .cloneNode(true)
+    .content.querySelector(".modal-container");
+  modal.querySelector(".profile-form__title").textContent = modalTitle;
+  const closeButton = modal.querySelector(".button__icon_action_close");
+  closeButton.addEventListener("click", handleCloseButtonClick);
+  return modal;
+}
+
+function createModalInput(type, name, placeholder, isRequired) {
+  const modalInputTemplate = page.querySelector("#modal__input-template");
+  const modalInput = modalInputTemplate
+    .cloneNode("true")
+    .content.querySelector(".profile-form__input");
+  modalInput.setAttribute("type", type);
+  modalInput.setAttribute("name", name);
+  modalInput.setAttribute("placeholder", placeholder);
+  modalInput.setAttribute("required", isRequired);
+  return modalInput;
+}
+
+function buildModal(modal, ...inputs) {
+  const modalInputsArea = modal.querySelector(".profile-form__inputs");
+  inputs.forEach((input) => {
+    modalInputsArea.append(input);
+  });
+  return modal;
+}
+
+function openModal(modal) {
+  page.prepend(modal);
+  modal.classList.remove("modal-container_state_closed");
+  modal.classList.add("modal-container_state_opened");
+}
+
+function closeModal() {
+  const profileFormContainer = page.querySelector(".modal-container");
+  profileFormContainer.classList.remove("modal-container_state_opened");
+  profileFormContainer.classList.add("modal-container_state_closed");
+  setTimeout(() => {
+    profileFormContainer.remove();
+  }, 300);
+}
+
 function createDestinationCard(destination) {
   const destinationCardClone = document
     .querySelector("#destinations__item-template")
@@ -66,45 +166,6 @@ function createDestinationCard(destination) {
   return destinationCard;
 }
 
-function closeModal() {
-  const profileFormContainer = page.querySelector(".modal-container");
-  profileFormContainer.classList.remove("modal-container_state_opened");
-  profileFormContainer.classList.add("modal-container_state_closed");
-  setTimeout(() => {
-    profileFormContainer.remove();
-  }, 300);
-}
-
-function handleCloseButtonClick() {
-  closeModal();
-}
-
-function handleProfileEditSubmit(evt) {
-  evt.preventDefault();
-  const form = evt.target;
-  page.querySelector(".profile__name").textContent = form.name.value;
-  page.querySelector(".profile__occupation").textContent = form.aboutMe.value;
-  closeModal();
-}
-
-function handleEditButtonClick() {
-  const modal = createModal("Editar Perfil");
-  const inputName = createModalInput("text", "name", "Nombre", true);
-  const inputAboutMe = createModalInput(
-    "text",
-    "aboutMe",
-    "Acerca de mí",
-    true
-  );
-  const profileModal = buildModal(modal, inputName, inputAboutMe);
-  page.append(profileModal);
-  inputName.value = page.querySelector(".profile__name").textContent;
-  inputAboutMe.value = page.querySelector(".profile__occupation").textContent;
-  inputName.focus();
-  inputName.select();
-  profileModal.addEventListener("submit", handleProfileEditSubmit);
-}
-
 function handleDestinationCardClick(evt) {
   const description = evt.target.alt;
   const imageUrl = evt.target.src;
@@ -122,63 +183,6 @@ function handleLikeButtonClick(evt) {
     clickedButton.classList.remove("button__icon_action_liked");
     clickedButton.classList.add("button__icon_action_like");
   }
-}
-
-function handleAddCardButtonClick(evt) {
-  const modal = createModal("Nuevo Lugar");
-  const inputTitle = createModalInput("text", "title", "Título", true);
-  const inputImageUrl = createModalInput(
-    "url",
-    "imageUrl",
-    "Enlace a la imagen",
-    true
-  );
-  const newCardModal = buildModal(modal, inputTitle, inputImageUrl);
-  newCardModal.addEventListener("submit", handleAddCardFormSubmit);
-  openModal(newCardModal);
-}
-
-function createModalInput(type, name, placeholder, isRequired) {
-  const modalInputTemplate = page.querySelector("#modal__input-template");
-  const modalInput = modalInputTemplate
-    .cloneNode("true")
-    .content.querySelector(".profile-form__input");
-  modalInput.setAttribute("type", type);
-  modalInput.setAttribute("name", name);
-  modalInput.setAttribute("placeholder", placeholder);
-  modalInput.setAttribute("required", isRequired);
-  return modalInput;
-}
-
-function createModal(modalTitle) {
-  const modalTemplate = page.querySelector("#modal-template");
-  const modal = modalTemplate
-    .cloneNode(true)
-    .content.querySelector(".modal-container");
-  modal.querySelector(".profile-form__title").textContent = modalTitle;
-  const closeButton = modal.querySelector(".button__icon_action_close");
-  closeButton.addEventListener("click", handleCloseButtonClick);
-  return modal;
-}
-
-function openModal(modal) {
-  page.prepend(modal);
-  modal.classList.remove("modal-container_state_closed");
-  modal.classList.add("modal-container_state_opened");
-}
-
-function handleAddCardFormSubmit(evt) {
-  evt.preventDefault();
-  closeModal();
-  const form = evt.target;
-  const cardTitle = form.title;
-  const cardImageUrl = form.imageUrl;
-  const newDestination = {
-    name: cardTitle.value,
-    link: cardImageUrl.value,
-  };
-  const destinationsList = page.querySelector(".destinations__list");
-  destinationsList.prepend(createDestinationCard(newDestination));
 }
 
 function handleDeleteButtonClick(evt) {
@@ -206,10 +210,6 @@ function createDestinationPopUp(imageUrl, description) {
   return destinationPopUp;
 }
 
-function buildModal(modal, ...inputs) {
-  const modalInputsArea = modal.querySelector(".profile-form__inputs");
-  inputs.forEach((input) => {
-    modalInputsArea.append(input);
-  });
-  return modal;
+function handleCloseButtonClick() {
+  closeModal();
 }
