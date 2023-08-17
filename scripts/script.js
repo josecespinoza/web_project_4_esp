@@ -3,7 +3,6 @@ const editButton = page.querySelector(".button_action_edit");
 const addCardButton = page.querySelector(".button_action_add");
 editButton.addEventListener("click", handleEditButtonClick);
 addCardButton.addEventListener("click", handleAddCardButtonClick);
-addEventListenerToDestinations();
 
 const initialCards = [
   {
@@ -80,59 +79,30 @@ function handleCloseButtonClick() {
   closeModal();
 }
 
-function handleProfileEditSubmit() {
-  const newProfileName = page.querySelector(".profile-form__name");
-  const newProfileOccupation = page.querySelector(".profile-form__about");
-  const profileName = page.querySelector(".profile__name");
-  const profileOccupation = page.querySelector(".profile__occupation");
-  profileName.textContent = newProfileName.value;
-  profileOccupation.textContent = newProfileOccupation.value;
+function handleProfileEditSubmit(evt) {
+  evt.preventDefault();
+  const form = evt.target;
+  page.querySelector(".profile__name").textContent = form.name.value;
+  page.querySelector(".profile__occupation").textContent = form.aboutMe.value;
   closeModal();
 }
 
 function handleEditButtonClick() {
-  if (!page.querySelector(".modal-container")) {
-    page.insertAdjacentHTML(
-      "afterbegin",
-      `<div class="modal-container">
-          <div class="modal-container__window">
-              <form class="profile-form profile-form_theme_dark modal-container__profile-form">
-                  <h2 class="profile-form__title">Editar Perfil</h2>
-                  <div class="profile-form__inputs">
-                      <input class="profile-form__input profile-form__name" maxlength="250" placeholder="Nombre"></input>
-                      <input class="profile-form__input profile-form__about" maxlength="50" placeholder="Acerca de mí"></input>
-                  </div>
-                  <button class="button button_theme_light button_action_save button_location_profile-form">
-                      Guardar
-                  </button>
-              </form>
-          </div>
-          <div class="modal-container__close-button">
-              <button class="button button_theme_dark button_action_close">
-                  <span class="button__icon button__icon_action_close"></span>
-              </button>
-          </div>
-          <div class="modal-container__backdrop">
-          </div>
-      </div>`
-    );
-    const profileName = page.querySelector(".profile__name");
-    const profileOccupation = page.querySelector(".profile__occupation");
-    const nameInput = page.querySelector(
-      ".profile-form__input.profile-form__name"
-    );
-    const occupationInput = page.querySelector(
-      ".profile-form__input.profile-form__about"
-    );
-    nameInput.value = profileName.textContent;
-    occupationInput.value = profileOccupation.textContent;
-    nameInput.focus();
-    nameInput.select();
-    const profileForm = page.querySelector(".profile-form");
-    const closeButton = page.querySelector(".button_action_close");
-    closeButton.addEventListener("click", handleCloseButtonClick);
-    profileForm.addEventListener("submit", handleProfileEditSubmit);
-  }
+  const modal = createModal("Editar Perfil");
+  const inputName = createModalInput("text", "name", "Nombre", true);
+  const inputAboutMe = createModalInput(
+    "text",
+    "aboutMe",
+    "Acerca de mí",
+    true
+  );
+  const profileModal = buildModal(modal, inputName, inputAboutMe);
+  page.append(profileModal);
+  inputName.value = page.querySelector(".profile__name").textContent;
+  inputAboutMe.value = page.querySelector(".profile__occupation").textContent;
+  inputName.focus();
+  inputName.select();
+  profileModal.addEventListener("submit", handleProfileEditSubmit);
 }
 
 function handleDestinationCardClick(evt) {
@@ -141,13 +111,6 @@ function handleDestinationCardClick(evt) {
   const destinationPopUp = createDestinationPopUp(imageUrl, description);
   destinationPopUp.classList.toggle("modal-container_state_closed");
   openModal(destinationPopUp);
-}
-
-function addEventListenerToDestinations() {
-  const images = page.querySelectorAll(".destination__photo");
-  images.forEach((image) => {
-    image.addEventListener("click", handleDestinationCardClick);
-  });
 }
 
 function handleLikeButtonClick(evt) {
@@ -162,7 +125,7 @@ function handleLikeButtonClick(evt) {
 }
 
 function handleAddCardButtonClick(evt) {
-  const newCardModal = createModal("Nuevo Lugar");
+  const modal = createModal("Nuevo Lugar");
   const inputTitle = createModalInput("text", "title", "Título", true);
   const inputImageUrl = createModalInput(
     "url",
@@ -170,14 +133,8 @@ function handleAddCardButtonClick(evt) {
     "Enlace a la imagen",
     true
   );
-  const newCardModalInputsSection = newCardModal.querySelector(
-    ".profile-form__inputs"
-  );
-  newCardModalInputsSection.append(inputTitle, inputImageUrl);
-  const modalForm = newCardModal.querySelector(
-    ".modal-container__profile-form"
-  );
-  modalForm.addEventListener("submit", handleAddCardFormSubmit);
+  const newCardModal = buildModal(modal, inputTitle, inputImageUrl);
+  newCardModal.addEventListener("submit", handleAddCardFormSubmit);
   openModal(newCardModal);
 }
 
@@ -247,4 +204,12 @@ function createDestinationPopUp(imageUrl, description) {
   );
   closeButton.addEventListener("click", handleCloseButtonClick);
   return destinationPopUp;
+}
+
+function buildModal(modal, ...inputs) {
+  const modalInputsArea = modal.querySelector(".profile-form__inputs");
+  inputs.forEach((input) => {
+    modalInputsArea.append(input);
+  });
+  return modal;
 }
