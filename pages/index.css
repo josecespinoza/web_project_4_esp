@@ -55,6 +55,8 @@
 @import url("../blocks/profile-form/__inputs/profile-form__inputs.css");
 @import url("../blocks/profile-form/__input/profile-form__input.css");
 @import url("../blocks/modal-container/modal-container.css");
+@import url("../blocks/modal-container/_state/modal-container_state_closed.css");
+@import url("../blocks/modal-container/_state/modal-container_state_opened.css");
 @import url("../blocks/modal-container/__close-button/modal-container__close-button.css");
 @import url("../blocks/modal-container/__window/modal-container__window.css");
 @import url("../blocks/modal-container/__window/_content/modal-container__window_content_image.css");
