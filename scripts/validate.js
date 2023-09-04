@@ -7,8 +7,11 @@ const validationConfig = {
   errorClass: "form__input-error",
 };
 
+const showInputError = () => {};
+
 const enableValidationHandler = (evt) => {
-  console.log(evt.target);
+  const inputElement = evt.target;
+  inputElement.nextElementSibling.textContent = evt.target.validationMessage;
 };
 
 const enableValidation = (config, form) => {

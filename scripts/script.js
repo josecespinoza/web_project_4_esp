@@ -139,17 +139,18 @@ function createFormInput(
   maxlength,
   minlength = 0
 ) {
-  const modalInputTemplate = page.querySelector("#modal__input-template");
-  const modalInput = modalInputTemplate
+  const formInputTemplate = page.querySelector("#form__input-template");
+  const formInputSet = formInputTemplate
     .cloneNode("true")
-    .content.querySelector(".form__input");
-  modalInput.setAttribute("type", type);
-  modalInput.setAttribute("name", name);
-  modalInput.setAttribute("placeholder", placeholder);
-  modalInput.setAttribute("maxlength", maxlength);
-  modalInput.setAttribute("minlength", minlength);
-  modalInput.setAttribute("required", isRequired);
-  return modalInput;
+    .content.querySelector(".form__input-set");
+  const formInput = formInputSet.querySelector(".form__input");
+  formInput.setAttribute("type", type);
+  formInput.setAttribute("name", name);
+  formInput.setAttribute("placeholder", placeholder);
+  formInput.setAttribute("maxlength", maxlength);
+  formInput.setAttribute("minlength", minlength);
+  formInput.setAttribute("required", isRequired);
+  return formInputSet;
 }
 
 function buildForm(form, ...inputs) {
