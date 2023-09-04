@@ -54,9 +54,9 @@ function loadDestinationCards(...destinationCards) {
 }
 
 function handleEditButtonClick() {
-  const modal = createModal("Editar Perfil");
-  const inputName = createModalInput("text", "name", "Nombre", true, 40, 2);
-  const inputAboutMe = createModalInput(
+  const newForm = createForm("Editar Perfil", "Guardar");
+  const inputName = createFormInput("text", "name", "Nombre", true, 40, 2);
+  const inputAboutMe = createFormInput(
     "text",
     "aboutMe",
     "Acerca de mí",
@@ -64,13 +64,14 @@ function handleEditButtonClick() {
     200,
     2
   );
-  const profileModal = buildModal(modal, inputName, inputAboutMe);
-  page.append(profileModal);
+  const newProfileForm = buildForm(newForm, inputName, inputAboutMe);
+  const modal = createModal(newProfileForm);
+  newProfileForm.addEventListener("submit", handleProfileEditSubmit);
   inputName.value = page.querySelector(".profile__name").textContent;
   inputAboutMe.value = page.querySelector(".profile__occupation").textContent;
+  openModal(modal);
   inputName.focus();
   inputName.select();
-  profileModal.addEventListener("submit", handleProfileEditSubmit);
 }
 
 function handleProfileEditSubmit(evt) {
@@ -82,17 +83,18 @@ function handleProfileEditSubmit(evt) {
 }
 
 function handleAddCardButtonClick(evt) {
-  const modal = createModal("Nuevo Lugar");
-  const inputTitle = createModalInput("text", "title", "Título", true, 30, 2);
-  const inputImageUrl = createModalInput(
+  const newForm = createForm("Nuevo Lugar", "Guardar");
+  const inputTitle = createFormInput("text", "title", "Título", true, 30, 2);
+  const inputImageUrl = createFormInput(
     "url",
     "imageUrl",
     "Enlace a la imagen",
     true,
     500
   );
-  const newCardModal = buildModal(modal, inputTitle, inputImageUrl);
-  newCardModal.addEventListener("submit", handleAddCardFormSubmit);
+  const newCardForm = buildForm(newForm, inputTitle, inputImageUrl);
+  const newCardModal = createModal(newCardForm);
+  newCardForm.addEventListener("submit", handleAddCardFormSubmit);
   openModal(newCardModal);
 }
 
@@ -110,18 +112,26 @@ function handleAddCardFormSubmit(evt) {
   destinationsList.prepend(createDestinationCard(newDestination));
 }
 
-function createModal(modalTitle) {
+function createModal(content) {
   const modalTemplate = page.querySelector("#modal-template");
   const modal = modalTemplate
     .cloneNode(true)
     .content.querySelector(".modal-container");
-  modal.querySelector(".form__title").textContent = modalTitle;
+  modal.querySelector(".modal-container__window").prepend(content);
   const closeButton = modal.querySelector(".button__icon_action_close");
   closeButton.addEventListener("click", handleCloseButtonClick);
   return modal;
 }
 
-function createModalInput(
+function createForm(formTitle, buttonLabel) {
+  const formTemplate = page.querySelector("#form-template");
+  const newForm = formTemplate.cloneNode(true).content.querySelector(".form");
+  newForm.querySelector(".form__title").textContent = formTitle;
+  enableValidation(validationConfig, newForm);
+  return newForm;
+}
+
+function createFormInput(
   type,
   name,
   placeholder,
@@ -142,12 +152,12 @@ function createModalInput(
   return modalInput;
 }
 
-function buildModal(modal, ...inputs) {
-  const modalInputsArea = modal.querySelector(".form__inputs");
+function buildForm(form, ...inputs) {
+  const formInputsArea = form.querySelector(".form__inputs");
   inputs.forEach((input) => {
-    modalInputsArea.append(input);
+    formInputsArea.append(input);
   });
-  return modal;
+  return form;
 }
 
 function openModal(modal) {

@@ -54,17 +54,19 @@
             </div>
         </li>
     </template>
+    <template id="form-template">
+        <form class="form form_theme_dark modal-container__form">
+            <h2 class="form__title"></h2>
+            <div class="form__inputs">
+            </div>
+            <button class="button button_theme_light button_action_save button_location_form">
+                Guardar
+            </button>
+        </form>
+    </template>
     <template id="modal-template">
         <div class="modal-container">
             <div class="modal-container__window">
-                <form class="form form_theme_dark modal-container__form">
-                    <h2 class="form__title"></h2>
-                    <div class="form__inputs">
-                    </div>
-                    <button class="button button_theme_light button_action_save button_location_form">
-                        Guardar
-                    </button>
-                </form>
             </div>
             <div class="modal-container__close-button">
                 <button class="button button_theme_dark button_action_close">
@@ -92,6 +94,7 @@
     </template>
     <template id="modal__input-template">
         <input class="form__input" type="" name="" placeholder="" maxlength="" minlength="" required=false>
+        <span class="form__input-error"></span>
     </template>
     <script src="./scripts/script.js"></script>
     <script src="./scripts/validate.js"></script>

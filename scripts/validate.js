@@ -1,6 +1,4 @@
-const forms = Array.from(document.querySelectorAll(".form"));
-
-const validationConf = {
+const validationConfig = {
   formSelector: ".form",
   inputSelector: ".form__input",
   submitButtonSelector: ".button_location_form",
@@ -9,4 +7,10 @@ const validationConf = {
   errorClass: "form__input-error",
 };
 
-const enableValidation = (config) => {};
+const enableValidationHandler = (evt) => {
+  console.log(evt.target);
+};
+
+const enableValidation = (config, form) => {
+  form.addEventListener("input", enableValidationHandler);
+};
