@@ -114,7 +114,7 @@ function createModal(modalTitle) {
   const modal = modalTemplate
     .cloneNode(true)
     .content.querySelector(".modal-container");
-  modal.querySelector(".profile-form__title").textContent = modalTitle;
+  modal.querySelector(".form__title").textContent = modalTitle;
   const closeButton = modal.querySelector(".button__icon_action_close");
   closeButton.addEventListener("click", handleCloseButtonClick);
   return modal;
@@ -124,7 +124,7 @@ function createModalInput(type, name, placeholder, maxlength, isRequired) {
   const modalInputTemplate = page.querySelector("#modal__input-template");
   const modalInput = modalInputTemplate
     .cloneNode("true")
-    .content.querySelector(".profile-form__input");
+    .content.querySelector(".form__input");
   modalInput.setAttribute("type", type);
   modalInput.setAttribute("name", name);
   modalInput.setAttribute("placeholder", placeholder);
@@ -134,7 +134,7 @@ function createModalInput(type, name, placeholder, maxlength, isRequired) {
 }
 
 function buildModal(modal, ...inputs) {
-  const modalInputsArea = modal.querySelector(".profile-form__inputs");
+  const modalInputsArea = modal.querySelector(".form__inputs");
   inputs.forEach((input) => {
     modalInputsArea.append(input);
   });
