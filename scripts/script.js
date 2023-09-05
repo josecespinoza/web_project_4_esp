@@ -133,8 +133,11 @@ function createModal(content) {
   const modal = modalTemplate
     .cloneNode(true)
     .content.querySelector(".modal-container");
-  modal.querySelector(".modal-container__window").prepend(content);
+  const modalContentSection = modal.querySelector(".modal-container__window");
+  modalContentSection.prepend(content);
+  const modalBackDrop = modal.querySelector(".modal-container__backdrop");
   const closeButton = modal.querySelector(".button__icon_action_close");
+  modalBackDrop.addEventListener("click", handleCloseButtonClick);
   closeButton.addEventListener("click", handleCloseButtonClick);
   return modal;
 }
@@ -259,7 +262,6 @@ function createDestinationPopUp(imageUrl, description) {
   const closeButton = destinationPopUp.querySelector(
     ".button__icon_action_close"
   );
-  closeButton.addEventListener("click", handleCloseButtonClick);
   return destinationPopUp;
 }
 
