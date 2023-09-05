@@ -7,13 +7,32 @@ const validationConfig = {
   errorClass: "form__input-error",
 };
 
-const showInputError = () => {};
-
-const enableValidationHandler = (evt) => {
+const enableValidationHandler = (evt, config) => {
+  const form = evt.currentTarget;
   const inputElement = evt.target;
-  inputElement.nextElementSibling.textContent = evt.target.validationMessage;
+  const inputErrorElement = inputElement.nextElementSibling;
+  inputErrorElement.textContent = evt.target.validationMessage;
+  toggleButtonStatus(form, config);
 };
 
-const enableValidation = (config, form) => {
-  form.addEventListener("input", enableValidationHandler);
+const enableValidation = (form, config = validationConfig) => {
+  form.addEventListener("input", (evt) => {
+    enableValidationHandler(evt, config);
+  });
+};
+
+const toggleButtonStatus = (form, config) => {
+  const saveButton = form.querySelector(config.submitButtonSelector);
+  if (formIsValid(form, config)) {
+    saveButton.classList.remove(config.inactiveButtonClass);
+  } else {
+    saveButton.classList.add(config.inactiveButtonClass);
+  }
+};
+
+const formIsValid = (form, config) => {
+  const inputs = Array.from(form.querySelectorAll(config.inputSelector));
+  return inputs.every((input) => {
+    return input.validity.valid;
+  });
 };

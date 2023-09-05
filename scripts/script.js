@@ -55,8 +55,15 @@ function loadDestinationCards(...destinationCards) {
 
 function handleEditButtonClick() {
   const newForm = createForm("Editar Perfil", "Guardar");
-  const inputName = createFormInput("text", "name", "Nombre", true, 40, 2);
-  const inputAboutMe = createFormInput(
+  const inputSetName = createFormInputSet(
+    "text",
+    "name",
+    "Nombre",
+    true,
+    40,
+    2
+  );
+  const inputSetAboutMe = createFormInputSet(
     "text",
     "aboutMe",
     "Acerca de mí",
@@ -64,10 +71,12 @@ function handleEditButtonClick() {
     200,
     2
   );
-  const newProfileForm = buildForm(newForm, inputName, inputAboutMe);
+  const newProfileForm = buildForm(newForm, inputSetName, inputSetAboutMe);
   const modal = createModal(newProfileForm);
   newProfileForm.addEventListener("submit", handleProfileEditSubmit);
+  const inputName = inputSetName.firstElementChild;
   inputName.value = page.querySelector(".profile__name").textContent;
+  const inputAboutMe = inputSetAboutMe.firstElementChild;
   inputAboutMe.value = page.querySelector(".profile__occupation").textContent;
   openModal(modal);
   inputName.focus();
@@ -84,15 +93,22 @@ function handleProfileEditSubmit(evt) {
 
 function handleAddCardButtonClick(evt) {
   const newForm = createForm("Nuevo Lugar", "Guardar");
-  const inputTitle = createFormInput("text", "title", "Título", true, 30, 2);
-  const inputImageUrl = createFormInput(
+  const inputSetTitle = createFormInputSet(
+    "text",
+    "title",
+    "Título",
+    true,
+    30,
+    2
+  );
+  const inputSetImageUrl = createFormInputSet(
     "url",
     "imageUrl",
     "Enlace a la imagen",
     true,
     500
   );
-  const newCardForm = buildForm(newForm, inputTitle, inputImageUrl);
+  const newCardForm = buildForm(newForm, inputSetTitle, inputSetImageUrl);
   const newCardModal = createModal(newCardForm);
   newCardForm.addEventListener("submit", handleAddCardFormSubmit);
   openModal(newCardModal);
@@ -127,11 +143,10 @@ function createForm(formTitle, buttonLabel) {
   const formTemplate = page.querySelector("#form-template");
   const newForm = formTemplate.cloneNode(true).content.querySelector(".form");
   newForm.querySelector(".form__title").textContent = formTitle;
-  enableValidation(validationConfig, newForm);
   return newForm;
 }
 
-function createFormInput(
+function createFormInputSet(
   type,
   name,
   placeholder,
@@ -158,6 +173,7 @@ function buildForm(form, ...inputs) {
   inputs.forEach((input) => {
     formInputsArea.append(input);
   });
+  enableValidation(form);
   return form;
 }
 
