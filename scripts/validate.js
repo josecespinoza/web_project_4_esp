@@ -7,7 +7,7 @@ const validationConfig = {
   errorClass: "form__input-error",
 };
 
-const enableValidationHandler = (evt, config) => {
+const inputValidationHandler = (evt, config) => {
   const form = evt.currentTarget;
   const inputElement = evt.target;
   const inputErrorElement = inputElement.nextElementSibling;
@@ -15,10 +15,30 @@ const enableValidationHandler = (evt, config) => {
   toggleButtonStatus(form, config);
 };
 
-const enableValidation = (form, config = validationConfig) => {
+const formPreSubmitValidationHandler = (evt, config) => {
+  if (!formIsValid(evt.currentTarget, config)) {
+    evt.preventDefault();
+  }
+};
+
+const setFormEventListeners = (form, config) => {
   form.addEventListener("input", (evt) => {
-    enableValidationHandler(evt, config);
+    inputValidationHandler(evt, config);
   });
+  form.addEventListener("keydown", (evt) => {
+    if (evt.key.toLowerCase() === "enter") {
+      formPreSubmitValidationHandler(evt, config);
+    }
+  });
+  const submitButton = form.querySelector(config.submitButtonSelector);
+  submitButton.addEventListener("click", (evt) => {
+    formPreSubmitValidationHandler(evt, config);
+  });
+};
+
+const enableValidation = (form, config = validationConfig) => {
+  toggleButtonStatus(form, config);
+  setFormEventListeners(form, config);
 };
 
 const toggleButtonStatus = (form, config) => {
@@ -32,7 +52,7 @@ const toggleButtonStatus = (form, config) => {
 
 const formIsValid = (form, config) => {
   const inputs = Array.from(form.querySelectorAll(config.inputSelector));
-  return inputs.every((input) => {
+  return inputs.every((input, index) => {
     return input.validity.valid;
   });
 };

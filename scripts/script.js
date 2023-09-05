@@ -71,13 +71,13 @@ function handleEditButtonClick() {
     200,
     2
   );
-  const newProfileForm = buildForm(newForm, inputSetName, inputSetAboutMe);
-  const modal = createModal(newProfileForm);
-  newProfileForm.addEventListener("submit", handleProfileEditSubmit);
   const inputName = inputSetName.firstElementChild;
   inputName.value = page.querySelector(".profile__name").textContent;
   const inputAboutMe = inputSetAboutMe.firstElementChild;
   inputAboutMe.value = page.querySelector(".profile__occupation").textContent;
+  const newProfileForm = buildForm(newForm, inputSetName, inputSetAboutMe);
+  const modal = createModal(newProfileForm);
+  newProfileForm.addEventListener("submit", handleProfileEditSubmit);
   openModal(modal);
   inputName.focus();
   inputName.select();
@@ -178,9 +178,11 @@ function buildForm(form, ...inputs) {
 }
 
 function openModal(modal) {
-  page.prepend(modal);
-  modal.classList.remove("modal-container_state_closed");
-  modal.classList.add("modal-container_state_opened");
+  if (!page.querySelector(".modal-container")) {
+    page.prepend(modal);
+    modal.classList.remove("modal-container_state_closed");
+    modal.classList.add("modal-container_state_opened");
+  }
 }
 
 function closeModal() {
