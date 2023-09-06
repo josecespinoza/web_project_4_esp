@@ -1,5 +1,4 @@
-import { initialCards } from "./modules/data.js";
-import { page } from "./modules/constants.js";
+import { page, initialCards } from "./modules/constants.js";
 import * as form from "./modules/form.js";
 import * as modal from "./modules/modal.js";
 import * as destinationCard from "./modules/destinationCard.js";
