@@ -11,7 +11,7 @@
   grid-template-columns: 1fr auto 1fr;
   grid-template-areas:
     ". . button "
-    ". window . "
+    ". content . "
     ". . . ";
   z-index: 2;
 }
@@ -21,7 +21,7 @@
     row-gap: 13.23px;
     grid-template-areas:
       ". button . "
-      ". window . "
+      ". content . "
       ". . . ";
   }
 }

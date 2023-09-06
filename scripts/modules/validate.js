@@ -56,3 +56,5 @@ const formIsValid = (form, config) => {
     return input.validity.valid;
   });
 };
+
+export { enableValidation };

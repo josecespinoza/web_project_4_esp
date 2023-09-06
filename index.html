@@ -54,19 +54,9 @@
             </div>
         </li>
     </template>
-    <template id="form-template">
-        <form class="form form_theme_dark modal-container__form" novalidate>
-            <h2 class="form__title"></h2>
-            <div class="form__inputs">
-            </div>
-            <button class="button button_theme_light button_action_save button_location_form">
-                Guardar
-            </button>
-        </form>
-    </template>
     <template id="modal-template">
         <div class="modal-container">
-            <div class="modal-container__window">
+            <div class="modal-container__content">
             </div>
             <div class="modal-container__close-button">
                 <button class="button button_theme_dark button_action_close">
@@ -78,19 +68,20 @@
         </div>
     </template>
     <template id="destination-popup-template">
-        <div class="modal-container modal-container_state_closed">
-            <div class="destination-popup">
-                <img class="destination-popup__photo">
-                <p class="destination-popup__description"></p>
-            </div>
-            <div class="modal-container__close-button">
-                <button class="button button_theme_dark button_action_close">
-                    <span class="button__icon button__icon_action_close"></span>
-                </button>
-            </div>
-            <div class="modal-container__backdrop">
-            </div>
+        <div class="destination-popup">
+            <img class="destination-popup__photo">
+            <p class="destination-popup__description"></p>
         </div>
+    </template>
+    <template id="form-template">
+        <form class="form form_theme_dark" novalidate>
+            <h2 class="form__title"></h2>
+            <div class="form__inputs">
+            </div>
+            <button class="button button_theme_light button_action_save button_location_form">
+                Guardar
+            </button>
+        </form>
     </template>
     <template id="form__input-template">
         <fieldset class="form__input-set">
@@ -98,8 +89,7 @@
             <span class="form__input-error"></span>
         </fieldset>
     </template>
-    <script src="./scripts/script.js"></script>
-    <script src="./scripts/validate.js"></script>
+    <script type="module" src="./scripts/script.js"></script>
 </body>
 
 </html>

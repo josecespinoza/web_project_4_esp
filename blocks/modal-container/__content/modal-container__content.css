@@ -1,0 +1,16 @@
+.modal-container__content {
+  width: 430px;
+  height: auto;
+  background-color: white;
+  position: relative;
+  z-index: 2;
+  grid-area: content;
+  border-radius: 10px;
+  margin: auto;
+}
+
+@media screen and (max-width: 490px) {
+  .modal-container__content {
+    max-width: 282px;
+  }
+}
