@@ -1,4 +1,4 @@
-import { enableValidation } from "./validate.js";
+import { enableValidation } from "../validate.js";
 import { page } from "./constants.js";
 
 function createForm(formTitle, buttonLabel) {
