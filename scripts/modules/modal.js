@@ -1,16 +1,28 @@
 import { page } from "./constants.js";
 
-function createModal(content) {
-  const modalTemplate = page.querySelector("#modal-template");
+const modalConfig = {
+  modalTemplateSelector: "#modal-template",
+  modalSelector: ".modal-container",
+  modalContentSelector: ".modal-container__content",
+  modalBackdropSelector: ".modal-container__backdrop",
+  modalCloseButtonSelector: ".button__icon_action_close",
+  modalModifierFormClass: "modal-container__form",
+  modalClosedStateClass: "modal-container_state_closed",
+  modalOpenedStateClass: "modal-container_state_opened",
+  formClass: "form",
+};
+
+function createModal(content, config = modalConfig) {
+  const modalTemplate = page.querySelector(config.modalTemplateSelector);
   const modal = modalTemplate
     .cloneNode(true)
-    .content.querySelector(".modal-container");
+    .content.querySelector(config.modalSelector);
   if (content) {
     const modalContentSection = modal.querySelector(
-      ".modal-container__content"
+      config.modalContentSelector
     );
-    if (content.classList.contains("form")) {
-      content.classList.add("modal-container__form");
+    if (content.classList.contains(config.formClass)) {
+      content.classList.add(config.modalModifierFormClass);
     }
 
     modalContentSection.prepend(content);
@@ -19,33 +31,33 @@ function createModal(content) {
   return modal;
 }
 
-function createCustomModal(customContent) {
+function createCustomModal(customContent, config = modalConfig) {
   const customModal = createModal();
-  customModal.querySelector(".modal-container__content").remove();
+  customModal.querySelector(config.modalContentSelector).remove();
   customModal.prepend(customContent);
   return customModal;
 }
 
-function openModal(modal) {
-  if (!page.querySelector(".modal-container")) {
+function openModal(modal, config = modalConfig) {
+  if (!page.querySelector(config.modalSelector)) {
     page.prepend(modal);
-    modal.classList.remove("modal-container_state_closed");
-    modal.classList.add("modal-container_state_opened");
+    modal.classList.remove(config.modalClosedStateClass);
+    modal.classList.add(config.modalOpenedStateClass);
   }
 }
 
-function closeModal() {
-  const profileFormContainer = page.querySelector(".modal-container");
-  profileFormContainer.classList.remove("modal-container_state_opened");
-  profileFormContainer.classList.add("modal-container_state_closed");
+function closeModal(config = modalConfig) {
+  const modalContainer = page.querySelector(config.modalSelector);
+  modalContainer.classList.remove(config.modalOpenedStateClass);
+  modalContainer.classList.add(config.modalClosedStateClass);
   setTimeout(() => {
-    profileFormContainer.remove();
+    modalContainer.remove();
   }, 300);
 }
 
-function setCloseModalListeners(modal) {
-  const modalBackDrop = modal.querySelector(".modal-container__backdrop");
-  const closeButton = modal.querySelector(".button__icon_action_close");
+function setCloseModalListeners(modal, config = modalConfig) {
+  const modalBackDrop = modal.querySelector(config.modalBackdropSelector);
+  const closeButton = modal.querySelector(config.modalCloseButtonSelector);
   modalBackDrop.addEventListener("click", handleCloseButtonClick);
   closeButton.addEventListener("click", handleCloseButtonClick);
   return modal;
