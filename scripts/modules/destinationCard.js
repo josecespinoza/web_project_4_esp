@@ -58,10 +58,12 @@ function createDestinationPopUp(imageUrl, description) {
     ".destination-popup__photo"
   );
   destinationPhoto.setAttribute("src", imageUrl);
+  destinationPhoto.setAttribute("alt", description);
   const destinationDescription = newDestinationPopup.querySelector(
     ".destination-popup__description"
   );
   destinationDescription.textContent = description;
+
   const destinationPopUpModal = modal.createCustomModal(newDestinationPopup);
   return destinationPopUpModal;
 }
