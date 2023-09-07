@@ -41,7 +41,10 @@ function handleEditButtonClick() {
   inputName.value = page.querySelector(".profile__name").textContent;
   const inputAboutMe = inputSetAboutMe.firstElementChild;
   inputAboutMe.value = page.querySelector(".profile__occupation").textContent;
-  const newProfileForm = form.buildForm(newForm, inputSetName, inputSetAboutMe);
+  const newProfileForm = form.buildForm(newForm, [
+    inputSetName,
+    inputSetAboutMe,
+  ]);
   const newModal = modal.createModal(newProfileForm);
   form.setSubmitEventListener(newProfileForm, handleProfileEditSubmit);
   modal.openModal(newModal);
@@ -76,7 +79,10 @@ function handleAddCardButtonClick(evt) {
     true,
     500
   );
-  const newCardForm = form.buildForm(newForm, inputSetTitle, inputSetImageUrl);
+  const newCardForm = form.buildForm(newForm, [
+    inputSetTitle,
+    inputSetImageUrl,
+  ]);
   const newCardModal = modal.createModal(newCardForm);
   form.setSubmitEventListener(newCardForm, handleAddCardFormSubmit);
   modal.openModal(newCardModal);

@@ -32,7 +32,6 @@ const removeFormValidationEventListeners = (
   form,
   config = validationConfig
 ) => {
-  debugger;
   form.removeEventListener("input", inputValidationHandler);
   form.removeEventListener("keydown", formPreSubmitValidationHandler);
   const submitButton = form.querySelector(config.submitButtonSelector);

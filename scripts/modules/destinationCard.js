@@ -31,7 +31,6 @@ function setDestinationCardListeners(destinationCard) {
 }
 
 function removeDestinationCardListeners(destinationCard) {
-  debugger;
   const destinationPhoto = destinationCard.querySelector(".destination__photo");
   destinationPhoto.removeEventListener("click", handleDestinationCardClick);
   const destinationLikeButton = destinationCard.querySelector(
