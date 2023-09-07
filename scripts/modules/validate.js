@@ -21,7 +21,7 @@ const formPreSubmitValidationHandler = (evt, config = validationConfig) => {
   }
 };
 
-const setFormValidationEventListeners = (form, config) => {
+const setFormValidationEventListeners = (form, config = validationConfig) => {
   form.addEventListener("input", inputValidationHandler);
   form.addEventListener("keydown", formPreSubmitValidationHandler);
   const submitButton = form.querySelector(config.submitButtonSelector);
