@@ -7,7 +7,7 @@ const validationConfig = {
   errorClass: "form__input-error",
 };
 
-const inputValidationHandler = (evt, config) => {
+const inputValidationHandler = (evt, config = validationConfig) => {
   const form = evt.currentTarget;
   const inputElement = evt.target;
   const inputErrorElement = inputElement.nextElementSibling;
@@ -15,30 +15,33 @@ const inputValidationHandler = (evt, config) => {
   toggleButtonStatus(form, config);
 };
 
-const formPreSubmitValidationHandler = (evt, config) => {
+const formPreSubmitValidationHandler = (evt, config = validationConfig) => {
   if (!formIsValid(evt.currentTarget, config)) {
     evt.preventDefault();
   }
 };
 
-const setFormEventListeners = (form, config) => {
-  form.addEventListener("input", (evt) => {
-    inputValidationHandler(evt, config);
-  });
-  form.addEventListener("keydown", (evt) => {
-    if (evt.key.toLowerCase() === "enter") {
-      formPreSubmitValidationHandler(evt, config);
-    }
-  });
+const setFormValidationEventListeners = (form, config) => {
+  form.addEventListener("input", inputValidationHandler);
+  form.addEventListener("keydown", formPreSubmitValidationHandler);
   const submitButton = form.querySelector(config.submitButtonSelector);
-  submitButton.addEventListener("click", (evt) => {
-    formPreSubmitValidationHandler(evt, config);
-  });
+  submitButton.addEventListener("click", formPreSubmitValidationHandler);
+};
+
+const removeFormValidationEventListeners = (
+  form,
+  config = validationConfig
+) => {
+  debugger;
+  form.removeEventListener("input", inputValidationHandler);
+  form.removeEventListener("keydown", formPreSubmitValidationHandler);
+  const submitButton = form.querySelector(config.submitButtonSelector);
+  submitButton.removeEventListener("click", formPreSubmitValidationHandler);
 };
 
 const enableValidation = (form, config = validationConfig) => {
   toggleButtonStatus(form, config);
-  setFormEventListeners(form, config);
+  setFormValidationEventListeners(form, config);
 };
 
 const toggleButtonStatus = (form, config) => {
@@ -57,4 +60,4 @@ const formIsValid = (form, config) => {
   });
 };
 
-export { enableValidation };
+export { enableValidation, removeFormValidationEventListeners };

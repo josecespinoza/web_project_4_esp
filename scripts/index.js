@@ -43,7 +43,7 @@ function handleEditButtonClick() {
   inputAboutMe.value = page.querySelector(".profile__occupation").textContent;
   const newProfileForm = form.buildForm(newForm, inputSetName, inputSetAboutMe);
   const newModal = modal.createModal(newProfileForm);
-  newProfileForm.addEventListener("submit", handleProfileEditSubmit);
+  form.setSubmitEventListener(newProfileForm, handleProfileEditSubmit);
   modal.openModal(newModal);
   inputName.focus();
   inputName.select();
@@ -51,10 +51,12 @@ function handleEditButtonClick() {
 
 function handleProfileEditSubmit(evt) {
   evt.preventDefault();
-  const form = evt.target;
-  page.querySelector(".profile__name").textContent = form.name.value;
-  page.querySelector(".profile__occupation").textContent = form.aboutMe.value;
-  modal.closeModal();
+  const targetForm = evt.target;
+  page.querySelector(".profile__name").textContent = targetForm.name.value;
+  page.querySelector(".profile__occupation").textContent =
+    targetForm.aboutMe.value;
+  form.removeSubmitEventListener(targetForm, handleProfileEditSubmit);
+  modal.closeModal(modal.getCurrentModal(targetForm));
 }
 
 function handleAddCardButtonClick(evt) {
@@ -76,16 +78,15 @@ function handleAddCardButtonClick(evt) {
   );
   const newCardForm = form.buildForm(newForm, inputSetTitle, inputSetImageUrl);
   const newCardModal = modal.createModal(newCardForm);
-  newCardForm.addEventListener("submit", handleAddCardFormSubmit);
+  form.setSubmitEventListener(newCardForm, handleAddCardFormSubmit);
   modal.openModal(newCardModal);
 }
 
 function handleAddCardFormSubmit(evt) {
   evt.preventDefault();
-  modal.closeModal();
-  const form = evt.target;
-  const cardTitle = form.title;
-  const cardImageUrl = form.imageUrl;
+  const targetForm = evt.target;
+  const cardTitle = targetForm.title;
+  const cardImageUrl = targetForm.imageUrl;
   const newDestination = {
     name: cardTitle.value,
     link: cardImageUrl.value,
@@ -94,4 +95,6 @@ function handleAddCardFormSubmit(evt) {
   destinationsList.prepend(
     destinationCard.createDestinationCard(newDestination)
   );
+  form.removeSubmitEventListener(targetForm, handleAddCardFormSubmit);
+  modal.closeModal(modal.getCurrentModal(form));
 }

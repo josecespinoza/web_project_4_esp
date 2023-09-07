@@ -1,4 +1,4 @@
-import { enableValidation } from "./validate.js";
+import * as validate from "./validate.js";
 import { page } from "./constants.js";
 
 function createForm(formTitle, buttonLabel) {
@@ -35,8 +35,23 @@ function buildForm(form, ...inputs) {
   inputs.forEach((input) => {
     formInputsArea.append(input);
   });
-  enableValidation(form);
+  validate.enableValidation(form);
   return form;
 }
 
-export { createForm, createFormInputSet, buildForm };
+function setSubmitEventListener(form, handler) {
+  form.addEventListener("submit", handler);
+}
+
+function removeSubmitEventListener(form, handler) {
+  form.removeEventListener("submit", handler);
+  validate.removeFormValidationEventListeners(form);
+}
+
+export {
+  createForm,
+  createFormInputSet,
+  buildForm,
+  setSubmitEventListener,
+  removeSubmitEventListener,
+};

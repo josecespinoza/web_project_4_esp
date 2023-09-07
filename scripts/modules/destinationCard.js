@@ -13,6 +13,12 @@ function createDestinationCard(destination) {
   const destinationPhoto = destinationCard.querySelector(".destination__photo");
   destinationPhoto.setAttribute("alt", destination.name);
   destinationPhoto.setAttribute("src", destination.link);
+  setDestinationCardListeners(destinationCard);
+  return destinationCard;
+}
+
+function setDestinationCardListeners(destinationCard) {
+  const destinationPhoto = destinationCard.querySelector(".destination__photo");
   destinationPhoto.addEventListener("click", handleDestinationCardClick);
   const destinationLikeButton = destinationCard.querySelector(
     ".button__icon_action_like"
@@ -22,8 +28,20 @@ function createDestinationCard(destination) {
     ".button__icon_action_delete"
   );
   destinationDeleteButton.addEventListener("click", handleDeleteButtonClick);
+}
 
-  return destinationCard;
+function removeDestinationCardListeners(destinationCard) {
+  debugger;
+  const destinationPhoto = destinationCard.querySelector(".destination__photo");
+  destinationPhoto.removeEventListener("click", handleDestinationCardClick);
+  const destinationLikeButton = destinationCard.querySelector(
+    ".button__icon_action_like"
+  );
+  destinationLikeButton.removeEventListener("click", handleLikeButtonClick);
+  const destinationDeleteButton = destinationCard.querySelector(
+    ".button__icon_action_delete"
+  );
+  destinationDeleteButton.removeEventListener("click", handleDeleteButtonClick);
 }
 
 function handleDestinationCardClick(evt) {
@@ -46,7 +64,9 @@ function handleLikeButtonClick(evt) {
 }
 
 function handleDeleteButtonClick(evt) {
-  evt.target.closest(".destinations__item").remove();
+  const card = evt.target.closest(".destinations__item");
+  removeDestinationCardListeners(card);
+  card.remove();
 }
 
 function createDestinationPopUp(imageUrl, description) {

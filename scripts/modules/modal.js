@@ -21,14 +21,18 @@ function createModal(content, config = modalConfig) {
     const modalContentSection = modal.querySelector(
       config.modalContentSelector
     );
-    if (content.classList.contains(config.formClass)) {
+    if (isForm(content)) {
       content.classList.add(config.modalModifierFormClass);
     }
 
     modalContentSection.prepend(content);
   }
-  setCloseModalListeners(modal);
+  setModalListeners(modal);
   return modal;
+}
+
+function isForm(content, config = modalConfig) {
+  return content.classList.contains(config.formClass);
 }
 
 function createCustomModal(customContent, config = modalConfig) {
@@ -36,6 +40,11 @@ function createCustomModal(customContent, config = modalConfig) {
   customModal.querySelector(config.modalContentSelector).remove();
   customModal.prepend(customContent);
   return customModal;
+}
+
+function getCurrentModal(modalChild, config = modalConfig) {
+  const modal = modalChild.closest(config.modalSelector);
+  return modal;
 }
 
 function openModal(modal, config = modalConfig) {
@@ -46,25 +55,44 @@ function openModal(modal, config = modalConfig) {
   }
 }
 
-function closeModal(config = modalConfig) {
-  const modalContainer = page.querySelector(config.modalSelector);
-  modalContainer.classList.remove(config.modalOpenedStateClass);
-  modalContainer.classList.add(config.modalClosedStateClass);
+function closeModal(modal, config = modalConfig) {
+  modal.classList.remove(config.modalOpenedStateClass);
+  modal.classList.add(config.modalClosedStateClass);
+  removeModalListeners(modal);
   setTimeout(() => {
-    modalContainer.remove();
+    modal.remove();
   }, 300);
 }
 
-function setCloseModalListeners(modal, config = modalConfig) {
+function setModalListeners(modal, config = modalConfig) {
   const modalBackDrop = modal.querySelector(config.modalBackdropSelector);
   const closeButton = modal.querySelector(config.modalCloseButtonSelector);
-  modalBackDrop.addEventListener("click", handleCloseButtonClick);
-  closeButton.addEventListener("click", handleCloseButtonClick);
+  const closeActionElements = [modalBackDrop, closeButton];
+  closeActionElements.forEach((element) => {
+    element.addEventListener("click", handleCloseButtonClick);
+  });
   return modal;
 }
 
-function handleCloseButtonClick() {
-  closeModal();
+function removeModalListeners(modal, config = modalConfig) {
+  const modalBackDrop = modal.querySelector(config.modalBackdropSelector);
+  const closeButton = modal.querySelector(config.modalCloseButtonSelector);
+  const closeActionElements = [modalBackDrop, closeButton];
+  closeActionElements.forEach((closeActionElement) => {
+    closeActionElement.removeEventListener("click", handleCloseButtonClick);
+  });
+  return modal;
 }
 
-export { createModal, createCustomModal, openModal, closeModal };
+function handleCloseButtonClick(evt, config = modalConfig) {
+  const modal = evt.target.closest(config.modalSelector);
+  closeModal(modal);
+}
+
+export {
+  createModal,
+  createCustomModal,
+  openModal,
+  closeModal,
+  getCurrentModal,
+};
