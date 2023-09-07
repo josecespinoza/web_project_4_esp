@@ -12,7 +12,7 @@ const modalConfig = {
   formClass: "form",
 };
 
-function createModal(content, config = modalConfig) {
+const createModal = (content, config = modalConfig) => {
   const modalTemplate = page.querySelector(config.modalTemplateSelector);
   const modal = modalTemplate
     .cloneNode(true)
@@ -29,42 +29,42 @@ function createModal(content, config = modalConfig) {
   }
   setModalListeners(modal);
   return modal;
-}
+};
 
-function isForm(content, config = modalConfig) {
+const isForm = (content, config = modalConfig) => {
   return content.classList.contains(config.formClass);
-}
+};
 
-function createCustomModal(customContent, config = modalConfig) {
+const createCustomModal = (customContent, config = modalConfig) => {
   const customModal = createModal();
   customModal.querySelector(config.modalContentSelector).remove();
   customModal.prepend(customContent);
   return customModal;
-}
+};
 
-function getCurrentModal(modalChild, config = modalConfig) {
+const getCurrentModal = (modalChild, config = modalConfig) => {
   const modal = modalChild.closest(config.modalSelector);
   return modal;
-}
+};
 
-function openModal(modal, config = modalConfig) {
+const openModal = (modal, config = modalConfig) => {
   if (!page.querySelector(config.modalSelector)) {
     page.prepend(modal);
     modal.classList.remove(config.modalClosedStateClass);
     modal.classList.add(config.modalOpenedStateClass);
   }
-}
+};
 
-function closeModal(modal, config = modalConfig) {
+const closeModal = (modal, config = modalConfig) => {
   modal.classList.remove(config.modalOpenedStateClass);
   modal.classList.add(config.modalClosedStateClass);
   removeModalListeners(modal);
   setTimeout(() => {
     modal.remove();
   }, 300);
-}
+};
 
-function setModalListeners(modal, config = modalConfig) {
+const setModalListeners = (modal, config = modalConfig) => {
   const modalBackDrop = modal.querySelector(config.modalBackdropSelector);
   const closeButton = modal.querySelector(config.modalCloseButtonSelector);
   const closeActionElements = [modalBackDrop, closeButton];
@@ -72,9 +72,9 @@ function setModalListeners(modal, config = modalConfig) {
     element.addEventListener("click", handleCloseButtonClick);
   });
   return modal;
-}
+};
 
-function removeModalListeners(modal, config = modalConfig) {
+const removeModalListeners = (modal, config = modalConfig) => {
   const modalBackDrop = modal.querySelector(config.modalBackdropSelector);
   const closeButton = modal.querySelector(config.modalCloseButtonSelector);
   const closeActionElements = [modalBackDrop, closeButton];
@@ -82,12 +82,12 @@ function removeModalListeners(modal, config = modalConfig) {
     closeActionElement.removeEventListener("click", handleCloseButtonClick);
   });
   return modal;
-}
+};
 
-function handleCloseButtonClick(evt, config = modalConfig) {
+const handleCloseButtonClick = (evt, config = modalConfig) => {
   const modal = evt.target.closest(config.modalSelector);
   closeModal(modal);
-}
+};
 
 export {
   createModal,
