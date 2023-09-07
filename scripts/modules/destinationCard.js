@@ -1,44 +1,64 @@
 import { page } from "./constants.js";
 import * as modal from "./modal.js";
 
-function createDestinationCard(destination) {
+const cardConfig = {
+  cardTemplateSelector: "#destinations__item-template",
+  cardSelector: ".destinations__item",
+  cardNameSelector: ".destination__name",
+  cardPhotoSelector: ".destination__photo",
+  likeButtonSelector: ".button__icon_action_like",
+  deleteButtonSelector: ".button__icon_action_delete",
+  popUpTemplateSelector: "#destination-popup-template",
+  popUpPhotoSelector: ".destination-popup__photo",
+  popUpDescSelector: ".destination-popup__description",
+  notLikedButtonClass: "button__icon_action_like",
+  isLikedButtonClass: "button__icon_action_liked",
+};
+
+function createDestinationCard(destination, config = cardConfig) {
   const destinationCardClone = document
-    .querySelector("#destinations__item-template")
+    .querySelector(config.cardTemplateSelector)
     .content.cloneNode(true);
   const destinationCard = destinationCardClone.querySelector(
-    ".destinations__item"
+    config.cardSelector
   );
-  destinationCard.querySelector(".destination__name").textContent =
+  destinationCard.querySelector(config.cardNameSelector).textContent =
     destination.name;
-  const destinationPhoto = destinationCard.querySelector(".destination__photo");
+  const destinationPhoto = destinationCard.querySelector(
+    config.cardPhotoSelector
+  );
   destinationPhoto.setAttribute("alt", destination.name);
   destinationPhoto.setAttribute("src", destination.link);
   setDestinationCardListeners(destinationCard);
   return destinationCard;
 }
 
-function setDestinationCardListeners(destinationCard) {
-  const destinationPhoto = destinationCard.querySelector(".destination__photo");
+function setDestinationCardListeners(destinationCard, config = cardConfig) {
+  const destinationPhoto = destinationCard.querySelector(
+    config.cardPhotoSelector
+  );
   destinationPhoto.addEventListener("click", handleDestinationCardClick);
   const destinationLikeButton = destinationCard.querySelector(
-    ".button__icon_action_like"
+    config.likeButtonSelector
   );
   destinationLikeButton.addEventListener("click", handleLikeButtonClick);
   const destinationDeleteButton = destinationCard.querySelector(
-    ".button__icon_action_delete"
+    config.deleteButtonSelector
   );
   destinationDeleteButton.addEventListener("click", handleDeleteButtonClick);
 }
 
-function removeDestinationCardListeners(destinationCard) {
-  const destinationPhoto = destinationCard.querySelector(".destination__photo");
+function removeDestinationCardListeners(destinationCard, config = cardConfig) {
+  const destinationPhoto = destinationCard.querySelector(
+    config.cardPhotoSelector
+  );
   destinationPhoto.removeEventListener("click", handleDestinationCardClick);
   const destinationLikeButton = destinationCard.querySelector(
-    ".button__icon_action_like"
+    config.likeButtonSelector
   );
   destinationLikeButton.removeEventListener("click", handleLikeButtonClick);
   const destinationDeleteButton = destinationCard.querySelector(
-    ".button__icon_action_delete"
+    config.deleteButtonSelector
   );
   destinationDeleteButton.removeEventListener("click", handleDeleteButtonClick);
 }
@@ -47,39 +67,38 @@ function handleDestinationCardClick(evt) {
   const description = evt.target.alt;
   const imageUrl = evt.target.src;
   const destinationPopUp = createDestinationPopUp(imageUrl, description);
-  destinationPopUp.classList.toggle("modal-container_state_closed");
   modal.openModal(destinationPopUp);
 }
 
-function handleLikeButtonClick(evt) {
+function handleLikeButtonClick(evt, config = cardConfig) {
   const clickedButton = evt.target;
-  if (clickedButton.classList.contains("button__icon_action_like")) {
-    clickedButton.classList.remove("button__icon_action_like");
-    clickedButton.classList.add("button__icon_action_liked");
+  if (clickedButton.classList.contains(config.notLikedButtonClass)) {
+    clickedButton.classList.remove(config.notLikedButtonClass);
+    clickedButton.classList.add(config.isLikedButtonClass);
   } else {
-    clickedButton.classList.remove("button__icon_action_liked");
-    clickedButton.classList.add("button__icon_action_like");
+    clickedButton.classList.remove(config.isLikedButtonClass);
+    clickedButton.classList.add(config.notLikedButtonClass);
   }
 }
 
-function handleDeleteButtonClick(evt) {
-  const card = evt.target.closest(".destinations__item");
+function handleDeleteButtonClick(evt, config = cardConfig) {
+  const card = evt.target.closest(config.cardSelector);
   removeDestinationCardListeners(card);
   card.remove();
 }
 
-function createDestinationPopUp(imageUrl, description) {
+function createDestinationPopUp(imageUrl, description, config = cardConfig) {
   const destinationPopUpTemplate = page.querySelector(
-    "#destination-popup-template"
+    config.popUpTemplateSelector
   );
   const newDestinationPopup = destinationPopUpTemplate.cloneNode(true).content;
   const destinationPhoto = newDestinationPopup.querySelector(
-    ".destination-popup__photo"
+    config.popUpPhotoSelector
   );
   destinationPhoto.setAttribute("src", imageUrl);
   destinationPhoto.setAttribute("alt", description);
   const destinationDescription = newDestinationPopup.querySelector(
-    ".destination-popup__description"
+    config.popUpDescSelector
   );
   destinationDescription.textContent = description;
 
