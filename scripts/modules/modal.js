@@ -53,6 +53,7 @@ const openModal = (modal, config = modalConfig) => {
     modal.classList.remove(config.modalClosedStateClass);
     modal.classList.add(config.modalOpenedStateClass);
   }
+  modal.focus();
 };
 
 const closeModal = (modal, config = modalConfig) => {
@@ -69,8 +70,9 @@ const setModalListeners = (modal, config = modalConfig) => {
   const closeButton = modal.querySelector(config.modalCloseButtonSelector);
   const closeActionElements = [modalBackDrop, closeButton];
   closeActionElements.forEach((element) => {
-    element.addEventListener("click", handleCloseButtonClick);
+    element.addEventListener("click", handleCloseModalEvent);
   });
+  modal.addEventListener("keydown", handleCloseModalEvent);
   return modal;
 };
 
@@ -79,12 +81,13 @@ const removeModalListeners = (modal, config = modalConfig) => {
   const closeButton = modal.querySelector(config.modalCloseButtonSelector);
   const closeActionElements = [modalBackDrop, closeButton];
   closeActionElements.forEach((closeActionElement) => {
-    closeActionElement.removeEventListener("click", handleCloseButtonClick);
+    closeActionElement.removeEventListener("click", handleCloseModalEvent);
   });
+  modal.removeEventListener("keydown", handleCloseModalEvent);
   return modal;
 };
 
-const handleCloseButtonClick = (evt, config = modalConfig) => {
+const handleCloseModalEvent = (evt, config = modalConfig) => {
   const modal = evt.target.closest(config.modalSelector);
   closeModal(modal);
 };
