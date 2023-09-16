@@ -1,5 +1,5 @@
-import * as validate from "./validate.js";
 import { page } from "./constants.js";
+import { FormValidator } from "./FormValidator.js";
 
 const formConfig = {
   formTemplateSelector: "#form-template",
@@ -52,7 +52,8 @@ const buildForm = (form, inputs, config = formConfig) => {
   inputs.forEach((input) => {
     formInputsArea.append(input);
   });
-  validate.enableValidation(form);
+  const formValidator = new FormValidator(form);
+  formValidator.enableValidation(form);
   return form;
 };
 
@@ -62,7 +63,8 @@ function setSubmitEventListener(form, handler) {
 
 function removeSubmitEventListener(form, handler) {
   form.removeEventListener("submit", handler);
-  validate.removeFormValidationEventListeners(form);
+  const formValidator = new FormValidator(form);
+  formValidator.removeFormValidationEventListeners(form);
 }
 
 export {
