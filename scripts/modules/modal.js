@@ -88,8 +88,12 @@ const removeModalListeners = (modal, config = modalConfig) => {
 };
 
 const handleCloseModalEvent = (evt, config = modalConfig) => {
+  const isClosingEvent =
+    evt.type.toLowerCase() === "click" || evt.key.toLowerCase() === "escape";
   const modal = evt.target.closest(config.modalSelector);
-  closeModal(modal);
+  if (isClosingEvent) {
+    closeModal(modal);
+  }
 };
 
 export {

@@ -16,7 +16,9 @@ const inputValidationHandler = (evt, config = validationConfig) => {
 };
 
 const formPreSubmitValidationHandler = (evt, config = validationConfig) => {
-  if (!formIsValid(evt.currentTarget, config)) {
+  const isSubmitEvent =
+    evt.type.toLowerCase() === "click" || evt.key.toLowerCase() === "enter";
+  if (!formIsValid(evt.currentTarget, config) && isSubmitEvent) {
     evt.preventDefault();
   }
 };

@@ -1,7 +1,8 @@
 import { page, initialCards } from "./modules/constants.js";
 import * as form from "./modules/form.js";
 import * as modal from "./modules/modal.js";
-import * as destinationCard from "./modules/destinationCard.js";
+import * as destinationCard from "./modules/Card.js";
+import { Card } from "./modules/Card.js";
 
 const editButton = page.querySelector(".button_action_edit");
 const addCardButton = page.querySelector(".button_action_add");
@@ -12,10 +13,10 @@ loadDestinationCards(...initialCards);
 
 function loadDestinationCards(...destinationCards) {
   const destinationsContainer = document.querySelector(".destinations__list");
-  initialCards.forEach((destination) => {
-    destinationsContainer.append(
-      destinationCard.createDestinationCard(destination)
-    );
+  destinationCards.forEach((destination) => {
+    const card = new Card(destination.name, destination.link);
+    const cardElement = card.buildCard();
+    destinationsContainer.append(cardElement);
   });
 }
 
@@ -93,14 +94,10 @@ function handleAddCardFormSubmit(evt) {
   const targetForm = evt.target;
   const cardTitle = targetForm.title;
   const cardImageUrl = targetForm.imageUrl;
-  const newDestination = {
-    name: cardTitle.value,
-    link: cardImageUrl.value,
-  };
+
+  const card = new Card(cardTitle.value, cardImageUrl.value);
   const destinationsList = page.querySelector(".destinations__list");
-  destinationsList.prepend(
-    destinationCard.createDestinationCard(newDestination)
-  );
+  destinationsList.prepend(card.buildCard());
   form.removeSubmitEventListener(targetForm, handleAddCardFormSubmit);
-  modal.closeModal(modal.getCurrentModal(form));
+  modal.closeModal(modal.getCurrentModal(targetForm));
 }

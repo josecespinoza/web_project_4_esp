@@ -1,19 +1,110 @@
 import { page } from "./constants.js";
-import * as modal from "./modal.js";
+import { openModal, createCustomModal } from "./modal.js";
+import { cardConfig } from "./config.js";
 
-const cardConfig = {
-  cardTemplateSelector: "#destinations__item-template",
-  cardSelector: ".destinations__item",
-  cardNameSelector: ".destination__name",
-  cardPhotoSelector: ".destination__photo",
-  likeButtonSelector: ".button__icon_action_like",
-  deleteButtonSelector: ".button__icon_action_delete",
-  popUpTemplateSelector: "#destination-popup-template",
-  popUpPhotoSelector: ".destination-popup__photo",
-  popUpDescSelector: ".destination-popup__description",
-  notLikedButtonClass: "button__icon_action_like",
-  isLikedButtonClass: "button__icon_action_liked",
-};
+class Card {
+  constructor(name, imageUrl, config = cardConfig) {
+    this._name = name;
+    this._imageUrl = imageUrl;
+    this._config = config;
+    this._card = null;
+  }
+
+  buildCard() {
+    this._card = this._getTemplate().querySelector(this._config.cardSelector);
+    this._setCardName(this._name);
+    this._setCardImage(this._name, this._imageUrl);
+    this._setCardListeners();
+    return this._card;
+  }
+
+  _setCardName(name) {
+    this._card.querySelector(this._config.cardNameSelector).textContent = name;
+  }
+
+  _setCardImage(alt, imageUrl) {
+    const image = this._card.querySelector(this._config.cardImageSelector);
+    image.setAttribute("alt", alt);
+    image.setAttribute("src", imageUrl);
+  }
+
+  _getTemplate() {
+    return page
+      .querySelector(this._config.cardTemplateSelector)
+      .content.cloneNode(true);
+  }
+
+  _getImage() {
+    return this._card.querySelector(this._config.cardImageSelector);
+  }
+
+  _getLikeButton() {
+    return this._card.querySelector(this._config.likeButtonSelector);
+  }
+
+  _getDeleteButton() {
+    return this._card.querySelector(this._config.deleteButtonSelector);
+  }
+
+  _setCardListeners() {
+    this._getImage().addEventListener("click", () => {
+      this._handleCardClick();
+    });
+
+    this._getLikeButton().addEventListener("click", () => {
+      this._handleLikeButtonClick();
+    });
+    this._getDeleteButton().addEventListener("click", () => {
+      this._handleDeleteButtonClick();
+    });
+  }
+
+  _removeCardListeners() {
+    this._getImage().removeEventListener("click", this._handleCardClick);
+    this._getLikeButton().removeEventListener(
+      "click",
+      this._handleLikeButtonClick
+    );
+    this._getDeleteButton().removeEventListener(
+      "click",
+      this._handleDeleteButtonClick
+    );
+  }
+
+  _handleCardClick() {
+    const destinationPopUp = createDestinationPopUp(this._imageUrl, this._name);
+    openModal(destinationPopUp);
+  }
+
+  _like() {
+    this._getLikeButton().classList.remove(this._config.notLikedButtonClass);
+    this._getLikeButton().classList.add(this._config.isLikedButtonClass);
+  }
+
+  _dislike() {
+    this._getLikeButton().classList.remove(this._config.isLikedButtonClass);
+    this._getLikeButton().classList.add(this._config.notLikedButtonClass);
+  }
+
+  _isLiked() {
+    return this._getLikeButton().classList.contains(
+      this._config.notLikedButtonClass
+    );
+  }
+
+  _toggleLikeButton() {
+    this._isLiked() ? this._like() : this._dislike();
+  }
+
+  _handleLikeButtonClick() {
+    this._toggleLikeButton();
+  }
+
+  _handleDeleteButtonClick() {
+    this._removeCardListeners(this._card);
+    this._card.remove();
+  }
+}
 
 function createDestinationCard(destination, config = cardConfig) {
   const destinationCardClone = document
@@ -25,7 +116,7 @@ function createDestinationCard(destination, config = cardConfig) {
   destinationCard.querySelector(config.cardNameSelector).textContent =
     destination.name;
   const destinationPhoto = destinationCard.querySelector(
-    config.cardPhotoSelector
+    config.cardImageSelector
   );
   destinationPhoto.setAttribute("alt", destination.name);
   destinationPhoto.setAttribute("src", destination.link);
@@ -35,7 +126,7 @@ function createDestinationCard(destination, config = cardConfig) {
 
 function setDestinationCardListeners(destinationCard, config = cardConfig) {
   const destinationPhoto = destinationCard.querySelector(
-    config.cardPhotoSelector
+    config.cardImageSelector
   );
   destinationPhoto.addEventListener("click", handleDestinationCardClick);
   const destinationLikeButton = destinationCard.querySelector(
@@ -50,7 +141,7 @@ function setDestinationCardListeners(destinationCard, config = cardConfig) {
 
 function removeDestinationCardListeners(destinationCard, config = cardConfig) {
   const destinationPhoto = destinationCard.querySelector(
-    config.cardPhotoSelector
+    config.cardImageSelector
   );
   destinationPhoto.removeEventListener("click", handleDestinationCardClick);
   const destinationLikeButton = destinationCard.querySelector(
@@ -67,7 +158,7 @@ function handleDestinationCardClick(evt) {
   const description = evt.target.alt;
   const imageUrl = evt.target.src;
   const destinationPopUp = createDestinationPopUp(imageUrl, description);
-  modal.openModal(destinationPopUp);
+  openModal(destinationPopUp);
 }
 
 function handleLikeButtonClick(evt, config = cardConfig) {
@@ -102,8 +193,8 @@ function createDestinationPopUp(imageUrl, description, config = cardConfig) {
   );
   destinationDescription.textContent = description;
 
-  const destinationPopUpModal = modal.createCustomModal(newDestinationPopup);
+  const destinationPopUpModal = createCustomModal(newDestinationPopup);
   return destinationPopUpModal;
 }
 
-export { createDestinationCard, createDestinationPopUp };
+export { Card };
