@@ -8,6 +8,7 @@ class Card {
     this._imageUrl = imageUrl;
     this._config = config;
     this._card = null;
+    this._popUpCard = null;
   }
 
   buildCard() {
@@ -32,6 +33,21 @@ class Card {
     return page
       .querySelector(this._config.cardTemplateSelector)
       .content.cloneNode(true);
+  }
+
+  _getPopUpTemplate() {
+    return page
+      .querySelector(this._config.popUpTemplateSelector)
+      .content.cloneNode(true);
+  }
+
+  _getPopUpImage() {
+    return this._popUpCard.querySelector(this._config.popUpPhotoSelector);
+  }
+
+  _setPopUpDescription(description) {
+    this._popUpCard.querySelector(this._config.popUpDescSelector).textContent =
+      description;
   }
 
   _getImage() {
@@ -72,8 +88,11 @@ class Card {
   }
 
   _handleCardClick() {
-    const destinationPopUp = createDestinationPopUp(this._imageUrl, this._name);
-    openModal(destinationPopUp);
+    this._popUpCard = this._getPopUpTemplate();
+    this._getPopUpImage().setAttribute("src", this._imageUrl);
+    this._getPopUpImage().setAttribute("alt", this._name);
+    this._setPopUpDescription(this._name);
+    openModal(createCustomModal(this._popUpCard));
   }
 
   _like() {
@@ -106,95 +125,4 @@ class Card {
   }
 }
 
-function createDestinationCard(destination, config = cardConfig) {
-  const destinationCardClone = document
-    .querySelector(config.cardTemplateSelector)
-    .content.cloneNode(true);
-  const destinationCard = destinationCardClone.querySelector(
-    config.cardSelector
-  );
-  destinationCard.querySelector(config.cardNameSelector).textContent =
-    destination.name;
-  const destinationPhoto = destinationCard.querySelector(
-    config.cardImageSelector
-  );
-  destinationPhoto.setAttribute("alt", destination.name);
-  destinationPhoto.setAttribute("src", destination.link);
-  setDestinationCardListeners(destinationCard);
-  return destinationCard;
-}
-
-function setDestinationCardListeners(destinationCard, config = cardConfig) {
-  const destinationPhoto = destinationCard.querySelector(
-    config.cardImageSelector
-  );
-  destinationPhoto.addEventListener("click", handleDestinationCardClick);
-  const destinationLikeButton = destinationCard.querySelector(
-    config.likeButtonSelector
-  );
-  destinationLikeButton.addEventListener("click", handleLikeButtonClick);
-  const destinationDeleteButton = destinationCard.querySelector(
-    config.deleteButtonSelector
-  );
-  destinationDeleteButton.addEventListener("click", handleDeleteButtonClick);
-}
-
-function removeDestinationCardListeners(destinationCard, config = cardConfig) {
-  const destinationPhoto = destinationCard.querySelector(
-    config.cardImageSelector
-  );
-  destinationPhoto.removeEventListener("click", handleDestinationCardClick);
-  const destinationLikeButton = destinationCard.querySelector(
-    config.likeButtonSelector
-  );
-  destinationLikeButton.removeEventListener("click", handleLikeButtonClick);
-  const destinationDeleteButton = destinationCard.querySelector(
-    config.deleteButtonSelector
-  );
-  destinationDeleteButton.removeEventListener("click", handleDeleteButtonClick);
-}
-
-function handleDestinationCardClick(evt) {
-  const description = evt.target.alt;
-  const imageUrl = evt.target.src;
-  const destinationPopUp = createDestinationPopUp(imageUrl, description);
-  openModal(destinationPopUp);
-}
-
-function handleLikeButtonClick(evt, config = cardConfig) {
-  const clickedButton = evt.target;
-  if (clickedButton.classList.contains(config.notLikedButtonClass)) {
-    clickedButton.classList.remove(config.notLikedButtonClass);
-    clickedButton.classList.add(config.isLikedButtonClass);
-  } else {
-    clickedButton.classList.remove(config.isLikedButtonClass);
-    clickedButton.classList.add(config.notLikedButtonClass);
-  }
-}
-
-function handleDeleteButtonClick(evt, config = cardConfig) {
-  const card = evt.target.closest(config.cardSelector);
-  removeDestinationCardListeners(card);
-  card.remove();
-}
-
-function createDestinationPopUp(imageUrl, description, config = cardConfig) {
-  const destinationPopUpTemplate = page.querySelector(
-    config.popUpTemplateSelector
-  );
-  const newDestinationPopup = destinationPopUpTemplate.cloneNode(true).content;
-  const destinationPhoto = newDestinationPopup.querySelector(
-    config.popUpPhotoSelector
-  );
-  destinationPhoto.setAttribute("src", imageUrl);
-  destinationPhoto.setAttribute("alt", description);
-  const destinationDescription = newDestinationPopup.querySelector(
-    config.popUpDescSelector
-  );
-  destinationDescription.textContent = description;
-
-  const destinationPopUpModal = createCustomModal(newDestinationPopup);
-  return destinationPopUpModal;
-}
-
-export { Card };
+export default Card;
