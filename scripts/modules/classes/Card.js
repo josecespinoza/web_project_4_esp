@@ -1,6 +1,6 @@
-import { page } from "./constants.js";
-import { openModal, createCustomModal } from "./modal.js";
-import { cardConfig } from "./config.js";
+import { page } from "../constants.js";
+import { openModal, createCustomModal } from "../modal.js";
+import { cardConfig } from "../config.js";
 
 class Card {
   constructor(name, imageUrl, config = cardConfig) {

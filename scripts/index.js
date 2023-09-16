@@ -1,7 +1,7 @@
 import { page, initialCards } from "./modules/constants.js";
 import * as form from "./modules/form.js";
 import * as modal from "./modules/modal.js";
-import Card from "./modules/Card.js";
+import Card from "./modules/classes/Card.js";
 
 const editButton = page.querySelector(".button_action_edit");
 const addCardButton = page.querySelector(".button_action_add");
