@@ -21,4 +21,21 @@ const validationConfig = {
   errorClass: "form__input-error",
 };
 
-export { cardConfig, validationConfig };
+const formConfig = {
+  formTemplateSelector: "#form-template",
+  formSelector: ".form",
+  formTitleSelector: ".form__title",
+  formButtonSelector: ".button",
+  formInputTemplateSelector: "#form__input-template",
+  formInputSetSelector: ".form__input-set",
+  formInputSelector: ".form__input",
+  formInputsAreaSelector: ".form__inputs",
+};
+
+const inputSetConfig = {
+  inputTemplateSelector: "#form__input-template",
+  inputSetSelector: ".form__input-set",
+  inputSelector: ".form__input",
+};
+
+export { cardConfig, validationConfig, formConfig, inputSetConfig };

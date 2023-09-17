@@ -1,4 +1,4 @@
-import { validationConfig } from "./config.js";
+import { validationConfig } from "../config.js";
 
 class FormValidator {
   constructor(form, config = validationConfig) {

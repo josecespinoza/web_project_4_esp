@@ -39,4 +39,47 @@ const initialCards = [
   },
 ];
 
-export { page, initialCards };
+const inputSetNameData = {
+  type: "text",
+  name: "name",
+  placeholder: "Nombre",
+  isRequired: true,
+  maxlength: 40,
+  minlength: 2,
+};
+
+const inputSetAboutMeData = {
+  type: "text",
+  name: "aboutMe",
+  placeholder: "Acerca de mí",
+  isRequired: true,
+  maxlength: 200,
+  minlength: 2,
+};
+
+const inputSetTitleData = {
+  type: "text",
+  name: "title",
+  placeholder: "Título",
+  isRequired: true,
+  maxlength: 30,
+  minlength: 2,
+};
+
+const inputSetImageUrlData = {
+  type: "url",
+  name: "imageUrl",
+  placeholder: "Enlace a la imagen",
+  isRequired: true,
+  maxlength: 500,
+  minlength: null,
+};
+
+export {
+  page,
+  initialCards,
+  inputSetNameData,
+  inputSetAboutMeData,
+  inputSetTitleData,
+  inputSetImageUrlData,
+};
