@@ -6,6 +6,7 @@ const cardConfig = {
   likeButtonSelector: ".button_action_like .button__icon",
   deleteButtonSelector: ".button__icon_action_delete",
   popUpTemplateSelector: "#destination-popup-template",
+  popUpSelector: ".destination-popup",
   popUpPhotoSelector: ".destination-popup__photo",
   popUpDescSelector: ".destination-popup__description",
   notLikedButtonClass: "button__icon_action_like",
@@ -38,4 +39,23 @@ const inputSetConfig = {
   inputSelector: ".form__input",
 };
 
-export { cardConfig, validationConfig, formConfig, inputSetConfig };
+const modalConfig = {
+  modalTemplateSelector: "#modal-template",
+  modalSelector: ".modal-container",
+  modalContentSelector: ".modal-container__content",
+  modalBackdropSelector: ".modal-container__backdrop",
+  modalCloseButtonSelector: ".button__icon_action_close",
+  modalModifierFormClass: "modal-container__form",
+  modalClosedStateClass: "modal-container_state_closed",
+  modalOpenedStateClass: "modal-container_state_opened",
+  modalClosingTimeInMs: "300",
+  formClass: "form",
+};
+
+export {
+  cardConfig,
+  validationConfig,
+  formConfig,
+  inputSetConfig,
+  modalConfig,
+};

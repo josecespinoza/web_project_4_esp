@@ -6,13 +6,14 @@ import {
   inputSetTitleData,
   inputSetImageUrlData,
 } from "./modules/constants.js";
-import * as modal from "./modules/modal.js";
 import Card from "./modules/classes/Card.js";
 import Form from "./modules/classes/Form.js";
 import InputSet from "./modules/classes/InputSet.js";
+import Modal from "./modules/classes/Modal.js";
 
 const editButton = page.querySelector(".button_action_edit");
 const addCardButton = page.querySelector(".button_action_add");
+const modalHandler = new Modal();
 editButton.addEventListener("click", handleEditProfileButtonClick);
 addCardButton.addEventListener("click", handleAddCardButtonClick);
 
@@ -45,8 +46,9 @@ function handleEditProfileButtonClick() {
     inputSets,
     handleProfileEditSubmit
   );
-  const newModal = modal.createModal(newForm.buildForm());
-  modal.openModal(newModal);
+  modalHandler.setContent(newForm.buildForm());
+  modalHandler.buildModal();
+  modalHandler.open();
   inputSetName.inputFocus();
 }
 
@@ -56,7 +58,7 @@ function handleProfileEditSubmit(evt) {
   page.querySelector(".profile__name").textContent = targetForm.name.value;
   page.querySelector(".profile__occupation").textContent =
     targetForm.aboutMe.value;
-  modal.closeModal(modal.getCurrentModal(targetForm));
+  modalHandler.close();
 }
 
 function handleAddCardButtonClick(evt) {
@@ -73,8 +75,9 @@ function handleAddCardButtonClick(evt) {
     inputSets,
     handleAddCardFormSubmit
   );
-  const newCardModal = modal.createModal(newCardForm.buildForm());
-  modal.openModal(newCardModal);
+  modalHandler.setContent(newCardForm.buildForm());
+  modalHandler.buildModal();
+  modalHandler.open();
 }
 
 function handleAddCardFormSubmit(evt) {
@@ -85,5 +88,5 @@ function handleAddCardFormSubmit(evt) {
   const card = new Card(cardTitle.value, cardImageUrl.value);
   const destinationsList = page.querySelector(".destinations__list");
   destinationsList.prepend(card.buildCard());
-  modal.closeModal(modal.getCurrentModal(targetForm));
+  modalHandler.close();
 }

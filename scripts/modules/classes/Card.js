@@ -1,5 +1,5 @@
 import { page } from "../constants.js";
-import { openModal, createCustomModal } from "../modal.js";
+import CardModal from "./CardModal.js";
 import { cardConfig } from "../config.js";
 
 class Card {
@@ -88,11 +88,15 @@ class Card {
   }
 
   _handleCardClick() {
-    this._popUpCard = this._getPopUpTemplate();
+    this._popUpCard = this._getPopUpTemplate().querySelector(
+      this._config.popUpSelector
+    );
     this._getPopUpImage().setAttribute("src", this._imageUrl);
     this._getPopUpImage().setAttribute("alt", this._name);
     this._setPopUpDescription(this._name);
-    openModal(createCustomModal(this._popUpCard));
+    const modal = new CardModal(this._popUpCard);
+    modal.buildModal();
+    modal.open();
   }
 
   _like() {
