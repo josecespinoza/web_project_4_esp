@@ -52,10 +52,19 @@ const modalConfig = {
   formClass: "form",
 };
 
+const globalConfig = {
+  editProfileButtonSelector: ".button_action_edit",
+  addCardButtonSelector: ".button_action_add",
+  cardsContainerSelector: ".destinations__list",
+  profileNameSelector: ".profile__name",
+  profileOccupationSelector: ".profile__occupation",
+};
+
 export {
   cardConfig,
   validationConfig,
   formConfig,
   inputSetConfig,
   modalConfig,
+  globalConfig,
 };
