@@ -9,6 +9,9 @@ class Card {
     this._config = config;
     this._card = null;
     this._popUpCard = null;
+    this._handleCardClick = this._handleCardClick.bind(this);
+    this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this);
+    this._handleDeleteButtonClick = this._handleDeleteButtonClick.bind(this);
   }
 
   buildCard() {
@@ -63,16 +66,16 @@ class Card {
   }
 
   _setCardListeners() {
-    this._getImage().addEventListener("click", () => {
-      this._handleCardClick();
-    });
+    this._getImage().addEventListener("click", this._handleCardClick);
 
-    this._getLikeButton().addEventListener("click", () => {
-      this._handleLikeButtonClick();
-    });
-    this._getDeleteButton().addEventListener("click", () => {
-      this._handleDeleteButtonClick();
-    });
+    this._getLikeButton().addEventListener(
+      "click",
+      this._handleLikeButtonClick
+    );
+    this._getDeleteButton().addEventListener(
+      "click",
+      this._handleDeleteButtonClick
+    );
   }
 
   _removeCardListeners() {
