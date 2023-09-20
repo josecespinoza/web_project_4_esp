@@ -13,7 +13,7 @@ class FormValidator {
     const inputs = Array.from(
       this._form.querySelectorAll(this._config.inputSelector)
     );
-    return inputs.every((input, index) => {
+    return inputs.every((input) => {
       return input.validity.valid;
     });
   }

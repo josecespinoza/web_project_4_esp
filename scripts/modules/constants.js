@@ -1,4 +1,6 @@
-const page = document.querySelector(".page");
+import { globalConfig } from "./config.js";
+
+const page = document.querySelector(globalConfig.pageSelector);
 
 const initialCards = [
   {

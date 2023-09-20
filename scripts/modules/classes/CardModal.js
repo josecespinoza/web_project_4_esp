@@ -1,5 +1,5 @@
-import Modal from "./Modal.js";
 import { modalConfig } from "../config.js";
+import Modal from "./Modal.js";
 
 class CardModal extends Modal {
   constructor(content, config = modalConfig) {

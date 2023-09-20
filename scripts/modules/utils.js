@@ -13,15 +13,9 @@ import {
 
 const modalHandler = new Modal();
 
-const buildModal = () => {
-  modalHandler.buildModal();
-};
-
-const setModalContent = (content) => {
+const openModal = (content) => {
   modalHandler.setContent(content);
-};
-
-const openModal = () => {
+  modalHandler.buildModal();
   modalHandler.open();
 };
 
@@ -49,9 +43,7 @@ function handleEditProfileButtonClick() {
     inputSets,
     handleProfileEditSubmit
   );
-  setModalContent(newForm.buildForm());
-  buildModal();
-  openModal();
+  openModal(newForm.buildForm());
   inputSetName.inputFocus();
 }
 
@@ -79,9 +71,7 @@ function handleAddCardButtonClick(evt) {
     inputSets,
     handleAddCardFormSubmit
   );
-  setModalContent(newCardForm.buildForm());
-  buildModal();
-  openModal();
+  openModal(newCardForm.buildForm());
 }
 
 function handleAddCardFormSubmit(evt) {

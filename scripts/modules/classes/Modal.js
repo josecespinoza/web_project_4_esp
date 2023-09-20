@@ -34,6 +34,18 @@ class Modal {
     return content.classList.contains(this._config.formClass);
   }
 
+  _setModalListeners() {
+    this._closeOnClick(this._getModalBackdrop());
+    this._closeOnClick(this._getCloseButton());
+    this._closeOnEscape(this._modal);
+  }
+
+  _removeModalListeners() {
+    this._removeCloseOnClickListener(this._getModalBackdrop());
+    this._removeCloseOnClickListener(this._getCloseButton());
+    this._removeCloseOnEscapeListener(this._modal);
+  }
+
   _closeOnClick(element) {
     element.addEventListener("click", this._handleCloseOnClick);
   }
@@ -56,25 +68,6 @@ class Modal {
 
   _handleCloseOnEscape(evt) {
     evt.key.toLowerCase() === "escape" && this.close();
-  }
-
-  _handleCloseModalEvent(evt) {
-    const modal = evt.target.closest(this._config.modalSelector);
-    if (this._isClosingEvent) {
-      closeModal(modal);
-    }
-  }
-
-  _removeModalListeners() {
-    this._removeCloseOnClickListener(this._getModalBackdrop());
-    this._removeCloseOnClickListener(this._getCloseButton());
-    this._removeCloseOnEscapeListener(this._modal);
-  }
-
-  _setModalListeners() {
-    this._closeOnClick(this._getModalBackdrop());
-    this._closeOnClick(this._getCloseButton());
-    this._closeOnEscape(this._modal);
   }
 
   _isOpened() {

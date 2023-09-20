@@ -53,6 +53,7 @@ const modalConfig = {
 };
 
 const globalConfig = {
+  pageSelector: ".page",
   editProfileButtonSelector: ".button_action_edit",
   addCardButtonSelector: ".button_action_add",
   cardsContainerSelector: ".destinations__list",

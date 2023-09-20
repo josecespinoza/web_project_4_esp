@@ -1,5 +1,5 @@
-import { inputSetConfig } from "../config.js";
 import { page } from "../constants.js";
+import { inputSetConfig } from "../config.js";
 
 class InputSet {
   constructor(data, config = inputSetConfig) {
@@ -14,19 +14,10 @@ class InputSet {
     this._input = null;
   }
 
-  setInputValue(value) {
-    this._input.value = value;
-  }
-
   _getTemplate() {
     return page
       .querySelector(this._config.inputTemplateSelector)
       .cloneNode(true).content;
-  }
-
-  inputFocus() {
-    this._input.focus();
-    this._input.select();
   }
 
   _mapInputAttributes() {
@@ -36,6 +27,15 @@ class InputSet {
     this._input.setAttribute("maxlength", this._maxlength);
     this._input.setAttribute("minlength", this._minlength);
     this._input.setAttribute("required", this._isRequired);
+  }
+
+  setInputValue(value) {
+    this._input.value = value;
+  }
+
+  inputFocus() {
+    this._input.focus();
+    this._input.select();
   }
 
   buildFormInputSet() {
