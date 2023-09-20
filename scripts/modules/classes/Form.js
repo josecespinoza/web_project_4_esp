@@ -1,6 +1,6 @@
 import { page } from "../constants.js";
 import { formConfig } from "../config.js";
-import { FormValidator } from "./FormValidator.js";
+import FormValidator from "./FormValidator.js";
 
 class Form {
   constructor(
@@ -17,6 +17,8 @@ class Form {
     this._submitEventHandler = submitEventHandler;
     this._form = null;
     this._formValidator = null;
+    this._postSubmitEventHandler = this._postSubmitEventHandler.bind(this);
+    this._submitEventHandler = this._submitEventHandler.bind(this);
   }
 
   _getTemplate() {
@@ -44,16 +46,15 @@ class Form {
     });
   }
 
-  _setSubmitEventListener(handler) {
-    this._form.addEventListener("submit", handler);
-    this._form.addEventListener("submit", () => {
-      this._postSubmitEventHandler(handler);
-    });
+  _setSubmitEventListener() {
+    this._form.addEventListener("submit", this._submitEventHandler);
+    this._form.addEventListener("submit", this._postSubmitEventHandler);
   }
 
-  _postSubmitEventHandler(handler) {
-    this._form.removeEventListener("submit", handler);
-    //TODO removeEventListener of FormValidator
+  _postSubmitEventHandler() {
+    this._form.removeEventListener("submit", this._submitEventHandler);
+    this._form.removeEventListener("submit", this._postSubmitEventHandler);
+    this._formValidator.removeFormValidationEventListeners();
   }
 
   _enableValidation(form) {

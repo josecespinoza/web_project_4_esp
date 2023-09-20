@@ -4,6 +4,9 @@ class FormValidator {
   constructor(form, config = validationConfig) {
     this._form = form;
     this._config = config;
+    this._inputValidationHandler = this._inputValidationHandler.bind(this);
+    this._formPreSubmitValidationHandler =
+      this._formPreSubmitValidationHandler.bind(this);
   }
 
   _formIsValid() {
@@ -41,19 +44,33 @@ class FormValidator {
     }
   }
 
+  _getSubmitButton() {
+    return this._form.querySelector(this._config.submitButtonSelector);
+  }
+
   _setFormValidationEventListeners() {
-    this._form.addEventListener("input", (evt) => {
-      this._inputValidationHandler(evt);
-    });
-    this._form.addEventListener("keydown", (evt) => {
-      this._formPreSubmitValidationHandler(evt);
-    });
-    const submitButton = this._form.querySelector(
-      this._config.submitButtonSelector
+    this._form.addEventListener("input", this._inputValidationHandler);
+    this._form.addEventListener(
+      "keydown",
+      this._formPreSubmitValidationHandler
     );
-    submitButton.addEventListener("click", (evt) => {
-      this._formPreSubmitValidationHandler(evt);
-    });
+    this._getSubmitButton().addEventListener(
+      "click",
+      this._formPreSubmitValidationHandler
+    );
+  }
+
+  removeFormValidationEventListeners() {
+    debugger;
+    this._form.removeEventListener("input", this._inputValidationHandler);
+    this._form.removeEventListener(
+      "keydown",
+      this._formPreSubmitValidationHandler
+    );
+    this._getSubmitButton().removeEventListener(
+      "click",
+      this._formPreSubmitValidationHandler
+    );
   }
 
   enableValidation() {
@@ -62,4 +79,4 @@ class FormValidator {
   }
 }
 
-export { FormValidator };
+export default FormValidator;
