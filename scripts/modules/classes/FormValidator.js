@@ -61,7 +61,6 @@ class FormValidator {
   }
 
   removeFormValidationEventListeners() {
-    debugger;
     this._form.removeEventListener("input", this._inputValidationHandler);
     this._form.removeEventListener(
       "keydown",

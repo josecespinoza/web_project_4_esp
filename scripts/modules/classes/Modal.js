@@ -6,6 +6,8 @@ class Modal {
     this._config = config;
     this._content = content;
     this._modal = null;
+    this._handleCloseOnEscape = this._handleCloseOnEscape.bind(this);
+    this._handleCloseOnClick = this._handleCloseOnClick.bind(this);
   }
 
   _getTemplate() {
@@ -33,15 +35,19 @@ class Modal {
   }
 
   _closeOnClick(element) {
-    element.addEventListener("click", (evt) => {
-      this._handleCloseOnClick(evt);
-    });
+    element.addEventListener("click", this._handleCloseOnClick);
+  }
+
+  _removeCloseOnClickListener(element) {
+    element.removeEventListener("click", this._handleCloseOnClick);
   }
 
   _closeOnEscape(element) {
-    element.addEventListener("keydown", (evt) => {
-      this._handleCloseOnEscape(evt);
-    });
+    element.addEventListener("keydown", this._handleCloseOnEscape);
+  }
+
+  _removeCloseOnEscapeListener(element) {
+    element.removeEventListener("keydown", this._handleCloseOnEscape);
   }
 
   _handleCloseOnClick(evt) {
@@ -60,7 +66,9 @@ class Modal {
   }
 
   _removeModalListeners() {
-    //TODO
+    this._removeCloseOnClickListener(this._getModalBackdrop());
+    this._removeCloseOnClickListener(this._getCloseButton());
+    this._removeCloseOnEscapeListener(this._modal);
   }
 
   _setModalListeners() {
@@ -85,7 +93,7 @@ class Modal {
 
   close() {
     this._toggleModal();
-    //removeModalListeners(this._modal);
+    this._removeModalListeners();
     setTimeout(() => {
       this._modal.remove();
     }, this._config.modalClosingTimeInMs);
@@ -113,16 +121,5 @@ class Modal {
     return this._modal;
   }
 }
-
-/*const removeModalListeners = (modal, config = modalConfig) => {
-  const modalBackDrop = modal.querySelector(config.modalBackdropSelector);
-  const closeButton = modal.querySelector(config.modalCloseButtonSelector);
-  const closeActionElements = [modalBackDrop, closeButton];
-  closeActionElements.forEach((closeActionElement) => {
-    closeActionElement.removeEventListener("click", handleCloseModalEvent);
-  });
-  modal.removeEventListener("keydown", handleCloseModalEvent);
-  return modal;
-};*/
 
 export default Modal;
