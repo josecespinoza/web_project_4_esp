@@ -57,7 +57,7 @@ function handleProfileEditSubmit(evt) {
   closeModal();
 }
 
-function handleAddCardButtonClick(evt) {
+function handleAddCardButtonClick() {
   const inputSets = [];
   const inputSetTitle = new InputSet(inputSetTitleData);
   const inputSetImageUrl = new InputSet(inputSetImageUrlData);
