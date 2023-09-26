@@ -33,10 +33,7 @@
 @import url("../blocks/button/_action/button_action_edit.css");
 @import url("../blocks/button/_action/button_action_add.css");
 @import url("../blocks/button/_action/button_action_save.css");
-@import url("../blocks/button/_action/button_action_like.css");
-@import url("../blocks/button/_action/button_action_save.css");
 @import url("../blocks/button/_action/button_action_close.css");
-@import url("../blocks/button/_action/button_action_delete.css");
 @import url("../blocks/button/_location/button_location_profile.css");
 @import url("../blocks/button/_location/button_location_profile-info.css");
 @import url("../blocks/button/_location/button_location_destination.css");
