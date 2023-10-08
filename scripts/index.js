@@ -5,21 +5,25 @@ import {
   handleAddCardButtonClick,
 } from "./modules/utils.js";
 import { globalConfig } from "./modules/config.js";
+import Section from "./modules/classes/Section.js";
 
 const editButton = page.querySelector(globalConfig.editProfileButtonSelector);
 const addCardButton = page.querySelector(globalConfig.addCardButtonSelector);
 editButton.addEventListener("click", handleEditProfileButtonClick);
 addCardButton.addEventListener("click", handleAddCardButtonClick);
 
-loadDestinationCards(...initialCards);
+loadDestinationCards(initialCards);
 
-function loadDestinationCards(...destinationCards) {
-  const destinationsContainer = document.querySelector(
+function loadDestinationCards(destinationCards) {
+  const section = new Section(
+    {
+      items: destinationCards,
+      renderer: (cardItem) => {
+        const card = new Card(cardItem.name, cardItem.link);
+        section.addItem(card.buildCard());
+      },
+    },
     globalConfig.cardsContainerSelector
   );
-  destinationCards.forEach((destination) => {
-    const card = new Card(destination.name, destination.link);
-    const cardElement = card.buildCard();
-    destinationsContainer.append(cardElement);
-  });
+  section.renderItems();
 }
