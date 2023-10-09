@@ -64,6 +64,10 @@ class Popup {
     return this._config.popupContentSelector;
   }
 
+  _getContentContainer() {
+    return this._popup.querySelector(this._config.popupContentSelector);
+  }
+
   open() {
     if (!this._isOpened()) {
       this._togglePopup();
