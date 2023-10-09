@@ -7,6 +7,8 @@ import {
 import { globalConfig } from "./modules/config.js";
 import Section from "./modules/classes/Section.js";
 
+/* import Popup from "./modules/classes/Popup.js"; */
+
 const editButton = page.querySelector(globalConfig.editProfileButtonSelector);
 const addCardButton = page.querySelector(globalConfig.addCardButtonSelector);
 editButton.addEventListener("click", handleEditProfileButtonClick);
@@ -25,5 +27,22 @@ function loadDestinationCards(destinationCards) {
     },
     globalConfig.cardsContainerSelector
   );
-  section.renderItems();
+  section.renderer();
 }
+
+/* const card = new Card("test", "test");
+
+const popup = new Popup(globalConfig.popupSelector);
+const popupSection = new Section(
+  {
+    items: [card],
+    renderer: (card) => {
+      popup.buildPopup();
+      popup.setEventListeners();
+      popup.open();
+      popupSection.addItem(card.buildCard());
+    },
+  },
+  popup.getContentSelector()
+); */
+//popupSection.renderer();

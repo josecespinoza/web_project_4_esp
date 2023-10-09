@@ -52,6 +52,19 @@ const modalConfig = {
   formClass: "form",
 };
 
+const popupConfig = {
+  popupTemplateSelector: "#modal-template",
+  popupSelector: ".modal-container",
+  popupContentSelector: ".modal-container__content",
+  popupBackdropSelector: ".modal-container__backdrop",
+  popupCloseButtonSelector: ".button__icon_action_close",
+  popupModifierFormClass: "modal-container__form",
+  popupClosedStateClass: "modal-container_state_closed",
+  popupOpenedStateClass: "modal-container_state_opened",
+  popupClosingTimeInMs: "300",
+  formClass: "form",
+};
+
 const globalConfig = {
   pageSelector: ".page",
   editProfileButtonSelector: ".button_action_edit",
@@ -59,6 +72,7 @@ const globalConfig = {
   cardsContainerSelector: ".destinations__list",
   profileNameSelector: ".profile__name",
   profileOccupationSelector: ".profile__occupation",
+  popupSelector: ".modal-container",
 };
 
 export {
@@ -67,5 +81,6 @@ export {
   formConfig,
   inputSetConfig,
   modalConfig,
+  popupConfig,
   globalConfig,
 };
