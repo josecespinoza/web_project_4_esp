@@ -43,6 +43,6 @@ const popupSection = new Section(
       popupSection.addItem(card.buildCard());
     },
   },
-  popup.getContentSelector()
-); */
-//popupSection.renderer();
+  ".popup__content"
+);
+popupSection.renderer(); */

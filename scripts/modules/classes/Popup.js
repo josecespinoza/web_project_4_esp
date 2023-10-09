@@ -60,12 +60,6 @@ class Popup {
     return page.querySelector(this.popupSelector);
   }
 
-  _placeContent(content) {
-    this._popup
-      .querySelector(this._config.popupContentSelector)
-      .prepend(content);
-  }
-
   getContentSelector() {
     return this._config.popupContentSelector;
   }

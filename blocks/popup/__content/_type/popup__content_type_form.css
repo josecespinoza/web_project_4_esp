@@ -1,0 +1,12 @@
+.popup__content_type_form {
+  width: 430px;
+  height: auto;
+  background-color: white;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 490px) {
+  .popup__content_type_form {
+    max-width: 282px;
+  }
+}
