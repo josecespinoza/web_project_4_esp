@@ -3,13 +3,13 @@ import { cardConfig } from "../config.js";
 import CardModal from "./CardModal.js";
 
 class Card {
-  constructor(name, imageUrl, config = cardConfig) {
+  constructor(name, imageUrl, handleCardClick, config = cardConfig) {
     this._name = name;
     this._imageUrl = imageUrl;
     this._config = config;
     this._card = null;
     this._popUpCard = null;
-    this._handleCardClick = this._handleCardClick.bind(this);
+    this._handleCardClick = handleCardClick;
     this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this);
     this._handleDeleteButtonClick = this._handleDeleteButtonClick.bind(this);
   }
@@ -102,7 +102,7 @@ class Card {
     );
   }
 
-  _handleCardClick() {
+  /*   handleCardClick() {
     this._popUpCard = this._getPopUpTemplate().querySelector(
       this._config.popUpSelector
     );
@@ -112,7 +112,7 @@ class Card {
     const modal = new CardModal(this._popUpCard);
     modal.buildModal();
     modal.open();
-  }
+  } */
 
   _handleLikeButtonClick() {
     this._toggleLikeButton();

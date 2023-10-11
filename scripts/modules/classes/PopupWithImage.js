@@ -7,8 +7,8 @@ class PopupWithImage extends Popup {
     super(popupSelector, popupConfig);
     this._imageUrl = imageUrl;
     this._description = description;
+    this.open = this.open.bind(this);
   }
-
   _modifyContentContainer() {
     return this._getContentContainer().classList.add(
       "popup__content_type_image"
@@ -34,11 +34,11 @@ class PopupWithImage extends Popup {
   }
 
   _setDescription() {
-    const DescElement = this._getImageTemplate().querySelector(
+    const descElement = this._getImageTemplate().querySelector(
       ".popup__description"
     );
-    DescElement.textContent = this._description;
-    this._getContentContainer().append(DescElement);
+    descElement.textContent = this._description;
+    this._getContentContainer().append(descElement);
   }
 
   open() {

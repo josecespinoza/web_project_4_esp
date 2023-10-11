@@ -6,8 +6,8 @@ import {
 } from "./modules/utils.js";
 import { globalConfig } from "./modules/config.js";
 import Section from "./modules/classes/Section.js";
-/* import PopupWithImage from "./modules/classes/PopupWithImage.js";
- */
+import PopupWithImage from "./modules/classes/PopupWithImage.js";
+
 /* import Popup from "./modules/classes/Popup.js"; */
 
 const editButton = page.querySelector(globalConfig.editProfileButtonSelector);
@@ -15,20 +15,27 @@ const addCardButton = page.querySelector(globalConfig.addCardButtonSelector);
 editButton.addEventListener("click", handleEditProfileButtonClick);
 addCardButton.addEventListener("click", handleAddCardButtonClick);
 
-loadDestinationCards(initialCards);
+loadCards(initialCards);
 
-function loadDestinationCards(destinationCards) {
-  const section = new Section(
+function loadCards(cards) {
+  const cardsSection = new Section(
     {
-      items: destinationCards,
+      items: cards,
       renderer: (cardItem) => {
-        const card = new Card(cardItem.name, cardItem.link);
-        section.addItem(card.buildCard());
+        const imagePopup = new PopupWithImage(globalConfig.popupSelector, {
+          imageUrl: cardItem.link,
+          description: cardItem.name,
+        });
+        imagePopup.buildPopup();
+        imagePopup.setEventListeners();
+        const card = new Card(cardItem.name, cardItem.link, imagePopup.open);
+        const cardElement = card.buildCard();
+        cardsSection.addItem(cardElement);
       },
     },
     globalConfig.cardsContainerSelector
   );
-  section.renderer();
+  cardsSection.renderer();
 }
 
 /* const card = new Card("test", "test");
