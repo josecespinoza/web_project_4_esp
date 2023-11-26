@@ -6,6 +6,7 @@ class PopupWithForm extends Popup {
     super(popupSelector, popupConfig);
     this._submitEventHandler = submitEventHandler;
     this._submitEventHandler = this._submitEventHandler.bind(this);
+    this._postSubmitEventHandler = this._postSubmitEventHandler.bind(this);
     this._form = form;
   }
 
@@ -20,6 +21,13 @@ class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener("submit", this._submitEventHandler);
+    this._form.addEventListener("submit", this._postSubmitEventHandler);
+  }
+
+  _postSubmitEventHandler() {
+    this._form.removeEventListener("submit", this._submitEventHandler);
+    this._form.removeEventListener("submit", this._postSubmitEventHandler);
+    this.close();
   }
 
   _setForm() {
@@ -29,7 +37,6 @@ class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    this._form.reset();
   }
 
   open() {

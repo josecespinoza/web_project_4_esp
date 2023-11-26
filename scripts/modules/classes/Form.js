@@ -1,24 +1,13 @@
 import { page } from "../constants.js";
 import { formConfig } from "../config.js";
-import FormValidator from "./FormValidator.js";
 
 class Form {
-  constructor(
-    formTitle,
-    buttonLabel,
-    inputSetList,
-    submitEventHandler,
-    config = formConfig
-  ) {
+  constructor(formTitle, buttonLabel, inputSetList, config = formConfig) {
     this._config = config;
     this._formTitle = formTitle;
     this._buttonLabel = buttonLabel;
     this._inputSetList = inputSetList;
-    this._submitEventHandler = submitEventHandler;
     this._form = null;
-    this._formValidator = null;
-    this._postSubmitEventHandler = this._postSubmitEventHandler.bind(this);
-    this._submitEventHandler = this._submitEventHandler.bind(this);
   }
 
   _getTemplate() {
@@ -46,29 +35,11 @@ class Form {
     });
   }
 
-  _setSubmitEventListener() {
-    this._form.addEventListener("submit", this._submitEventHandler);
-    this._form.addEventListener("submit", this._postSubmitEventHandler);
-  }
-
-  _postSubmitEventHandler() {
-    this._form.removeEventListener("submit", this._submitEventHandler);
-    this._form.removeEventListener("submit", this._postSubmitEventHandler);
-    this._formValidator.removeFormValidationEventListeners();
-  }
-
-  _enableValidation(form) {
-    this._formValidator = new FormValidator(form);
-    this._formValidator.enableValidation();
-  }
-
   buildForm() {
     this._form = this._getTemplate().querySelector(this._config.formSelector);
     this._setTitle(this._formTitle);
     this._setButtonLabel(this._buttonLabel);
     this._setInputs(this._inputSetList);
-    this._setSubmitEventListener(this._submitEventHandler);
-    this._enableValidation(this._form);
     return this._form;
   }
 }

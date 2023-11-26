@@ -10,7 +10,6 @@ import {
   inputSetTitleData,
   page,
 } from "./constants.js";
-import Section from "./classes/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "./classes/FormValidator.js";
 
@@ -40,12 +39,7 @@ function createEditProfileForm() {
   inputSetAboutMe.setInputValue(
     page.querySelector(globalConfig.profileOccupationSelector).textContent
   );
-  const newForm = new Form(
-    "Editar Perfil",
-    "Guardar",
-    inputSets,
-    handleProfileEditSubmit
-  );
+  const newForm = new Form("Editar Perfil", "Guardar", inputSets);
 
   return newForm.buildForm();
 }
@@ -71,7 +65,6 @@ function handleProfileEditSubmit(evt) {
     targetForm.name.value;
   page.querySelector(globalConfig.profileOccupationSelector).textContent =
     targetForm.aboutMe.value;
-  closeModal();
 }
 
 function handleAddCardButtonClick() {
