@@ -1,5 +1,5 @@
-import { popupConfig } from "../config.js";
-import { page } from "../constants.js";
+import { popupConfig } from "../modules/config.js";
+import { page } from "../modules/constants.js";
 import Popup from "./Popup.js";
 
 class PopupWithImage extends Popup {
@@ -10,9 +10,7 @@ class PopupWithImage extends Popup {
     this.open = this.open.bind(this);
   }
   _modifyContentContainer() {
-    return this._getContentContainer().classList.add(
-      "popup__content_type_image"
-    );
+    super._modifyContentContainer(popupConfig.popupModifierImageClass);
   }
 
   _setUpImageElement(imageElement) {

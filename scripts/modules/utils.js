@@ -10,6 +10,9 @@ import {
   inputSetTitleData,
   page,
 } from "./constants.js";
+import Section from "./classes/Section.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import FormValidator from "./classes/FormValidator.js";
 
 const modalHandler = new Modal();
 
@@ -23,7 +26,7 @@ const closeModal = () => {
   modalHandler.close();
 };
 
-function handleEditProfileButtonClick() {
+function createEditProfileForm() {
   const inputSets = [];
   const inputSetName = new InputSet(inputSetNameData);
   const inputSetAboutMe = new InputSet(inputSetAboutMeData);
@@ -43,8 +46,22 @@ function handleEditProfileButtonClick() {
     inputSets,
     handleProfileEditSubmit
   );
-  openModal(newForm.buildForm());
-  inputSetName.inputFocus();
+
+  return newForm.buildForm();
+}
+
+function handleEditProfileButtonClick() {
+  const editProfileForm = createEditProfileForm();
+  const formValidator = new FormValidator(editProfileForm);
+  formValidator.enableValidation();
+  const popUpWithForm = new PopupWithForm(
+    globalConfig.popupSelector,
+    handleProfileEditSubmit,
+    editProfileForm
+  );
+  popUpWithForm.buildPopup();
+  popUpWithForm.setEventListeners();
+  popUpWithForm.open();
 }
 
 function handleProfileEditSubmit(evt) {

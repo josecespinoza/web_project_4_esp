@@ -1,5 +1,5 @@
-import { page } from "../constants.js";
-import { popupConfig } from "../config.js";
+import { page } from "../modules/constants.js";
+import { popupConfig } from "../modules/config.js";
 
 class Popup {
   constructor(popupSelector, config = popupConfig) {
@@ -68,6 +68,10 @@ class Popup {
     return this._popup.querySelector(this._config.popupContentSelector);
   }
 
+  _modifyContentContainer(contentClass) {
+    this._getContentContainer().classList.add(contentClass);
+  }
+
   open() {
     if (!this._isOpened()) {
       this._togglePopup();
@@ -89,9 +93,6 @@ class Popup {
   }
 
   buildPopup() {
-    /* if (this._contentIsForm(this._content)) {
-      this._content.classList.add(this._config.popupModifierFormClass);
-    } */
     this._popup = this._getTemplate().querySelector(this._popupSelector);
   }
 }

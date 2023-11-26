@@ -6,9 +6,7 @@ import {
 } from "./modules/utils.js";
 import { globalConfig } from "./modules/config.js";
 import Section from "./modules/classes/Section.js";
-import PopupWithImage from "./modules/classes/PopupWithImage.js";
-
-/* import Popup from "./modules/classes/Popup.js"; */
+import PopupWithImage from "./components/PopupWithImage.js";
 
 const editButton = page.querySelector(globalConfig.editProfileButtonSelector);
 const addCardButton = page.querySelector(globalConfig.addCardButtonSelector);
