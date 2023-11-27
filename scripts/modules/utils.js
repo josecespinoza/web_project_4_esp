@@ -2,7 +2,6 @@ import { globalConfig } from "./config.js";
 import Card from "./classes/Card.js";
 import Form from "./classes/Form.js";
 import InputSet from "./classes/InputSet.js";
-import Modal from "./classes/Modal.js";
 import {
   inputSetAboutMeData,
   inputSetImageUrlData,
@@ -13,17 +12,54 @@ import {
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "./classes/FormValidator.js";
 
-const modalHandler = new Modal();
+function handleEditProfileButtonClick() {
+  const editProfileForm = createEditProfileForm();
+  enableFormValidationOn(editProfileForm);
+  openPopupWithForm(editProfileForm, handleProfileEditSubmit);
+}
 
-const openModal = (content) => {
-  modalHandler.setContent(content);
-  modalHandler.buildModal();
-  modalHandler.open();
-};
+function handleAddCardButtonClick() {
+  const addCardForm = createAddCardForm();
+  enableFormValidationOn(addCardForm);
+  openPopupWithForm(addCardForm, handleAddCardFormSubmit);
+}
 
-const closeModal = () => {
-  modalHandler.close();
-};
+function handleProfileEditSubmit(evt) {
+  evt.preventDefault();
+  const targetForm = evt.target;
+  page.querySelector(globalConfig.profileNameSelector).textContent =
+    targetForm.name.value;
+  page.querySelector(globalConfig.profileOccupationSelector).textContent =
+    targetForm.aboutMe.value;
+}
+
+function handleAddCardFormSubmit(evt) {
+  evt.preventDefault();
+  const targetForm = evt.target;
+  const cardTitle = targetForm.title;
+  const cardImageUrl = targetForm.imageUrl;
+  const card = new Card(cardTitle.value, cardImageUrl.value);
+  const destinationsList = page.querySelector(
+    globalConfig.cardsContainerSelector
+  );
+  destinationsList.prepend(card.buildCard());
+}
+
+function enableFormValidationOn(form) {
+  const formValidator = new FormValidator(form);
+  formValidator.enableValidation();
+}
+
+function openPopupWithForm(form, submitHandler) {
+  const popUpWithForm = new PopupWithForm(
+    globalConfig.popupSelector,
+    submitHandler,
+    form
+  );
+  popUpWithForm.buildPopup();
+  popUpWithForm.setEventListeners();
+  popUpWithForm.open();
+}
 
 function createEditProfileForm() {
   const inputSets = [];
@@ -44,30 +80,7 @@ function createEditProfileForm() {
   return newForm.buildForm();
 }
 
-function handleEditProfileButtonClick() {
-  const editProfileForm = createEditProfileForm();
-  const formValidator = new FormValidator(editProfileForm);
-  formValidator.enableValidation();
-  const popUpWithForm = new PopupWithForm(
-    globalConfig.popupSelector,
-    handleProfileEditSubmit,
-    editProfileForm
-  );
-  popUpWithForm.buildPopup();
-  popUpWithForm.setEventListeners();
-  popUpWithForm.open();
-}
-
-function handleProfileEditSubmit(evt) {
-  evt.preventDefault();
-  const targetForm = evt.target;
-  page.querySelector(globalConfig.profileNameSelector).textContent =
-    targetForm.name.value;
-  page.querySelector(globalConfig.profileOccupationSelector).textContent =
-    targetForm.aboutMe.value;
-}
-
-function handleAddCardButtonClick() {
+function createAddCardForm() {
   const inputSets = [];
   const inputSetTitle = new InputSet(inputSetTitleData);
   const inputSetImageUrl = new InputSet(inputSetImageUrlData);
@@ -75,26 +88,8 @@ function handleAddCardButtonClick() {
     inputSetTitle.buildFormInputSet(),
     inputSetImageUrl.buildFormInputSet()
   );
-  const newCardForm = new Form(
-    "Nuevo Lugar",
-    "Guardar",
-    inputSets,
-    handleAddCardFormSubmit
-  );
-  openModal(newCardForm.buildForm());
-}
-
-function handleAddCardFormSubmit(evt) {
-  evt.preventDefault();
-  const targetForm = evt.target;
-  const cardTitle = targetForm.title;
-  const cardImageUrl = targetForm.imageUrl;
-  const card = new Card(cardTitle.value, cardImageUrl.value);
-  const destinationsList = page.querySelector(
-    globalConfig.cardsContainerSelector
-  );
-  destinationsList.prepend(card.buildCard());
-  closeModal();
+  const newCardForm = new Form("Nuevo Lugar", "Guardar", inputSets);
+  return newCardForm.buildForm();
 }
 
 export { handleEditProfileButtonClick, handleAddCardButtonClick };
