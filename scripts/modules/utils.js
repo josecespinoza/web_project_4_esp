@@ -12,45 +12,49 @@ import {
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "./classes/FormValidator.js";
 
-function handleEditProfileButtonClick() {
+const handleEditProfileButtonClick = () => {
   const editProfileForm = createEditProfileForm();
   enableFormValidationOn(editProfileForm);
   openPopupWithForm(editProfileForm, handleProfileEditSubmit);
-}
+};
 
-function handleAddCardButtonClick() {
+const handleAddCardButtonClick = () => {
   const addCardForm = createAddCardForm();
   enableFormValidationOn(addCardForm);
   openPopupWithForm(addCardForm, handleAddCardFormSubmit);
-}
+};
 
-function handleProfileEditSubmit(evt) {
+const handleProfileEditSubmit = (evt) => {
   evt.preventDefault();
   const targetForm = evt.target;
   page.querySelector(globalConfig.profileNameSelector).textContent =
     targetForm.name.value;
   page.querySelector(globalConfig.profileOccupationSelector).textContent =
     targetForm.aboutMe.value;
-}
+};
 
-function handleAddCardFormSubmit(evt) {
+const handleAddCardFormSubmit = (evt) => {
   evt.preventDefault();
   const targetForm = evt.target;
-  const cardTitle = targetForm.title;
-  const cardImageUrl = targetForm.imageUrl;
-  const card = new Card(cardTitle.value, cardImageUrl.value);
+  const card = createCard(targetForm.title, targetForm.imageUrl);
   const destinationsList = page.querySelector(
     globalConfig.cardsContainerSelector
   );
-  destinationsList.prepend(card.buildCard());
-}
+  destinationsList.prepend(card);
+};
 
-function enableFormValidationOn(form) {
+const createCard = (title, imageUrl) => {
+  const card = new Card(title, imageUrl);
+  card.buildCard();
+  return card;
+};
+
+const enableFormValidationOn = (form) => {
   const formValidator = new FormValidator(form);
   formValidator.enableValidation();
-}
+};
 
-function openPopupWithForm(form, submitHandler) {
+const openPopupWithForm = (form, submitHandler) => {
   const popUpWithForm = new PopupWithForm(
     globalConfig.popupSelector,
     submitHandler,
@@ -59,9 +63,9 @@ function openPopupWithForm(form, submitHandler) {
   popUpWithForm.buildPopup();
   popUpWithForm.setEventListeners();
   popUpWithForm.open();
-}
+};
 
-function createEditProfileForm() {
+const createEditProfileForm = () => {
   const inputSets = [];
   const inputSetName = new InputSet(inputSetNameData);
   const inputSetAboutMe = new InputSet(inputSetAboutMeData);
@@ -78,9 +82,9 @@ function createEditProfileForm() {
   const newForm = new Form("Editar Perfil", "Guardar", inputSets);
 
   return newForm.buildForm();
-}
+};
 
-function createAddCardForm() {
+const createAddCardForm = () => {
   const inputSets = [];
   const inputSetTitle = new InputSet(inputSetTitleData);
   const inputSetImageUrl = new InputSet(inputSetImageUrlData);
@@ -90,6 +94,6 @@ function createAddCardForm() {
   );
   const newCardForm = new Form("Nuevo Lugar", "Guardar", inputSets);
   return newCardForm.buildForm();
-}
+};
 
 export { handleEditProfileButtonClick, handleAddCardButtonClick };
