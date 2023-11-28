@@ -37,6 +37,7 @@ class Popup {
   _playClosingAnimation() {
     setTimeout(() => {
       this._popup.remove();
+      this._popup.children;
     }, this._config.popupClosingTimeInMs);
   }
 

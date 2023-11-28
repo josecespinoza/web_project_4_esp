@@ -7,42 +7,54 @@ class PopupWithImage extends Popup {
     super(popupSelector, popupConfig);
     this._imageUrl = imageUrl;
     this._description = description;
+    this._image = null;
+    this._caption = null;
     this.open = this.open.bind(this);
   }
   _modifyContentContainer() {
     super._modifyContentContainer(popupConfig.popupModifierImageClass);
   }
 
-  _setUpImageElement(imageElement) {
-    imageElement.setAttribute("src", this._imageUrl);
-    imageElement.setAttribute("alt", this._description);
-    return imageElement;
-  }
-
   _getImageTemplate() {
     return page.querySelector("#popupImage-template").cloneNode(true).content;
   }
 
-  _setImage() {
-    this._modifyContentContainer();
-    const imageElement =
-      this._getImageTemplate().querySelector(".popup__photo");
-    this._setUpImageElement(imageElement);
-    this._getContentContainer().append(imageElement);
+  _setImage(imageUrl, description) {
+    debugger;
+    this._image = this._getImageComponent().querySelector(".popup__photo");
+    this._image.setAttribute("src", imageUrl);
+    this._image.setAttribute("alt", description);
   }
 
-  _setDescription() {
-    const descElement = this._getImageTemplate().querySelector(
+  _setCaption(description) {
+    this._caption = this._getImageComponent().querySelector(
       ".popup__description"
     );
-    descElement.textContent = this._description;
-    this._getContentContainer().append(descElement);
+    this._caption.textContent = description;
+  }
+
+  _setImageComponent() {
+    if (!this._imageComponent) {
+      this._imageComponent = this._getImageTemplate();
+      this._setImage(this._imageUrl, this._description);
+      this._setCaption(this._description);
+      this._modifyContentContainer();
+      this._getContentContainer().append(this._image);
+      this._getContentContainer().append(this._caption);
+    }
+  }
+
+  _getImageComponent() {
+    return this._imageComponent;
   }
 
   open() {
     super.open();
-    this._setImage();
-    this._setDescription();
+    this._setImageComponent();
+  }
+
+  close() {
+    super.close();
   }
 }
 

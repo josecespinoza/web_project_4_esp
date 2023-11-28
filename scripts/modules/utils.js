@@ -2,6 +2,7 @@ import { globalConfig } from "./config.js";
 import Card from "./classes/Card.js";
 import Form from "./classes/Form.js";
 import InputSet from "./classes/InputSet.js";
+import Section from "./classes/Section.js";
 import {
   inputSetAboutMeData,
   inputSetImageUrlData,
@@ -10,6 +11,7 @@ import {
   page,
 } from "./constants.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "./classes/FormValidator.js";
 
 const handleEditProfileButtonClick = () => {
@@ -36,17 +38,11 @@ const handleProfileEditSubmit = (evt) => {
 const handleAddCardFormSubmit = (evt) => {
   evt.preventDefault();
   const targetForm = evt.target;
-  const card = createCard(targetForm.title, targetForm.imageUrl);
+  const card = createCard(targetForm.title, targetForm.imageUrl, () => {});
   const destinationsList = page.querySelector(
     globalConfig.cardsContainerSelector
   );
   destinationsList.prepend(card);
-};
-
-const createCard = (title, imageUrl) => {
-  const card = new Card(title, imageUrl);
-  card.buildCard();
-  return card;
 };
 
 const enableFormValidationOn = (form) => {
@@ -96,4 +92,49 @@ const createAddCardForm = () => {
   return newCardForm.buildForm();
 };
 
-export { handleEditProfileButtonClick, handleAddCardButtonClick };
+const createPopupWithImage = (imageUrl, description) => {
+  const imagePopup = new PopupWithImage(globalConfig.popupSelector, {
+    imageUrl,
+    description,
+  });
+  imagePopup.buildPopup();
+  imagePopup.setEventListeners();
+  return imagePopup;
+};
+
+const createCard = (cardName, cardLink, cardClickEventHandler) => {
+  const card = new Card(cardName, cardLink, cardClickEventHandler);
+  return card.buildCard();
+};
+
+function loadCards(cards) {
+  const cardsSection = new Section(
+    {
+      items: cards,
+      renderer: (cardItem) => {
+        const popup = createPopupWithImage(cardItem.link, cardItem.name);
+        const cardElement = createCard(
+          cardItem.name,
+          cardItem.link,
+          popup.open
+        );
+        cardsSection.addItem(cardElement);
+      },
+    },
+    globalConfig.cardsContainerSelector
+  );
+  cardsSection.renderer();
+}
+
+const setPageButtonHandler = (buttonSelector, clickEventHandler) => {
+  page
+    .querySelector(buttonSelector)
+    .addEventListener("click", clickEventHandler);
+};
+
+export {
+  setPageButtonHandler,
+  loadCards,
+  handleEditProfileButtonClick,
+  handleAddCardButtonClick,
+};

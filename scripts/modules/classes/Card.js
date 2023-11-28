@@ -1,6 +1,5 @@
 import { page } from "../constants.js";
 import { cardConfig } from "../config.js";
-import CardModal from "./CardModal.js";
 
 class Card {
   constructor(name, imageUrl, handleCardClick, config = cardConfig) {
@@ -101,18 +100,6 @@ class Card {
       this._config.notLikedButtonClass
     );
   }
-
-  /*   handleCardClick() {
-    this._popUpCard = this._getPopUpTemplate().querySelector(
-      this._config.popUpSelector
-    );
-    this._getPopUpImage().setAttribute("src", this._imageUrl);
-    this._getPopUpImage().setAttribute("alt", this._name);
-    this._setPopUpDescription(this._name);
-    const modal = new CardModal(this._popUpCard);
-    modal.buildModal();
-    modal.open();
-  } */
 
   _handleLikeButtonClick() {
     this._toggleLikeButton();
