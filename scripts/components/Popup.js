@@ -6,6 +6,7 @@ class Popup {
     this._config = config;
     this._popupSelector = popupSelector;
     this._popup = null;
+    this._isClosing = null;
     this._handleEscClose = this._handleEscClose.bind(this);
     this._handleClickClose = this._handleClickClose.bind(this);
   }
@@ -35,9 +36,10 @@ class Popup {
   }
 
   _playClosingAnimation() {
+    this._isClosing = true;
     setTimeout(() => {
       this._popup.remove();
-      this._popup.children;
+      this._isClosing = false;
     }, this._config.popupClosingTimeInMs);
   }
 
@@ -82,8 +84,10 @@ class Popup {
   }
 
   close() {
-    this._togglePopup();
-    this._playClosingAnimation();
+    if (!this._isClosing) {
+      this._togglePopup();
+      this._playClosingAnimation();
+    }
     //this._removeModalListeners();
   }
 
