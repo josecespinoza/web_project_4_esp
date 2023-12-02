@@ -3,6 +3,7 @@ import Card from "./classes/Card.js";
 import Form from "./classes/Form.js";
 import InputSet from "./classes/InputSet.js";
 import Section from "./classes/Section.js";
+import UserInfo from "./classes/UserInfo.js";
 import {
   inputSetAboutMeData,
   inputSetImageUrlData,
@@ -28,11 +29,12 @@ const handleAddCardButtonClick = () => {
 
 const handleProfileEditSubmit = (evt) => {
   evt.preventDefault();
+  const userInfo = new UserInfo(
+    globalConfig.profileNameSelector,
+    globalConfig.profileOccupationSelector
+  );
   const targetForm = evt.target;
-  page.querySelector(globalConfig.profileNameSelector).textContent =
-    targetForm.name.value;
-  page.querySelector(globalConfig.profileOccupationSelector).textContent =
-    targetForm.aboutMe.value;
+  userInfo.setUserInfo(targetForm.name.value, targetForm.aboutMe.value);
 };
 
 const handleAddCardFormSubmit = (evt) => {
@@ -68,12 +70,12 @@ const createEditProfileForm = () => {
     inputSetName.buildFormInputSet(),
     inputSetAboutMe.buildFormInputSet()
   );
-  inputSetName.setInputValue(
-    page.querySelector(globalConfig.profileNameSelector).textContent
+  const userInfo = new UserInfo(
+    globalConfig.profileNameSelector,
+    globalConfig.profileOccupationSelector
   );
-  inputSetAboutMe.setInputValue(
-    page.querySelector(globalConfig.profileOccupationSelector).textContent
-  );
+  inputSetName.setInputValue(userInfo.getUserInfo().userName);
+  inputSetAboutMe.setInputValue(userInfo.getUserInfo().userJob);
   const newForm = new Form("Editar Perfil", "Guardar", inputSets);
 
   return newForm.buildForm();
