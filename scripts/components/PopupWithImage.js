@@ -20,7 +20,6 @@ class PopupWithImage extends Popup {
   }
 
   _setImage(imageUrl, description) {
-    debugger;
     this._image = this._getImageComponent().querySelector(".popup__photo");
     this._image.setAttribute("src", imageUrl);
     this._image.setAttribute("alt", description);

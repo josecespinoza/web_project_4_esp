@@ -1,7 +1,7 @@
 import { initialCards } from "./modules/constants.js";
 import {
   setPageButtonHandler,
-  loadCards,
+  renderCards,
   handleEditProfileButtonClick,
   handleAddCardButtonClick,
 } from "./modules/utils.js";
@@ -16,4 +16,4 @@ setPageButtonHandler(
   handleAddCardButtonClick
 );
 
-loadCards(initialCards);
+renderCards(...initialCards);

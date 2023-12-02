@@ -76,6 +76,11 @@ const globalConfig = {
   popupSelector: ".popup",
 };
 
+const sectionConfig = {
+  additionTypeAppend: "append",
+  additionTypePrepend: "prepend",
+};
+
 export {
   cardConfig,
   validationConfig,
@@ -84,4 +89,5 @@ export {
   modalConfig,
   popupConfig,
   globalConfig,
+  sectionConfig,
 };

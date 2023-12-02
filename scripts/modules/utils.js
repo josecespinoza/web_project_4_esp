@@ -1,4 +1,4 @@
-import { globalConfig } from "./config.js";
+import { globalConfig, sectionConfig } from "./config.js";
 import Card from "./classes/Card.js";
 import Form from "./classes/Form.js";
 import InputSet from "./classes/InputSet.js";
@@ -38,11 +38,10 @@ const handleProfileEditSubmit = (evt) => {
 const handleAddCardFormSubmit = (evt) => {
   evt.preventDefault();
   const targetForm = evt.target;
-  const card = createCard(targetForm.title, targetForm.imageUrl, () => {});
-  const destinationsList = page.querySelector(
-    globalConfig.cardsContainerSelector
-  );
-  destinationsList.prepend(card);
+  renderCards({
+    link: targetForm.imageUrl.value,
+    name: targetForm.title.value,
+  });
 };
 
 const enableFormValidationOn = (form) => {
@@ -107,24 +106,20 @@ const createCard = (cardName, cardLink, cardClickEventHandler) => {
   return card.buildCard();
 };
 
-function loadCards(cards) {
+const renderCards = (...cards) => {
   const cardsSection = new Section(
     {
       items: cards,
-      renderer: (cardItem) => {
-        const popup = createPopupWithImage(cardItem.link, cardItem.name);
-        const cardElement = createCard(
-          cardItem.name,
-          cardItem.link,
-          popup.open
-        );
-        cardsSection.addItem(cardElement);
+      renderer: (card) => {
+        const popup = createPopupWithImage(card.link, card.name);
+        const cardElement = createCard(card.name, card.link, popup.open);
+        cardsSection.addItem(cardElement, sectionConfig.additionTypePrepend);
       },
     },
     globalConfig.cardsContainerSelector
   );
   cardsSection.renderer();
-}
+};
 
 const setPageButtonHandler = (buttonSelector, clickEventHandler) => {
   page
@@ -134,7 +129,7 @@ const setPageButtonHandler = (buttonSelector, clickEventHandler) => {
 
 export {
   setPageButtonHandler,
-  loadCards,
+  renderCards,
   handleEditProfileButtonClick,
   handleAddCardButtonClick,
 };
