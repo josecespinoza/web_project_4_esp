@@ -1,0 +1,25 @@
+{
+  "name": "around_the_us",
+  "version": "1.0.0",
+  "description": "This is a web application that shows cards of multiple places of the world",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && webpack --mode production",
+    "dev": "webpack serve --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josecespinoza/web_project_4_esp.git"
+  },
+  "author": "José Espinoza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/josecespinoza/web_project_4_esp/issues"
+  },
+  "homepage": "https://github.com/josecespinoza/web_project_4_esp#readme",
+  "devDependencies": {
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
