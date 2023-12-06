@@ -1,5 +1,5 @@
 import { globalConfig, sectionConfig } from "./config.js";
-import Card from "./classes/Card.js";
+import Card from "../components/Card.js";
 import Form from "./classes/Form.js";
 import InputSet from "./classes/InputSet.js";
 import Section from "./classes/Section.js";
@@ -13,7 +13,7 @@ import {
 } from "./constants.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import FormValidator from "./classes/FormValidator.js";
+import FormValidator from "../components/FormValidator.js";
 
 const handleEditProfileButtonClick = () => {
   const editProfileForm = createEditProfileForm();
