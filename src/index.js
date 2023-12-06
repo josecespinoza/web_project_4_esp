@@ -1,4 +1,5 @@
-import { initialCards } from "./scripts/modules/constants.js";
+import "./pages/index.css";
+import { initialCards, page } from "./scripts/modules/constants.js";
 import {
   setPageButtonHandler,
   renderCards,

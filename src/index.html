@@ -6,17 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Around the U.S.</title>
-    <link rel="stylesheet" href="./pages/index.css">
 </head>
 
 <body class="page page_theme_dark">
     <header class="header page__header">
-        <img class="header__logo" src="./images/logo.svg" alt="Around the U.S. logo">
+        <img id="image-logo" class="header__logo" src="<%=require('./images/logo.svg')%>" alt=" Around the U.S. logo">
         <div class="header__division"></div>
     </header>
     <section class="profile page__profile">
         <div class="profile__avatar-mask">
-            <img class="profile__avatar" src="./images/image.jpg" alt="Profile avatar">
+            <img id="image-avatar" class="profile__avatar" src="<%=require('./images/avatar.jpg')%>"
+                alt="Profile avatar">
         </div>
         <div class="profile__info">
             <h1 class="profile__name">Jacques Cousteau</h1>
