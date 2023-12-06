@@ -3,7 +3,7 @@ import Card from "./classes/Card.js";
 import Form from "./classes/Form.js";
 import InputSet from "./classes/InputSet.js";
 import Section from "./classes/Section.js";
-import UserInfo from "./classes/UserInfo.js";
+import UserInfo from "../components/UserInfo.js";
 import {
   inputSetAboutMeData,
   inputSetImageUrlData,
