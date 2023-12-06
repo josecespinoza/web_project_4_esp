@@ -2,5 +2,5 @@
   width: 100%;
   max-width: 882px;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }

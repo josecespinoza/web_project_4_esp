@@ -3,13 +3,13 @@
   width: 100%;
   height: 100%;
   grid-area: button;
-  align-items: end;
-  justify-content: start;
+  align-items: flex-end;
+  justify-content: flex-start;
 }
 
 @media screen and (max-width: 896px) {
   .modal-container__close-button {
-    align-items: end;
-    justify-content: end;
+    align-items: flex-end;
+    justify-content: flex-end;
   }
 }

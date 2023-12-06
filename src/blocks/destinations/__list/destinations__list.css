@@ -5,7 +5,7 @@
   flex-wrap: wrap;
   column-gap: 16px;
   row-gap: 20px;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
 }
 
