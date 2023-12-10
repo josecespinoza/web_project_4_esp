@@ -1,4 +1,4 @@
-import { sectionConfig } from "../config.js";
+import { sectionConfig } from "../helpers/config.js";
 
 class Section {
   constructor({ items, renderer }, containerSelector) {

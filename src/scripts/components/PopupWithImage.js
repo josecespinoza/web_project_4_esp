@@ -1,5 +1,5 @@
-import { popupConfig } from "../modules/config.js";
-import { page } from "../modules/constants.js";
+import { popupConfig } from "../helpers/config.js";
+import { page } from "../helpers/constants.js";
 import Popup from "./Popup.js";
 
 class PopupWithImage extends Popup {

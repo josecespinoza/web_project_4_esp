@@ -1,5 +1,5 @@
-import { page } from "../constants.js";
-import { formConfig } from "../config.js";
+import { page } from "../helpers/constants.js";
+import { formConfig } from "../helpers/config.js";
 
 class Form {
   constructor(formTitle, buttonLabel, inputSetList, config = formConfig) {

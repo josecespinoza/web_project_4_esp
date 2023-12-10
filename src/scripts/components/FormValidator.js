@@ -1,4 +1,4 @@
-import { validationConfig } from "../modules/config.js";
+import { validationConfig } from "../helpers/config.js";
 
 class FormValidator {
   constructor(form, config = validationConfig) {

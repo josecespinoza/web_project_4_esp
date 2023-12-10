@@ -1,5 +1,5 @@
-import { page } from "../modules/constants.js";
-import { cardConfig } from "../modules/config.js";
+import { page } from "../helpers/constants.js";
+import { cardConfig } from "../helpers/config.js";
 
 class Card {
   constructor(name, imageUrl, handleCardClick, config = cardConfig) {

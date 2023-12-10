@@ -1,4 +1,4 @@
-import { popupConfig } from "../modules/config.js";
+import { popupConfig } from "../helpers/config.js";
 import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {

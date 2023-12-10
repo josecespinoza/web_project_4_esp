@@ -1,12 +1,12 @@
 import "./pages/index.css";
-import { initialCards, page } from "./scripts/modules/constants.js";
+import { initialCards, page } from "./scripts/helpers/constants.js";
 import {
   setPageButtonHandler,
   renderCards,
   handleEditProfileButtonClick,
   handleAddCardButtonClick,
-} from "./scripts/modules/utils.js";
-import { globalConfig } from "./scripts/modules/config.js";
+} from "./scripts/helpers/utils.js";
+import { globalConfig } from "./scripts/helpers/config.js";
 
 setPageButtonHandler(
   globalConfig.editProfileButtonSelector,

@@ -1,5 +1,5 @@
-import { page } from "../constants.js";
-import { inputSetConfig } from "../config.js";
+import { page } from "../helpers/constants.js";
+import { inputSetConfig } from "../helpers/config.js";
 
 class InputSet {
   constructor(data, config = inputSetConfig) {
