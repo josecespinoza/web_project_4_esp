@@ -13,15 +13,21 @@ Podrás encontrar que en el proyecto se utilizaron las siguientes tecnologías:
 - HTML
 - CSS
 - JavaScript
+- NodeJS
+- Webpack
+
+Asimismo, se soportar la minificación de las hojas de estilo y transpilación de los scripts para navegadores más antiguos (ver `babel.config.js`).
 
 ### Organización
 
 - Para la organización de los archivos CSS se utilizó la metodología BEM.
 
-- Adicionalmente, los scripts han sido desarrollados utilizando la programación orientada a objetos (POO), mediante el uso de clases, herencia y polimorfismo.
+- Adicionalmente, los scripts han sido desarrollados utilizando la programación orientada a objetos (POO), mediante el uso de clases, herencia y polimorfismo. Asimismo, los scripts se encuentran modularizados para su reutilización.
 
-### Sitio en Vivo
+### ¿Cómo levantar el proyecto?
 
-Puede visitar el sitio en la siguiente ruta:
+Para iniciar el proyecto:
 
-- https://josecespinoza.github.io/web_project_4_esp/
+1. Instalar dependencias `npm install`;
+2. Ejecutar `npm run dev` para ejecutar de manera local, o `npm run build` para compilar la versión productiva.
+3. Se iniciará la aplicación en automático en el puerto `9000`.
