@@ -56,7 +56,7 @@ class Popup {
   }
 
   _handleEscClose(evt) {
-    evt.key.toLowerCase() === "escape" && this.close();
+    evt.key?.toLowerCase() === "escape" && this.close();
   }
 
   _isOpened() {

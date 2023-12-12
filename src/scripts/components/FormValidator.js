@@ -38,7 +38,7 @@ class FormValidator {
 
   _formPreSubmitValidationHandler(evt) {
     const isSubmitEvent =
-      evt.type.toLowerCase() === "click" || evt.key.toLowerCase() === "enter";
+      evt.type.toLowerCase() === "click" || evt.key?.toLowerCase() === "enter";
     if (!this._formIsValid() && isSubmitEvent) {
       evt.preventDefault();
     }
