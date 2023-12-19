@@ -35,6 +35,7 @@
 @import url("../blocks/button/_action/button_action_save.css");
 @import url("../blocks/button/_action/button_action_close.css");
 @import url("../blocks/button/_location/button_location_profile.css");
+@import url("../blocks/button/_location/button_location_profile-avatar.css");
 @import url("../blocks/button/_location/button_location_profile-info.css");
 @import url("../blocks/button/_location/button_location_destination.css");
 @import url("../blocks/button/_location/button_location_destination-photo.css");
@@ -42,6 +43,7 @@
 @import url("../blocks/button/_status/button_status_inactive.css");
 @import url("../blocks/button/__icon/button__icon.css");
 @import url("../blocks/button/__icon/_action/button__icon_action_edit.css");
+@import url("../blocks/button/__icon/_location/button__icon_location-profile-avatar.css");
 @import url("../blocks/button/__icon/_action/button__icon_action_add.css");
 @import url("../blocks/button/__icon/_action/button__icon_action_like.css");
 @import url("../blocks/button/__icon/_action/button_icon_action_close.css");
