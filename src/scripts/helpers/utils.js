@@ -16,16 +16,28 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
 
-const loadUserInfo = () => {
+const apiRequestsHandler = (baseUrl, resource, method) => {
   const api = new Api({
-    baseUrl: `${apiConfig.baseUrl}${apiConfig.userInfoResource}`,
+    baseUrl: `${baseUrl}${resource}`,
     headers: {
       authorization: `${apiConfig.token}`,
     },
   });
 
-  api
-    .get()
+  const apiMethods = {
+    GET: api.get,
+    PATCH: api.patch,
+  };
+
+  return apiMethods[method]();
+};
+
+const loadUserInfo = () => {
+  apiRequestsHandler(
+    apiConfig.baseUrl,
+    apiConfig.userInfoResource,
+    apiConfig.getMethod
+  )
     .then((data) => {
       renderUserInfo(data.name, data.about);
     })

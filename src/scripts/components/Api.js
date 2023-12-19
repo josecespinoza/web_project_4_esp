@@ -2,6 +2,9 @@ class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
     this._headers = options.headers;
+    this.get = this.get.bind(this);
+    this.post = this.post.bind(this);
+    this.patch = this.patch.bind(this);
   }
 
   _setMethod(method) {
@@ -16,7 +19,6 @@ class Api {
   }
 
   _doRequest() {
-    debugger;
     return fetch(this._baseUrl, this._getRequestOptions()).then((res) =>
       res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
     );
@@ -24,6 +26,11 @@ class Api {
 
   get() {
     this._setMethod("GET");
+    return this._doRequest();
+  }
+
+  post() {
+    this._setMethod("POST");
     return this._doRequest();
   }
 
