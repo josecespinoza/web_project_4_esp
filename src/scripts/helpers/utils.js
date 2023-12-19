@@ -16,22 +16,6 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
 import Api from "../components/Api.js";
 
-const apiRequestsHandler = (baseUrl, resource, method) => {
-  const api = new Api({
-    baseUrl: `${baseUrl}${resource}`,
-    headers: {
-      authorization: `${apiConfig.token}`,
-    },
-  });
-
-  const apiMethods = {
-    GET: api.get,
-    PATCH: api.patch,
-  };
-
-  return apiMethods[method]();
-};
-
 const loadUserInfo = () => {
   apiRequestsHandler(
     apiConfig.baseUrl,
@@ -46,12 +30,44 @@ const loadUserInfo = () => {
     });
 };
 
+const editUserInfo = (name, about) => {
+  apiRequestsHandler(
+    apiConfig.baseUrl,
+    apiConfig.userInfoResource,
+    apiConfig.patchMethod,
+    {
+      name,
+      about,
+    }
+  ).then((data) => {
+    console.log(data);
+  });
+};
+
 const renderUserInfo = (name, about) => {
   const userInfo = new UserInfo(
     globalConfig.profileNameSelector,
     globalConfig.profileOccupationSelector
   );
   userInfo.setUserInfo(name, about);
+};
+
+const apiRequestsHandler = (baseUrl, resource, method, body) => {
+  const api = new Api({
+    baseUrl: `${baseUrl}${resource}`,
+    headers: {
+      authorization: `${apiConfig.token}`,
+      "Content-Type": "application/json",
+    },
+    body,
+  });
+
+  const apiMethods = {
+    GET: api.get,
+    PATCH: api.patch,
+  };
+
+  return apiMethods[method]();
 };
 
 const handleEditProfileButtonClick = () => {
@@ -68,10 +84,6 @@ const handleAddCardButtonClick = () => {
 
 const handleProfileEditSubmit = (evt) => {
   evt.preventDefault();
-  const userInfo = new UserInfo(
-    globalConfig.profileNameSelector,
-    globalConfig.profileOccupationSelector
-  );
   const targetForm = evt.target;
   renderUserInfo(targetForm.name.value, targetForm.aboutMe.value);
 };
@@ -174,4 +186,5 @@ export {
   handleEditProfileButtonClick,
   handleAddCardButtonClick,
   loadUserInfo,
+  editUserInfo,
 };
