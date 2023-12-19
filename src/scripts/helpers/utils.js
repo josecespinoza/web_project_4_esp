@@ -31,7 +31,7 @@ const loadUserInfo = () => {
 };
 
 const editUserInfo = (name, about) => {
-  apiRequestsHandler(
+  return apiRequestsHandler(
     apiConfig.baseUrl,
     apiConfig.userInfoResource,
     apiConfig.patchMethod,
@@ -39,9 +39,13 @@ const editUserInfo = (name, about) => {
       name,
       about,
     }
-  ).then((data) => {
-    console.log(data);
-  });
+  )
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const renderUserInfo = (name, about) => {
@@ -85,7 +89,9 @@ const handleAddCardButtonClick = () => {
 const handleProfileEditSubmit = (evt) => {
   evt.preventDefault();
   const targetForm = evt.target;
-  renderUserInfo(targetForm.name.value, targetForm.aboutMe.value);
+  editUserInfo(targetForm.name.value, targetForm.aboutMe.value).then((data) => {
+    renderUserInfo(data.name, data.about);
+  });
 };
 
 const handleAddCardFormSubmit = (evt) => {
