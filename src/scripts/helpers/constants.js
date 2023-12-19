@@ -41,6 +41,15 @@ const initialCards = [
   },
 ];
 
+const inputSetAvatarData = {
+  type: "url",
+  name: "avatarUrl",
+  placeholder: "Enlace a la imagen",
+  isRequired: true,
+  maxlength: 500,
+  minlength: null,
+};
+
 const inputSetNameData = {
   type: "text",
   name: "name",

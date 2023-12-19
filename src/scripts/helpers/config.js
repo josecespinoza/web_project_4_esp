@@ -68,9 +68,12 @@ const popupConfig = {
 
 const globalConfig = {
   pageSelector: ".page",
-  editProfileButtonSelector: ".button_action_edit",
+  editProfileButtonSelector: ".button_action_edit.button_location_profile-info",
+  editAvatarButtonSelector:
+    ".button_action_edit.button_location_profile-avatar",
   addCardButtonSelector: ".button_action_add",
   cardsContainerSelector: ".destinations__list",
+  profileAvatarSelector: ".profile__avatar",
   profileNameSelector: ".profile__name",
   profileOccupationSelector: ".profile__occupation",
   popupSelector: ".popup",

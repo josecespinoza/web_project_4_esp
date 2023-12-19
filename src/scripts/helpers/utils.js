@@ -3,6 +3,7 @@ import Card from "../components/Card.js";
 import Form from "../components/Form.js";
 import InputSet from "../components/InputSet.js";
 import Section from "../components/Section.js";
+import Avatar from "../components/Avatar.js";
 import UserInfo from "../components/UserInfo.js";
 import {
   inputSetAboutMeData,
@@ -74,6 +75,12 @@ const apiRequestsHandler = (baseUrl, resource, method, body) => {
   return apiMethods[method]();
 };
 
+const handleEditAvatarButtonClick = () => {
+  const editAvatarForm = createEditAvatarForm();
+  enableFormValidationOn(editAvatarForm);
+  openPopupWithForm(editAvatarForm, () => {});
+};
+
 const handleEditProfileButtonClick = () => {
   const editProfileForm = createEditProfileForm();
   enableFormValidationOn(editProfileForm);
@@ -117,6 +124,16 @@ const openPopupWithForm = (form, submitHandler) => {
   popUpWithForm.buildPopup();
   popUpWithForm.setEventListeners();
   popUpWithForm.open();
+};
+
+const createEditAvatarForm = () => {
+  const inputSets = [];
+  const inputSetAvatarSrc = new InputSet(inputSetNameData);
+  inputSets.push(inputSetAvatarSrc.buildFormInputSet());
+  const avatar = new Avatar(globalConfig.profileAvatarSelector);
+  inputSetAvatarSrc.setInputValue(avatar.getAvatarImageUrl());
+  const newForm = new Form("Cambiar foto de perfil", "Guardar", inputSets);
+  return newForm.buildForm();
 };
 
 const createEditProfileForm = () => {
@@ -189,6 +206,7 @@ const setPageButtonHandler = (buttonSelector, clickEventHandler) => {
 export {
   setPageButtonHandler,
   renderCards,
+  handleEditAvatarButtonClick,
   handleEditProfileButtonClick,
   handleAddCardButtonClick,
   loadUserInfo,

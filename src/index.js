@@ -3,6 +3,7 @@ import { initialCards, page } from "./scripts/helpers/constants.js";
 import {
   setPageButtonHandler,
   renderCards,
+  handleEditAvatarButtonClick,
   handleEditProfileButtonClick,
   handleAddCardButtonClick,
   loadUserInfo,
@@ -19,6 +20,11 @@ setPageButtonHandler(
 setPageButtonHandler(
   globalConfig.addCardButtonSelector,
   handleAddCardButtonClick
+);
+
+setPageButtonHandler(
+  globalConfig.editAvatarButtonSelector,
+  handleEditAvatarButtonClick
 );
 
 renderCards(...initialCards);
