@@ -89,6 +89,7 @@ const apiConfig = {
   token: "f0b3f439-acc1-4da4-ab9f-34df2f51e340",
   userInfoResource: "/users/me",
   avatarResource: "/users/me/avatar",
+  cardResource: "/cards",
   getMethod: "GET",
   patchMethod: "PATCH",
 };

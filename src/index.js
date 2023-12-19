@@ -4,6 +4,7 @@ import {
   setPageButtonHandler,
   renderCards,
   loadUserInfo,
+  loadCards,
 } from "./scripts/helpers/utils.js";
 import {
   handleEditAvatarButtonClick,
@@ -13,6 +14,7 @@ import {
 import { globalConfig } from "./scripts/helpers/config.js";
 
 loadUserInfo();
+loadCards();
 
 setPageButtonHandler(
   globalConfig.editProfileButtonSelector,

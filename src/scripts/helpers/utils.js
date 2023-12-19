@@ -25,6 +25,16 @@ const loadUserInfo = () => {
     });
 };
 
+const loadCards = () => {
+  apiRequestsHandler(
+    apiConfig.baseUrl,
+    apiConfig.cardResource,
+    apiConfig.getMethod
+  ).then((data) => {
+    //TODO: renderCards
+  });
+};
+
 const editAvatar = (imageUrl) => {
   return apiRequestsHandler(
     apiConfig.baseUrl,
@@ -147,6 +157,7 @@ export {
   setPageButtonHandler,
   renderCards,
   loadUserInfo,
+  loadCards,
   editAvatar,
   editUserInfo,
   renderAvatar,
