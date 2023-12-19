@@ -25,7 +25,7 @@ const loadUserInfo = () => {
   });
 
   api
-    .getUserInfo()
+    .get()
     .then((data) => {
       renderUserInfo(data.name, data.about);
     })

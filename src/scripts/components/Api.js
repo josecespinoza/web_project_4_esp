@@ -4,12 +4,32 @@ class Api {
     this._headers = options.headers;
   }
 
-  getUserInfo() {
-    return fetch(this._baseUrl, {
+  _setMethod(method) {
+    this._method = method;
+  }
+
+  _getRequestOptions() {
+    return {
+      method: this._method,
       headers: this._headers,
-    }).then((res) =>
+    };
+  }
+
+  _doRequest() {
+    debugger;
+    return fetch(this._baseUrl, this._getRequestOptions()).then((res) =>
       res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
     );
+  }
+
+  get() {
+    this._setMethod("GET");
+    return this._doRequest();
+  }
+
+  patch() {
+    this._setMethod("PATCH");
+    return this._doRequest();
   }
 }
 
