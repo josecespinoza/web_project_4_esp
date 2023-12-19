@@ -6,6 +6,7 @@ import Section from "../components/Section.js";
 import Avatar from "../components/Avatar.js";
 import UserInfo from "../components/UserInfo.js";
 import {
+  inputSetAvatarData,
   inputSetAboutMeData,
   inputSetImageUrlData,
   inputSetNameData,
@@ -25,6 +26,24 @@ const loadUserInfo = () => {
   )
     .then((data) => {
       renderUserInfo(data.name, data.about);
+      renderAvatar(data.avatar);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const editAvatar = (imageUrl) => {
+  return apiRequestsHandler(
+    apiConfig.baseUrl,
+    apiConfig.avatarResource,
+    apiConfig.patchMethod,
+    {
+      avatar: imageUrl,
+    }
+  )
+    .then((data) => {
+      return data;
     })
     .catch((err) => {
       console.log(err);
@@ -47,6 +66,11 @@ const editUserInfo = (name, about) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+const renderAvatar = (imageUrl) => {
+  const avatar = new Avatar(globalConfig.profileAvatarSelector);
+  avatar.setAvatarImageUrl(imageUrl);
 };
 
 const renderUserInfo = (name, about) => {
@@ -78,7 +102,7 @@ const apiRequestsHandler = (baseUrl, resource, method, body) => {
 const handleEditAvatarButtonClick = () => {
   const editAvatarForm = createEditAvatarForm();
   enableFormValidationOn(editAvatarForm);
-  openPopupWithForm(editAvatarForm, () => {});
+  openPopupWithForm(editAvatarForm, handleAvatarEditSubmit);
 };
 
 const handleEditProfileButtonClick = () => {
@@ -91,6 +115,14 @@ const handleAddCardButtonClick = () => {
   const addCardForm = createAddCardForm();
   enableFormValidationOn(addCardForm);
   openPopupWithForm(addCardForm, handleAddCardFormSubmit);
+};
+
+const handleAvatarEditSubmit = (evt) => {
+  evt.preventDefault();
+  const targetForm = evt.target;
+  editAvatar(targetForm.avatarUrl.value).then((data) => {
+    renderAvatar(data.avatar);
+  });
 };
 
 const handleProfileEditSubmit = (evt) => {
@@ -128,7 +160,7 @@ const openPopupWithForm = (form, submitHandler) => {
 
 const createEditAvatarForm = () => {
   const inputSets = [];
-  const inputSetAvatarSrc = new InputSet(inputSetNameData);
+  const inputSetAvatarSrc = new InputSet(inputSetAvatarData);
   inputSets.push(inputSetAvatarSrc.buildFormInputSet());
   const avatar = new Avatar(globalConfig.profileAvatarSelector);
   inputSetAvatarSrc.setInputValue(avatar.getAvatarImageUrl());

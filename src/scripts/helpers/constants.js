@@ -89,6 +89,7 @@ const inputSetImageUrlData = {
 export {
   page,
   initialCards,
+  inputSetAvatarData,
   inputSetNameData,
   inputSetAboutMeData,
   inputSetTitleData,
