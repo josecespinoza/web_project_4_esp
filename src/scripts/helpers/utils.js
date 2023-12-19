@@ -1,4 +1,4 @@
-import { globalConfig, sectionConfig } from "./config.js";
+import { globalConfig, sectionConfig, apiConfig } from "./config.js";
 import Card from "../components/Card.js";
 import Form from "../components/Form.js";
 import InputSet from "../components/InputSet.js";
@@ -14,6 +14,33 @@ import {
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
+import Api from "../components/Api.js";
+
+const loadUserInfo = () => {
+  const api = new Api({
+    baseUrl: `${apiConfig.baseUrl}${apiConfig.userInfoResource}`,
+    headers: {
+      authorization: `${apiConfig.token}`,
+    },
+  });
+
+  api
+    .getUserInfo()
+    .then((data) => {
+      renderUserInfo(data.name, data.about);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+const renderUserInfo = (name, about) => {
+  const userInfo = new UserInfo(
+    globalConfig.profileNameSelector,
+    globalConfig.profileOccupationSelector
+  );
+  userInfo.setUserInfo(name, about);
+};
 
 const handleEditProfileButtonClick = () => {
   const editProfileForm = createEditProfileForm();
@@ -34,7 +61,7 @@ const handleProfileEditSubmit = (evt) => {
     globalConfig.profileOccupationSelector
   );
   const targetForm = evt.target;
-  userInfo.setUserInfo(targetForm.name.value, targetForm.aboutMe.value);
+  renderUserInfo(targetForm.name.value, targetForm.aboutMe.value);
 };
 
 const handleAddCardFormSubmit = (evt) => {
@@ -134,4 +161,5 @@ export {
   renderCards,
   handleEditProfileButtonClick,
   handleAddCardButtonClick,
+  loadUserInfo,
 };

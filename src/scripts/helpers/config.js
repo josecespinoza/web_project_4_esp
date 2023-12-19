@@ -81,6 +81,12 @@ const sectionConfig = {
   additionTypePrepend: "prepend",
 };
 
+const apiConfig = {
+  baseUrl: "https://around.nomoreparties.co/v1/web_es_10",
+  token: "f0b3f439-acc1-4da4-ab9f-34df2f51e340",
+  userInfoResource: "/users/me",
+};
+
 export {
   cardConfig,
   validationConfig,
@@ -90,4 +96,5 @@ export {
   popupConfig,
   globalConfig,
   sectionConfig,
+  apiConfig,
 };
