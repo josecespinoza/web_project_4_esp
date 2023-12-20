@@ -29,13 +29,17 @@ const loadCards = () => {
     apiConfig.baseUrl,
     apiConfig.cardResource,
     apiConfig.getMethod
-  ).then((data) => {
-    renderCards(...data);
-  });
+  )
+    .then((data) => {
+      renderCards(data, sectionConfig.additionTypeAppend);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const addCard = ({ name, link }) => {
-  apiRequestsHandler(
+  return apiRequestsHandler(
     apiConfig.baseUrl,
     apiConfig.cardResource,
     apiConfig.postMethod,
@@ -43,7 +47,13 @@ const addCard = ({ name, link }) => {
       name,
       link,
     }
-  ).then;
+  )
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const editAvatar = (imageUrl) => {
@@ -144,14 +154,14 @@ const createCard = (cardName, cardLink, cardClickEventHandler) => {
   return card.buildCard();
 };
 
-const renderCards = (...cards) => {
+const renderCards = (cards, appendType = sectionConfig.additionTypePrepend) => {
   const cardsSection = new Section(
     {
       items: cards,
       renderer: (card) => {
         const popup = createPopupWithImage(card.link, card.name);
         const cardElement = createCard(card.name, card.link, popup.open);
-        cardsSection.addItem(cardElement, sectionConfig.additionTypePrepend);
+        cardsSection.addItem(cardElement, appendType);
       },
     },
     globalConfig.cardsContainerSelector

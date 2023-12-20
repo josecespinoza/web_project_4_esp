@@ -55,8 +55,9 @@ const handleAddCardFormSubmit = (evt) => {
     link: targetForm.imageUrl.value,
     name: targetForm.title.value,
   };
-  addCard(cardInfo);
-  renderCards(cardInfo);
+  addCard(cardInfo).then((data) => {
+    renderCards(data);
+  });
 };
 
 export {
