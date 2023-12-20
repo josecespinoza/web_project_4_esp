@@ -1,8 +1,6 @@
 import "./pages/index.css";
-import { initialCards, page } from "./scripts/helpers/constants.js";
 import {
   setPageButtonHandler,
-  renderCards,
   loadUserInfo,
   loadCards,
 } from "./scripts/helpers/utils.js";
@@ -30,5 +28,3 @@ setPageButtonHandler(
   globalConfig.editAvatarButtonSelector,
   handleEditAvatarButtonClick
 );
-
-renderCards(...initialCards);

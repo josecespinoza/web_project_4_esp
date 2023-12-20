@@ -91,6 +91,7 @@ const apiConfig = {
   avatarResource: "/users/me/avatar",
   cardResource: "/cards",
   getMethod: "GET",
+  postMethod: "POST",
   patchMethod: "PATCH",
 };
 

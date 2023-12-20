@@ -1,6 +1,5 @@
 import { globalConfig, sectionConfig, apiConfig } from "./config.js";
 import Card from "../components/Card.js";
-
 import Section from "../components/Section.js";
 import Avatar from "../components/Avatar.js";
 import UserInfo from "../components/UserInfo.js";
@@ -31,8 +30,20 @@ const loadCards = () => {
     apiConfig.cardResource,
     apiConfig.getMethod
   ).then((data) => {
-    //TODO: renderCards
+    renderCards(...data);
   });
+};
+
+const addCard = ({ name, link }) => {
+  apiRequestsHandler(
+    apiConfig.baseUrl,
+    apiConfig.cardResource,
+    apiConfig.postMethod,
+    {
+      name,
+      link,
+    }
+  ).then;
 };
 
 const editAvatar = (imageUrl) => {
@@ -95,6 +106,7 @@ const apiRequestsHandler = (baseUrl, resource, method, body) => {
 
   const apiMethods = {
     GET: api.get,
+    POST: api.post,
     PATCH: api.patch,
   };
 
@@ -158,6 +170,7 @@ export {
   renderCards,
   loadUserInfo,
   loadCards,
+  addCard,
   editAvatar,
   editUserInfo,
   renderAvatar,

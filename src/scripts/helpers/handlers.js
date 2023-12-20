@@ -2,6 +2,7 @@ import {
   renderCards,
   renderUserInfo,
   renderAvatar,
+  addCard,
   editUserInfo,
   editAvatar,
   enableFormValidationOn,
@@ -50,10 +51,12 @@ const handleProfileEditSubmit = (evt) => {
 const handleAddCardFormSubmit = (evt) => {
   evt.preventDefault();
   const targetForm = evt.target;
-  renderCards({
+  const cardInfo = {
     link: targetForm.imageUrl.value,
     name: targetForm.title.value,
-  });
+  };
+  addCard(cardInfo);
+  renderCards(cardInfo);
 };
 
 export {
