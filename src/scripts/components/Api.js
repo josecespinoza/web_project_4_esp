@@ -6,6 +6,7 @@ class Api {
     this.get = this.get.bind(this);
     this.post = this.post.bind(this);
     this.patch = this.patch.bind(this);
+    this.delete = this.delete.bind(this);
     this._buildRequestOptions = this._buildRequestOptions.bind(this);
     this._getRequestOptions = this._getRequestOptions.bind(this);
     this._requestOptions = {};
@@ -50,6 +51,12 @@ class Api {
 
   patch() {
     this._setMethod("PATCH");
+    return this._doRequest();
+  }
+
+  delete() {
+    debugger;
+    this._setMethod("DELETE");
     return this._doRequest();
   }
 }

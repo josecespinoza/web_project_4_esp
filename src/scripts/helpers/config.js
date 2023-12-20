@@ -93,6 +93,7 @@ const apiConfig = {
   getMethod: "GET",
   postMethod: "POST",
   patchMethod: "PATCH",
+  deleteMethod: "DELETE",
 };
 
 export {

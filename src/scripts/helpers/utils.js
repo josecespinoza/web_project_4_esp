@@ -56,6 +56,14 @@ const addCard = ({ name, link }) => {
     });
 };
 
+const deleteCard = (cardId) => {
+  apiRequestsHandler(
+    apiConfig.baseUrl,
+    `${apiConfig.cardResource}/${cardId}`,
+    apiConfig.deleteMethod
+  );
+};
+
 const editAvatar = (imageUrl) => {
   return apiRequestsHandler(
     apiConfig.baseUrl,
@@ -118,6 +126,7 @@ const apiRequestsHandler = (baseUrl, resource, method, body) => {
     GET: api.get,
     POST: api.post,
     PATCH: api.patch,
+    DELETE: api.delete,
   };
 
   return apiMethods[method]();
@@ -181,6 +190,7 @@ export {
   loadUserInfo,
   loadCards,
   addCard,
+  deleteCard,
   editAvatar,
   editUserInfo,
   renderAvatar,
