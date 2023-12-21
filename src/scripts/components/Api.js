@@ -55,7 +55,6 @@ class Api {
   }
 
   delete() {
-    debugger;
     this._setMethod("DELETE");
     return this._doRequest();
   }

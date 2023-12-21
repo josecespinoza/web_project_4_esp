@@ -2,7 +2,12 @@ import { page } from "../helpers/constants.js";
 import { formConfig } from "../helpers/config.js";
 
 class Form {
-  constructor(formTitle, buttonLabel, inputSetList, config = formConfig) {
+  constructor(
+    formTitle,
+    buttonLabel,
+    inputSetList = null,
+    config = formConfig
+  ) {
     this._config = config;
     this._formTitle = formTitle;
     this._buttonLabel = buttonLabel;
@@ -39,7 +44,9 @@ class Form {
     this._form = this._getTemplate().querySelector(this._config.formSelector);
     this._setTitle(this._formTitle);
     this._setButtonLabel(this._buttonLabel);
-    this._setInputs(this._inputSetList);
+    if (this._inputSetList) {
+      this._setInputs(this._inputSetList);
+    }
     return this._form;
   }
 }

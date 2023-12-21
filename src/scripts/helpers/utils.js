@@ -4,6 +4,7 @@ import Section from "../components/Section.js";
 import Avatar from "../components/Avatar.js";
 import UserInfo from "../components/UserInfo.js";
 import { page } from "./constants.js";
+import { handleDeleteCardButtonClick } from "./handlers.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
@@ -57,7 +58,7 @@ const addCard = ({ name, link }) => {
 };
 
 const deleteCard = (cardId) => {
-  apiRequestsHandler(
+  return apiRequestsHandler(
     apiConfig.baseUrl,
     `${apiConfig.cardResource}/${cardId}`,
     apiConfig.deleteMethod
@@ -158,8 +159,20 @@ const createPopupWithImage = (imageUrl, description) => {
   return imagePopup;
 };
 
-const createCard = (cardName, cardLink, cardClickEventHandler) => {
-  const card = new Card(cardName, cardLink, cardClickEventHandler);
+const createCard = (
+  cardId,
+  cardName,
+  cardLink,
+  cardClickEventHandler,
+  cardDeleteEventHandler
+) => {
+  const card = new Card(
+    cardId,
+    cardName,
+    cardLink,
+    cardClickEventHandler,
+    cardDeleteEventHandler
+  );
   return card.buildCard();
 };
 
@@ -168,9 +181,20 @@ const renderCards = (cards, appendType = sectionConfig.additionTypePrepend) => {
     {
       items: cards,
       renderer: (card) => {
-        const popup = createPopupWithImage(card.link, card.name);
-        const cardElement = createCard(card.name, card.link, popup.open);
+        console.log(card);
+        const cardPopup = createPopupWithImage(card.link, card.name);
+        const cardElement = createCard(
+          card._id,
+          card.name,
+          card.link,
+          cardPopup.open,
+          (evt) => {
+            evt.preventDefault();
+            handleDeleteCardButtonClick(evt, card._id);
+          }
+        );
         cardsSection.addItem(cardElement, appendType);
+        console.log(cardElement);
       },
     },
     globalConfig.cardsContainerSelector

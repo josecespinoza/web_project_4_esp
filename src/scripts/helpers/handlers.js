@@ -3,6 +3,7 @@ import {
   renderUserInfo,
   renderAvatar,
   addCard,
+  deleteCard,
   editUserInfo,
   editAvatar,
   enableFormValidationOn,
@@ -12,6 +13,7 @@ import {
   createEditAvatarForm,
   createEditProfileForm,
   createAddCardForm,
+  createDeleteCardForm,
 } from "./forms.js";
 
 const handleEditAvatarButtonClick = () => {
@@ -56,7 +58,18 @@ const handleAddCardFormSubmit = (evt) => {
     name: targetForm.title.value,
   };
   addCard(cardInfo).then((data) => {
-    renderCards(data);
+    renderCards([data]);
+  });
+};
+
+const handleDeleteCardButtonClick = (evt, cardId) => {
+  evt.preventDefault();
+  const deleteCardForm = createDeleteCardForm();
+  openPopupWithForm(deleteCardForm, (evt) => {
+    evt.preventDefault();
+    deleteCard(cardId).then(() => {
+      document.querySelector(`#id_${cardId}`).remove();
+    });
   });
 };
 
@@ -64,4 +77,5 @@ export {
   handleEditAvatarButtonClick,
   handleEditProfileButtonClick,
   handleAddCardButtonClick,
+  handleDeleteCardButtonClick,
 };

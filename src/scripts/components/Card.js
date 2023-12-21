@@ -2,15 +2,29 @@ import { page } from "../helpers/constants.js";
 import { cardConfig } from "../helpers/config.js";
 
 class Card {
-  constructor(name, imageUrl, handleCardClick, config = cardConfig) {
+  constructor(
+    id,
+    name,
+    imageUrl,
+    handleCardClick,
+    handleCardDelete,
+    config = cardConfig
+  ) {
+    this._id = id;
     this._name = name;
     this._imageUrl = imageUrl;
     this._config = config;
     this._card = null;
     this._popUpCard = null;
     this._handleCardClick = handleCardClick;
+    this._handleCardDelete = handleCardDelete;
     this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this);
-    this._handleDeleteButtonClick = this._handleDeleteButtonClick.bind(this);
+    /* this._handleDeleteButtonClick = this._handleDeleteButtonClick.bind(this); */
+  }
+
+  _setCardId(id) {
+    console.log(this._card);
+    this._card.setAttribute("id", `id_${id}`);
   }
 
   _setCardName(name) {
@@ -63,10 +77,7 @@ class Card {
       "click",
       this._handleLikeButtonClick
     );
-    this._getDeleteButton().addEventListener(
-      "click",
-      this._handleDeleteButtonClick
-    );
+    this._getDeleteButton().addEventListener("click", this._handleCardDelete);
   }
 
   _removeCardListeners() {
@@ -77,7 +88,7 @@ class Card {
     );
     this._getDeleteButton().removeEventListener(
       "click",
-      this._handleDeleteButtonClick
+      this._handleCardDelete
     );
   }
 
@@ -105,13 +116,14 @@ class Card {
     this._toggleLikeButton();
   }
 
-  _handleDeleteButtonClick() {
+  /*   _handleDeleteButtonClick() {
     this._removeCardListeners(this._card);
     this._card.remove();
-  }
+  } */
 
   buildCard() {
     this._card = this._getTemplate().querySelector(this._config.cardSelector);
+    this._setCardId(this._id);
     this._setCardName(this._name);
     this._setCardImage(this._name, this._imageUrl);
     this._setCardListeners();

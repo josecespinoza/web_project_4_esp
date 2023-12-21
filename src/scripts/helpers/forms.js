@@ -52,4 +52,14 @@ const createAddCardForm = () => {
   return newCardForm.buildForm();
 };
 
-export { createEditAvatarForm, createEditProfileForm, createAddCardForm };
+const createDeleteCardForm = () => {
+  const newCardDeleteForm = new Form("¿Estás seguro?", "Sí");
+  return newCardDeleteForm.buildForm();
+};
+
+export {
+  createEditAvatarForm,
+  createEditProfileForm,
+  createAddCardForm,
+  createDeleteCardForm,
+};
