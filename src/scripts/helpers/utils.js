@@ -10,7 +10,7 @@ const enableFormValidationOn = (form) => {
   formValidator.enableValidation();
 };
 
-const openPopupWithForm = (form, submitHandler) => {
+const createPopupWithForm = (form, submitHandler) => {
   const popUpWithForm = new PopupWithForm(
     globalConfig.popupSelector,
     submitHandler,
@@ -18,7 +18,7 @@ const openPopupWithForm = (form, submitHandler) => {
   );
   popUpWithForm.buildPopup();
   popUpWithForm.setEventListeners();
-  popUpWithForm.open();
+  return popUpWithForm;
 };
 
 const createPopupWithImage = (imageUrl, description) => {
@@ -48,8 +48,8 @@ const createCard = (
   return card.buildCard();
 };
 
-const removeHTMLElement = (element) => {
-  element.remove();
+const removeHTMLElement = (htmlElement) => {
+  if (htmlElement) htmlElement.remove();
 };
 
 const setPageButtonHandler = (buttonSelector, clickEventHandler) => {
@@ -62,7 +62,7 @@ export {
   setPageButtonHandler,
   removeHTMLElement,
   enableFormValidationOn,
-  openPopupWithForm,
+  createPopupWithForm,
   createPopupWithImage,
   createCard,
 };

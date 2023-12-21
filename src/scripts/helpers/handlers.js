@@ -1,6 +1,6 @@
 import {
   enableFormValidationOn,
-  openPopupWithForm,
+  createPopupWithForm,
   removeHTMLElement,
 } from "./utils.js";
 import {
@@ -15,19 +15,25 @@ import { addCard, deleteCard, editAvatar, editUserInfo } from "./requests.js";
 const handleEditAvatarButtonClick = () => {
   const editAvatarForm = createEditAvatarForm();
   enableFormValidationOn(editAvatarForm);
-  openPopupWithForm(editAvatarForm, handleAvatarEditSubmit);
+  const formPopup = createPopupWithForm(editAvatarForm, handleAvatarEditSubmit);
+  formPopup.open();
 };
 
 const handleEditProfileButtonClick = () => {
   const editProfileForm = createEditProfileForm();
   enableFormValidationOn(editProfileForm);
-  openPopupWithForm(editProfileForm, handleProfileEditSubmit);
+  const formPopup = createPopupWithForm(
+    editProfileForm,
+    handleProfileEditSubmit
+  );
+  formPopup.open();
 };
 
 const handleAddCardButtonClick = () => {
   const addCardForm = createAddCardForm();
   enableFormValidationOn(addCardForm);
-  openPopupWithForm(addCardForm, handleAddCardFormSubmit);
+  const formPopup = createPopupWithForm(addCardForm, handleAddCardFormSubmit);
+  formPopup.open();
 };
 
 const handleAvatarEditSubmit = (evt) => {
@@ -62,13 +68,13 @@ const handleDeleteCardButtonClick = (evt) => {
   const card = evt.target.closest(".destinations__item");
   const cardId = card.id.replace(/^id_/, "");
   const deleteCardForm = createDeleteCardForm();
-
-  openPopupWithForm(deleteCardForm, (evt) => {
+  const formPopup = createPopupWithForm(deleteCardForm, (evt) => {
     evt.preventDefault();
     deleteCard(cardId).then(() => {
       removeHTMLElement(card);
     });
   });
+  formPopup.open();
 };
 
 export {
