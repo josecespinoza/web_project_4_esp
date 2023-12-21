@@ -10,7 +10,12 @@ import {
   createDeleteCardForm,
 } from "./forms.js";
 import { renderAvatar, renderUserInfo, renderCards } from "./renders.js";
-import { addCard, deleteCard, editAvatar, editUserInfo } from "./requests.js";
+import {
+  addCard,
+  deleteCard,
+  updateAvatar,
+  updateUserInfo,
+} from "./requests.js";
 
 const handleEditAvatarButtonClick = () => {
   const editAvatarForm = createEditAvatarForm();
@@ -39,7 +44,7 @@ const handleAddCardButtonClick = () => {
 const handleAvatarEditSubmit = (evt) => {
   evt.preventDefault();
   const targetForm = evt.target;
-  editAvatar(targetForm.avatarUrl.value).then((data) => {
+  updateAvatar(targetForm.avatarUrl.value).then((data) => {
     renderAvatar(data.avatar);
   });
 };
@@ -47,9 +52,11 @@ const handleAvatarEditSubmit = (evt) => {
 const handleProfileEditSubmit = (evt) => {
   evt.preventDefault();
   const targetForm = evt.target;
-  editUserInfo(targetForm.name.value, targetForm.aboutMe.value).then((data) => {
-    renderUserInfo(data.name, data.about);
-  });
+  updateUserInfo(targetForm.name.value, targetForm.aboutMe.value).then(
+    (data) => {
+      renderUserInfo(data.name, data.about);
+    }
+  );
 };
 
 const handleAddCardFormSubmit = (evt) => {

@@ -43,7 +43,7 @@ const deleteCard = (cardId) => {
   );
 };
 
-const editAvatar = (imageUrl) => {
+const updateAvatar = (imageUrl) => {
   return apiRequestsHandler(
     apiConfig.baseUrl,
     apiConfig.avatarResource,
@@ -60,7 +60,7 @@ const editAvatar = (imageUrl) => {
     });
 };
 
-const editUserInfo = (name, about) => {
+const updateUserInfo = (name, about) => {
   return apiRequestsHandler(
     apiConfig.baseUrl,
     apiConfig.userInfoResource,
@@ -98,4 +98,11 @@ const apiRequestsHandler = (baseUrl, resource, method, body) => {
   return apiMethods[method]();
 };
 
-export { getUserInfo, getCards, addCard, deleteCard, editAvatar, editUserInfo };
+export {
+  getUserInfo,
+  getCards,
+  addCard,
+  deleteCard,
+  updateAvatar,
+  updateUserInfo,
+};
