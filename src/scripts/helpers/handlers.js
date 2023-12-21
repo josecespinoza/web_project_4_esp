@@ -1,11 +1,4 @@
 import {
-  renderCards,
-  renderUserInfo,
-  renderAvatar,
-  addCard,
-  deleteCard,
-  editUserInfo,
-  editAvatar,
   enableFormValidationOn,
   openPopupWithForm,
   removeHTMLElement,
@@ -16,6 +9,8 @@ import {
   createAddCardForm,
   createDeleteCardForm,
 } from "./forms.js";
+import { renderAvatar, renderUserInfo, renderCards } from "./renders.js";
+import { addCard, deleteCard, editAvatar, editUserInfo } from "./requests.js";
 
 const handleEditAvatarButtonClick = () => {
   const editAvatarForm = createEditAvatarForm();
@@ -59,7 +54,7 @@ const handleAddCardFormSubmit = (evt) => {
     name: targetForm.title.value,
   };
   addCard(cardInfo).then((data) => {
-    renderCards([data]);
+    renderCards([data], handleDeleteCardButtonClick);
   });
 };
 
