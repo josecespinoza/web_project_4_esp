@@ -19,7 +19,6 @@ class Card {
     this._handleCardClick = handleCardClick;
     this._handleCardDelete = handleCardDelete;
     this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this);
-    /* this._handleDeleteButtonClick = this._handleDeleteButtonClick.bind(this); */
   }
 
   _setCardId(id) {
@@ -115,11 +114,6 @@ class Card {
   _handleLikeButtonClick() {
     this._toggleLikeButton();
   }
-
-  /*   _handleDeleteButtonClick() {
-    this._removeCardListeners(this._card);
-    this._card.remove();
-  } */
 
   buildCard() {
     this._card = this._getTemplate().querySelector(this._config.cardSelector);

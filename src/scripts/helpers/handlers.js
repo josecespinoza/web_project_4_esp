@@ -8,6 +8,7 @@ import {
   editAvatar,
   enableFormValidationOn,
   openPopupWithForm,
+  removeHTMLElement,
 } from "./utils.js";
 import {
   createEditAvatarForm,
@@ -62,13 +63,15 @@ const handleAddCardFormSubmit = (evt) => {
   });
 };
 
-const handleDeleteCardButtonClick = (evt, cardId) => {
-  evt.preventDefault();
+const handleDeleteCardButtonClick = (evt) => {
+  const card = evt.target.closest(".destinations__item");
+  const cardId = card.id.replace(/^id_/, "");
   const deleteCardForm = createDeleteCardForm();
+
   openPopupWithForm(deleteCardForm, (evt) => {
     evt.preventDefault();
     deleteCard(cardId).then(() => {
-      document.querySelector(`#id_${cardId}`).remove();
+      removeHTMLElement(card);
     });
   });
 };

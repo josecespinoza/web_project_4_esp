@@ -176,25 +176,24 @@ const createCard = (
   return card.buildCard();
 };
 
+const removeHTMLElement = (element) => {
+  element.remove();
+};
+
 const renderCards = (cards, appendType = sectionConfig.additionTypePrepend) => {
   const cardsSection = new Section(
     {
       items: cards,
       renderer: (card) => {
-        console.log(card);
         const cardPopup = createPopupWithImage(card.link, card.name);
         const cardElement = createCard(
           card._id,
           card.name,
           card.link,
           cardPopup.open,
-          (evt) => {
-            evt.preventDefault();
-            handleDeleteCardButtonClick(evt, card._id);
-          }
+          handleDeleteCardButtonClick
         );
         cardsSection.addItem(cardElement, appendType);
-        console.log(cardElement);
       },
     },
     globalConfig.cardsContainerSelector
@@ -210,6 +209,7 @@ const setPageButtonHandler = (buttonSelector, clickEventHandler) => {
 
 export {
   setPageButtonHandler,
+  removeHTMLElement,
   renderCards,
   loadUserInfo,
   loadCards,
