@@ -78,6 +78,14 @@ const updateUserInfo = (name, about) => {
     });
 };
 
+const updateLikes = (userId) => {
+  return apiRequestsHandler(
+    apiConfig.baseUrl,
+    `${apiConfig.likeResource}/${userId}`,
+    apiConfig.putMethod
+  );
+};
+
 const apiRequestsHandler = (baseUrl, resource, method, body) => {
   const api = new Api({
     baseUrl: `${baseUrl}${resource}`,
@@ -90,6 +98,7 @@ const apiRequestsHandler = (baseUrl, resource, method, body) => {
 
   const apiMethods = {
     GET: api.get,
+    PUT: api.put,
     POST: api.post,
     PATCH: api.patch,
     DELETE: api.delete,
@@ -105,4 +114,5 @@ export {
   deleteCard,
   updateAvatar,
   updateUserInfo,
+  updateLikes,
 };

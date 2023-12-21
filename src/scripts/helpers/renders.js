@@ -20,6 +20,7 @@ const renderUserInfo = (name, about) => {
 const renderCards = (
   cards,
   deleteHandler,
+  likeHandler,
   appendType = sectionConfig.additionTypePrepend
 ) => {
   const cardsSection = new Section(
@@ -32,7 +33,8 @@ const renderCards = (
           card.name,
           card.link,
           cardPopup.open,
-          deleteHandler
+          deleteHandler,
+          likeHandler
         );
         cardsSection.addItem(cardElement, appendType);
       },

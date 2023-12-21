@@ -12,6 +12,7 @@ import {
   handleEditProfileButtonClick,
   handleAddCardButtonClick,
   handleDeleteCardButtonClick,
+  handleLikeCardButtonClick,
 } from "./scripts/helpers/handlers.js";
 
 getUserInfo()
@@ -28,6 +29,7 @@ getCards()
     renderCards(
       data,
       handleDeleteCardButtonClick,
+      handleLikeCardButtonClick,
       sectionConfig.additionTypeAppend
     );
   })

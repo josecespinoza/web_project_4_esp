@@ -90,8 +90,10 @@ const apiConfig = {
   userInfoResource: "/users/me",
   avatarResource: "/users/me/avatar",
   cardResource: "/cards",
+  likeResource: "/cards/likes",
   getMethod: "GET",
   postMethod: "POST",
+  putMethod: "PUT",
   patchMethod: "PATCH",
   deleteMethod: "DELETE",
 };

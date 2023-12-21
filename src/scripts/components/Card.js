@@ -8,6 +8,7 @@ class Card {
     imageUrl,
     handleCardClick,
     handleCardDelete,
+    handleCardLike,
     config = cardConfig
   ) {
     this._id = id;
@@ -18,6 +19,7 @@ class Card {
     this._popUpCard = null;
     this._handleCardClick = handleCardClick;
     this._handleCardDelete = handleCardDelete;
+    this._handleCardLike = handleCardLike;
     this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this);
   }
 
@@ -111,7 +113,8 @@ class Card {
     );
   }
 
-  _handleLikeButtonClick() {
+  _handleLikeButtonClick(evt) {
+    this._handleCardLike(evt);
     this._toggleLikeButton();
   }
 

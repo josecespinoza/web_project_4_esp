@@ -5,6 +5,7 @@ class Api {
     this._body = options.body || null;
     this.get = this.get.bind(this);
     this.post = this.post.bind(this);
+    this.put = this.put.bind(this);
     this.patch = this.patch.bind(this);
     this.delete = this.delete.bind(this);
     this._buildRequestOptions = this._buildRequestOptions.bind(this);
@@ -46,6 +47,11 @@ class Api {
 
   post() {
     this._setMethod("POST");
+    return this._doRequest();
+  }
+
+  put() {
+    this._setMethod("PUT");
     return this._doRequest();
   }
 

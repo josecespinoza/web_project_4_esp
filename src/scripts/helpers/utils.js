@@ -36,14 +36,16 @@ const createCard = (
   cardName,
   cardLink,
   cardClickEventHandler,
-  cardDeleteEventHandler
+  cardDeleteEventHandler,
+  cardLikeEventHandler
 ) => {
   const card = new Card(
     cardId,
     cardName,
     cardLink,
     cardClickEventHandler,
-    cardDeleteEventHandler
+    cardDeleteEventHandler,
+    cardLikeEventHandler
   );
   return card.buildCard();
 };

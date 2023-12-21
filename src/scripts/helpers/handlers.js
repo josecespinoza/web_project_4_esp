@@ -15,6 +15,7 @@ import {
   deleteCard,
   updateAvatar,
   updateUserInfo,
+  updateLikes,
 } from "./requests.js";
 
 const handleEditAvatarButtonClick = () => {
@@ -67,7 +68,7 @@ const handleAddCardFormSubmit = (evt) => {
     name: targetForm.title.value,
   };
   addCard(cardInfo).then((data) => {
-    renderCards([data], handleDeleteCardButtonClick);
+    renderCards([data], handleDeleteCardButtonClick, handleLikeCardButtonClick);
   });
 };
 
@@ -84,9 +85,16 @@ const handleDeleteCardButtonClick = (evt) => {
   formPopup.open();
 };
 
+const handleLikeCardButtonClick = (evt) => {
+  const card = evt.target.closest(".destinations__item");
+  const cardId = card.id.replace(/^id_/, "");
+  updateLikes(cardId);
+};
+
 export {
   handleEditAvatarButtonClick,
   handleEditProfileButtonClick,
   handleAddCardButtonClick,
   handleDeleteCardButtonClick,
+  handleLikeCardButtonClick,
 };
