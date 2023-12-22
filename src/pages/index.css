@@ -37,7 +37,6 @@
 @import url("../blocks/button/_location/button_location_profile.css");
 @import url("../blocks/button/_location/button_location_profile-avatar.css");
 @import url("../blocks/button/_location/button_location_profile-info.css");
-@import url("../blocks/button/_location/button_location_destination.css");
 @import url("../blocks/button/_location/button_location_destination-photo.css");
 @import url("../blocks/button/_location/button_location_form.css");
 @import url("../blocks/button/_status/button_status_inactive.css");
@@ -49,6 +48,9 @@
 @import url("../blocks/button/__icon/_action/button_icon_action_close.css");
 @import url("../blocks/button/__icon/_action/button__icon_action_liked.css");
 @import url("../blocks/button/__icon/_action/button__icon_action_delete.css");
+@import url("../blocks/like/like.css");
+@import url("../blocks/destination/__like/destination__like.css");
+@import url("../blocks/like/__counter/like__counter.css");
 @import url("../blocks/form/form.css");
 @import url("../blocks/form/_theme/form_theme_dark.css");
 @import url("../blocks/form/__title/form__title.css");
