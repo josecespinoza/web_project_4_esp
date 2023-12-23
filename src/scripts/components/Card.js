@@ -82,7 +82,7 @@ class Card {
     return this._popUpCard.querySelector(this._config.popUpPhotoSelector);
   }
 
-  setLikeHandler(handler) {
+  setLikeButtonHandler(handler) {
     this._handleCardLike = handler;
     this._getLikeButton().addEventListener("click", (evt) => {
       this._handleCardLike(evt, this);
@@ -150,7 +150,6 @@ class Card {
     this._setCardName(this._name);
     this._setCardImage(this._name, this._imageUrl);
     this.setLikesCounter(this._likesCounter);
-    //this._likesCounter > 0 ? this._like() : this._unlike();
     this._setCardListeners();
     return this._cardElement;
   }

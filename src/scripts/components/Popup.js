@@ -88,7 +88,6 @@ class Popup {
       this._togglePopup();
       this._playClosingAnimation();
     }
-    //this._removeModalListeners();
   }
 
   setEventListeners() {

@@ -1,9 +1,16 @@
 import { globalConfig } from "./config.js";
 import { page } from "./constants.js";
-import Card from "../components/Card.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
+
+const setCurrentUserId = (userId) => {
+  sessionStorage.setItem("userId", userId);
+};
+
+const getCurrentUserId = () => {
+  return sessionStorage.getItem("userId");
+};
 
 const enableFormValidationOn = (form) => {
   const formValidator = new FormValidator(form);
@@ -31,6 +38,12 @@ const createPopupWithImage = (imageUrl, description) => {
   return imagePopup;
 };
 
+const isCardLiked = (cardData) => {
+  return cardData.likes.some((user) => {
+    return user._id === getCurrentUserId();
+  });
+};
+
 const removeHTMLElement = (htmlElement) => {
   if (htmlElement) htmlElement.remove();
 };
@@ -47,4 +60,7 @@ export {
   enableFormValidationOn,
   createPopupWithForm,
   createPopupWithImage,
+  isCardLiked,
+  setCurrentUserId,
+  getCurrentUserId,
 };

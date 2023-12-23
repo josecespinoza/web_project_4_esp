@@ -1,5 +1,9 @@
 import "./pages/index.css";
-import { setPageButtonHandler } from "./scripts/helpers/utils.js";
+import {
+  setPageButtonHandler,
+  setCurrentUserId,
+  getCurrentUserId,
+} from "./scripts/helpers/utils.js";
 import { getUserInfo, getCards } from "./scripts/helpers/requests.js";
 import { globalConfig, sectionConfig } from "./scripts/helpers/config.js";
 import {
@@ -15,17 +19,9 @@ import {
   handleLikeCardButtonClick,
 } from "./scripts/helpers/handlers.js";
 
-const setCurrentUser = (userId) => {
-  sessionStorage.setItem("userId", userId);
-};
-
-const getCurrentUser = () => {
-  return sessionStorage.getItem("userId");
-};
-
 getUserInfo()
   .then((userData) => {
-    setCurrentUser(userData._id);
+    setCurrentUserId(userData._id);
     renderUserInfo(userData.name, userData.about);
     renderAvatar(userData.avatar);
   })
@@ -36,7 +32,6 @@ getUserInfo()
 getCards()
   .then((cardData) => {
     renderCards(
-      getCurrentUser(),
       cardData,
       handleDeleteCardButtonClick,
       handleLikeCardButtonClick,
