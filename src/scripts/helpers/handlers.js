@@ -47,19 +47,25 @@ const handleAddCardButtonClick = () => {
 const handleAvatarEditSubmit = (evt) => {
   evt.preventDefault();
   const targetForm = evt.target;
-  updateAvatar(targetForm.avatarUrl.value).then((data) => {
-    renderAvatar(data.avatar);
-  });
+  updateAvatar(targetForm.avatarUrl.value)
+    .then((data) => {
+      renderAvatar(data.avatar);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const handleProfileEditSubmit = (evt) => {
   evt.preventDefault();
   const targetForm = evt.target;
-  updateUserInfo(targetForm.name.value, targetForm.aboutMe.value).then(
-    (data) => {
+  updateUserInfo(targetForm.name.value, targetForm.aboutMe.value)
+    .then((data) => {
       renderUserInfo(data.name, data.about);
-    }
-  );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const handleAddCardFormSubmit = (evt) => {
@@ -69,31 +75,51 @@ const handleAddCardFormSubmit = (evt) => {
     link: targetForm.imageUrl.value,
     name: targetForm.title.value,
   };
-  addCard(cardInfo).then((data) => {
-    renderCards([data], handleDeleteCardButtonClick, handleLikeCardButtonClick);
-  });
+  addCard(cardInfo)
+    .then((data) => {
+      renderCards(
+        [data],
+        handleDeleteCardButtonClick,
+        handleLikeCardButtonClick
+      );
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 const handleDeleteCardButtonClick = (evt, card) => {
   const deleteCardForm = createDeleteCardForm();
   const formPopup = createPopupWithForm(deleteCardForm, (evt) => {
     evt.preventDefault();
-    deleteCard(card.getCardId()).then(() => {
-      removeHTMLElement(card.getCardElement());
-    });
+    deleteCard(card.getCardId())
+      .then(() => {
+        removeHTMLElement(card.getCardElement());
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
   formPopup.open();
 };
 
 const handleLikeCardButtonClick = (evt, card) => {
   if (card._status === "liked") {
-    dislikeCard(card.getCardId()).then((data) => {
-      card.setLikesCounter(data.likes.length);
-    });
+    dislikeCard(card.getCardId())
+      .then((data) => {
+        card.setLikesCounter(data.likes.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   } else {
-    likeCard(card.getCardId()).then((data) => {
-      card.setLikesCounter(data.likes.length);
-    });
+    likeCard(card.getCardId())
+      .then((data) => {
+        card.setLikesCounter(data.likes.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   card.toggleLikeButton();
 };
