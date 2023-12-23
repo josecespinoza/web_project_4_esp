@@ -30,10 +30,6 @@ class Card {
     return this._id;
   }
 
-  _setCardId(id) {
-    this._cardElement.setAttribute("id", `id_${id}`);
-  }
-
   _setCardName(name) {
     this._cardElement.querySelector(this._config.cardNameSelector).textContent =
       name;
@@ -148,7 +144,6 @@ class Card {
     this._cardElement = this._getTemplate().querySelector(
       this._config.cardSelector
     );
-    this._setCardId(this._id);
     this._setCardName(this._name);
     this._setCardImage(this._name, this._imageUrl);
     this.setLikesCounter(this._likesCounter);
