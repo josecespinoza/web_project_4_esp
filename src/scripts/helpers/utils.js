@@ -44,6 +44,10 @@ const isCardLiked = (cardData) => {
   });
 };
 
+const isCardOwner = (cardData) => {
+  return cardData.owner._id === getCurrentUserId();
+};
+
 const removeHTMLElement = (htmlElement) => {
   if (htmlElement) htmlElement.remove();
 };
@@ -61,6 +65,7 @@ export {
   createPopupWithForm,
   createPopupWithImage,
   isCardLiked,
+  isCardOwner,
   setCurrentUserId,
   getCurrentUserId,
 };

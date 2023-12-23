@@ -1,4 +1,4 @@
-import { createPopupWithImage, isCardLiked } from "./utils.js";
+import { createPopupWithImage, isCardLiked, isCardOwner } from "./utils.js";
 import { globalConfig, sectionConfig, cardConfig } from "./config.js";
 import Section from "../components/Section.js";
 import Avatar from "../components/Avatar.js";
@@ -39,6 +39,7 @@ const renderCards = (
         const cardElement = card.buildCard();
         card.setDeleteButtonHandler(deleteHandler);
         card.setLikeButtonHandler(likeHandler);
+        !isCardOwner(cardData) && card.removeDeleteButton();
         card.setStatus(
           isCardLiked(cardData)
             ? cardConfig.unlikedStatus

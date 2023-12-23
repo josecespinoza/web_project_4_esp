@@ -96,6 +96,14 @@ class Card {
     });
   }
 
+  toggleDeleteButton() {
+    if (this._getDeleteButton().hidden) {
+      this._getDeleteButton().hidden = false;
+    } else {
+      this._getDeleteButton().hidden = true;
+    }
+  }
+
   setStatus(status) {
     this._status = status;
   }
@@ -107,14 +115,14 @@ class Card {
 
   _removeCardListeners() {
     this._getImage().removeEventListener("click", this._handleCardClick);
-    this._getDeleteButton().removeEventListener(
-      "click",
-      this._handleCardDelete
-    );
   }
 
   toggleLikeButton() {
     this._isLiked() ? this._unlike() : this._like();
+  }
+
+  removeDeleteButton() {
+    this._getDeleteButton().remove();
   }
 
   _like() {
