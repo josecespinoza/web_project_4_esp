@@ -74,14 +74,12 @@ const handleAddCardFormSubmit = (evt) => {
   });
 };
 
-const handleDeleteCardButtonClick = (evt) => {
-  const card = evt.target.closest(cardConfig.cardSelector);
-  const cardId = card.id.replace(/^id_/, "");
+const handleDeleteCardButtonClick = (evt, card) => {
   const deleteCardForm = createDeleteCardForm();
   const formPopup = createPopupWithForm(deleteCardForm, (evt) => {
     evt.preventDefault();
-    deleteCard(cardId).then(() => {
-      removeHTMLElement(card);
+    deleteCard(card.getCardId()).then(() => {
+      removeHTMLElement(card.getCardElement());
     });
   });
   formPopup.open();
@@ -89,11 +87,11 @@ const handleDeleteCardButtonClick = (evt) => {
 
 const handleLikeCardButtonClick = (evt, card) => {
   if (card._status === "liked") {
-    dislikeCard(card._id).then((data) => {
+    dislikeCard(card.getCardId()).then((data) => {
       card.setLikesCounter(data.likes.length);
     });
   } else {
-    likeCard(card._id).then((data) => {
+    likeCard(card.getCardId()).then((data) => {
       card.setLikesCounter(data.likes.length);
     });
   }

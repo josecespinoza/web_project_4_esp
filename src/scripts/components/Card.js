@@ -8,7 +8,6 @@ class Card {
     imageUrl,
     likesCounter,
     handleCardClick,
-    handleCardDelete,
     config = cardConfig
   ) {
     this._id = id;
@@ -20,10 +19,15 @@ class Card {
     this._cardElement = null;
     this._popUpCard = null;
     this._handleCardClick = handleCardClick;
-    this._handleCardDelete = handleCardDelete;
-    this._getLikeButton = this._getLikeButton.bind(this);
-    this._handleLikeButtonClick = this._handleLikeButtonClick.bind(this);
     this.buildCard = this.buildCard.bind(this);
+  }
+
+  getCardElement() {
+    return this._cardElement;
+  }
+
+  getCardId() {
+    return this._id;
   }
 
   _setCardId(id) {
@@ -89,6 +93,13 @@ class Card {
     });
   }
 
+  setDeleteButtonHandler(handler) {
+    this._handleCardDelete = handler;
+    this._getDeleteButton().addEventListener("click", (evt) => {
+      this._handleCardDelete(evt, this);
+    });
+  }
+
   setStatus(status) {
     this._status = status;
   }
@@ -100,10 +111,6 @@ class Card {
 
   _removeCardListeners() {
     this._getImage().removeEventListener("click", this._handleCardClick);
-    this._getLikeButton().removeEventListener(
-      "click",
-      this._handleLikeButtonClick
-    );
     this._getDeleteButton().removeEventListener(
       "click",
       this._handleCardDelete
@@ -135,11 +142,6 @@ class Card {
 
   _isLiked() {
     return this._status === this._config.likedStatus ? true : false;
-  }
-
-  _handleLikeButtonClick(evt) {
-    this._handleCardLike(evt);
-    this.toggleLikeButton();
   }
 
   buildCard() {

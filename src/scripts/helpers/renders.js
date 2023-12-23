@@ -34,10 +34,10 @@ const renderCards = (
           cardData.name,
           cardData.link,
           cardData.likes.length,
-          cardPopup.open,
-          deleteHandler
+          cardPopup.open
         );
         const cardElement = card.buildCard();
+        card.setDeleteButtonHandler(deleteHandler);
         card.setLikeButtonHandler(likeHandler);
         card.setStatus(
           isCardLiked(cardData)
