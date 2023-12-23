@@ -1,7 +1,8 @@
-import { createPopupWithImage, createCard } from "./utils.js";
-import { globalConfig, sectionConfig } from "./config.js";
+import { createPopupWithImage } from "./utils.js";
+import { globalConfig, sectionConfig, cardConfig } from "./config.js";
 import Section from "../components/Section.js";
 import Avatar from "../components/Avatar.js";
+import Card from "../components/Card.js";
 import UserInfo from "../components/UserInfo.js";
 
 const renderAvatar = (imageUrl) => {
@@ -18,6 +19,7 @@ const renderUserInfo = (name, about) => {
 };
 
 const renderCards = (
+  userId,
   cards,
   deleteHandler,
   likeHandler,
@@ -26,16 +28,25 @@ const renderCards = (
   const cardsSection = new Section(
     {
       items: cards,
-      renderer: (card) => {
-        const cardPopup = createPopupWithImage(card.link, card.name);
-        const cardElement = createCard(
-          card._id,
-          card.name,
-          card.link,
+      renderer: (cardData) => {
+        const cardPopup = createPopupWithImage(cardData.link, cardData.name);
+        const card = new Card(
+          cardData._id,
+          cardData.name,
+          cardData.link,
+          cardData.likes.length,
           cardPopup.open,
-          deleteHandler,
-          likeHandler
+          deleteHandler
         );
+        const cardElement = card.buildCard();
+        card.setLikeHandler(likeHandler);
+        const isLiked = cardData.likes.some((someUser) => {
+          return someUser._id === userId;
+        });
+        card.setStatus(
+          isLiked ? cardConfig.unlikedStatus : cardConfig.likedStatus
+        );
+        card.toggleLikeButton();
         cardsSection.addItem(cardElement, appendType);
       },
     },

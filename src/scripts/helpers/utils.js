@@ -31,25 +31,6 @@ const createPopupWithImage = (imageUrl, description) => {
   return imagePopup;
 };
 
-const createCard = (
-  cardId,
-  cardName,
-  cardLink,
-  cardClickEventHandler,
-  cardDeleteEventHandler,
-  cardLikeEventHandler
-) => {
-  const card = new Card(
-    cardId,
-    cardName,
-    cardLink,
-    cardClickEventHandler,
-    cardDeleteEventHandler,
-    cardLikeEventHandler
-  );
-  return card.buildCard();
-};
-
 const removeHTMLElement = (htmlElement) => {
   if (htmlElement) htmlElement.remove();
 };
@@ -66,5 +47,4 @@ export {
   enableFormValidationOn,
   createPopupWithForm,
   createPopupWithImage,
-  createCard,
 };

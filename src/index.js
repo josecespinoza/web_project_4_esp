@@ -15,19 +15,29 @@ import {
   handleLikeCardButtonClick,
 } from "./scripts/helpers/handlers.js";
 
+const setCurrentUser = (userId) => {
+  sessionStorage.setItem("userId", userId);
+};
+
+const getCurrentUser = () => {
+  return sessionStorage.getItem("userId");
+};
+
 getUserInfo()
-  .then((data) => {
-    renderUserInfo(data.name, data.about);
-    renderAvatar(data.avatar);
+  .then((userData) => {
+    setCurrentUser(userData._id);
+    renderUserInfo(userData.name, userData.about);
+    renderAvatar(userData.avatar);
   })
   .catch((err) => {
     console.log(err);
   });
 
 getCards()
-  .then((data) => {
+  .then((cardData) => {
     renderCards(
-      data,
+      getCurrentUser(),
+      cardData,
       handleDeleteCardButtonClick,
       handleLikeCardButtonClick,
       sectionConfig.additionTypeAppend

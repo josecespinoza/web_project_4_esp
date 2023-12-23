@@ -3,7 +3,9 @@ const cardConfig = {
   cardSelector: ".destinations__item",
   cardNameSelector: ".destination__name",
   cardImageSelector: ".destination__photo",
-  likeButtonSelector: ".button_action_like .button__icon",
+  likeButtonSelector: ".button_action_like",
+  likeButtonIconSelector: ".button_action_like .button__icon",
+  likeCounterSelector: ".like .like__counter",
   deleteButtonSelector: ".button__icon_action_delete",
   popUpTemplateSelector: "#destination-popup-template",
   popUpSelector: ".destination-popup",
@@ -11,6 +13,8 @@ const cardConfig = {
   popUpDescSelector: ".destination-popup__description",
   notLikedButtonClass: "button__icon_action_like",
   isLikedButtonClass: "button__icon_action_liked",
+  likedStatus: "liked",
+  unlikedStatus: "unliked",
 };
 
 const validationConfig = {

@@ -78,11 +78,19 @@ const updateUserInfo = (name, about) => {
     });
 };
 
-const updateLikes = (userId) => {
+const likeCard = (userId) => {
   return apiRequestsHandler(
     apiConfig.baseUrl,
     `${apiConfig.likeResource}/${userId}`,
     apiConfig.putMethod
+  );
+};
+
+const dislikeCard = (userId) => {
+  return apiRequestsHandler(
+    apiConfig.baseUrl,
+    `${apiConfig.likeResource}/${userId}`,
+    apiConfig.deleteMethod
   );
 };
 
@@ -112,7 +120,8 @@ export {
   getCards,
   addCard,
   deleteCard,
+  likeCard,
+  dislikeCard,
   updateAvatar,
   updateUserInfo,
-  updateLikes,
 };

@@ -1,3 +1,4 @@
+import { cardConfig } from "./config.js";
 import {
   enableFormValidationOn,
   createPopupWithForm,
@@ -15,7 +16,8 @@ import {
   deleteCard,
   updateAvatar,
   updateUserInfo,
-  updateLikes,
+  likeCard,
+  dislikeCard,
 } from "./requests.js";
 
 const handleEditAvatarButtonClick = () => {
@@ -73,7 +75,7 @@ const handleAddCardFormSubmit = (evt) => {
 };
 
 const handleDeleteCardButtonClick = (evt) => {
-  const card = evt.target.closest(".destinations__item");
+  const card = evt.target.closest(cardConfig.cardSelector);
   const cardId = card.id.replace(/^id_/, "");
   const deleteCardForm = createDeleteCardForm();
   const formPopup = createPopupWithForm(deleteCardForm, (evt) => {
@@ -85,10 +87,17 @@ const handleDeleteCardButtonClick = (evt) => {
   formPopup.open();
 };
 
-const handleLikeCardButtonClick = (evt) => {
-  const card = evt.target.closest(".destinations__item");
-  const cardId = card.id.replace(/^id_/, "");
-  updateLikes(cardId);
+const handleLikeCardButtonClick = (evt, card) => {
+  if (card._status === "liked") {
+    dislikeCard(card._id).then((data) => {
+      card.setLikesCounter(data.likes.length);
+    });
+  } else {
+    likeCard(card._id).then((data) => {
+      card.setLikesCounter(data.likes.length);
+    });
+  }
+  card.toggleLikeButton();
 };
 
 export {
