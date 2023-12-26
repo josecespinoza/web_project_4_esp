@@ -18,7 +18,7 @@ const createEditAvatarForm = () => {
   const avatar = new Avatar(globalConfig.profileAvatarSelector);
   inputSetAvatarSrc.setInputValue(avatar.getAvatarImageUrl());
   const newForm = new Form("Cambiar foto de perfil", "Guardar", inputSets);
-  return newForm.buildForm();
+  return newForm;
 };
 
 const createEditProfileForm = () => {
@@ -36,8 +36,7 @@ const createEditProfileForm = () => {
   inputSetName.setInputValue(userInfo.getUserInfo().userName);
   inputSetAboutMe.setInputValue(userInfo.getUserInfo().userJob);
   const newForm = new Form("Editar Perfil", "Guardar", inputSets);
-
-  return newForm.buildForm();
+  return newForm;
 };
 
 const createAddCardForm = () => {
@@ -49,12 +48,12 @@ const createAddCardForm = () => {
     inputSetImageUrl.buildFormInputSet()
   );
   const newCardForm = new Form("Nuevo Lugar", "Guardar", inputSets);
-  return newCardForm.buildForm();
+  return newCardForm;
 };
 
 const createDeleteCardForm = () => {
   const newCardDeleteForm = new Form("¿Estás seguro?", "Sí");
-  return newCardDeleteForm.buildForm();
+  return newCardDeleteForm;
 };
 
 export {

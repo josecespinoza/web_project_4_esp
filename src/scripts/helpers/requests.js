@@ -17,7 +17,7 @@ const getCards = () => {
   );
 };
 
-const addCard = ({ name, link }) => {
+const addCard = (name, link) => {
   return apiRequestsHandler(
     apiConfig.baseUrl,
     apiConfig.cardResource,

@@ -1,9 +1,15 @@
-import { createPopupWithImage, isCardLiked, isCardOwner } from "./utils.js";
+import {
+  enableFormValidationOn,
+  createPopupWithImage,
+  isCardLiked,
+  isCardOwner,
+} from "./utils.js";
 import { globalConfig, sectionConfig, cardConfig } from "./config.js";
 import Section from "../components/Section.js";
 import Avatar from "../components/Avatar.js";
 import Card from "../components/Card.js";
 import UserInfo from "../components/UserInfo.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 const renderAvatar = (imageUrl) => {
   const avatar = new Avatar(globalConfig.profileAvatarSelector);
@@ -16,6 +22,21 @@ const renderUserInfo = (name, about) => {
     globalConfig.profileOccupationSelector
   );
   userInfo.setUserInfo(name, about);
+};
+
+const renderPopUpWithForm = (formObj, submitHandler) => {
+  const formElement = formObj.buildForm();
+  enableFormValidationOn(formElement);
+  const popupWithForm = new PopupWithForm(
+    globalConfig.popupSelector,
+    (evt) => {
+      submitHandler(evt, formObj, popupWithForm);
+    },
+    formElement
+  );
+  popupWithForm.buildPopup();
+  popupWithForm.setEventListeners();
+  popupWithForm.open();
 };
 
 const renderCards = (
@@ -55,4 +76,4 @@ const renderCards = (
   cardsSection.renderer();
 };
 
-export { renderAvatar, renderUserInfo, renderCards };
+export { renderAvatar, renderUserInfo, renderCards, renderPopUpWithForm };

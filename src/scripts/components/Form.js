@@ -15,6 +15,19 @@ class Form {
     this._form = null;
   }
 
+  startLoader() {
+    this._getSubmitButton().textContent = "Guardando...";
+    this._getSubmitButton().classList.add(this._config.submitLoadingClass);
+  }
+
+  stopLoader() {
+    this._getSubmitButton().textContent = "Guardado";
+  }
+
+  _getSubmitButton() {
+    return this._form.querySelector(this._config.formButtonSelector);
+  }
+
   _getTemplate() {
     return page.querySelector(this._config.formTemplateSelector).cloneNode(true)
       .content;
@@ -30,14 +43,17 @@ class Form {
   }
 
   _setButtonLabel(label) {
-    this._form.querySelector(this._config.formButtonSelector).textContent =
-      label;
+    this._getSubmitButton().textContent = label;
   }
 
   _setInputs(inputSetList) {
     inputSetList.forEach((inputSet) => {
       this._getInputsArea().append(inputSet);
     });
+  }
+
+  getFormElement() {
+    return this._form;
   }
 
   buildForm() {

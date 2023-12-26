@@ -10,7 +10,12 @@ import {
   createAddCardForm,
   createDeleteCardForm,
 } from "./forms.js";
-import { renderAvatar, renderUserInfo, renderCards } from "./renders.js";
+import {
+  renderAvatar,
+  renderUserInfo,
+  renderCards,
+  renderPopUpWithForm,
+} from "./renders.js";
 import {
   addCard,
   deleteCard,
@@ -22,85 +27,70 @@ import {
 
 const handleEditAvatarButtonClick = () => {
   const editAvatarForm = createEditAvatarForm();
-  enableFormValidationOn(editAvatarForm);
-  const formPopup = createPopupWithForm(editAvatarForm, handleAvatarEditSubmit);
-  formPopup.open();
+  renderPopUpWithForm(editAvatarForm, handleAvatarEditSubmit);
 };
 
 const handleEditProfileButtonClick = () => {
   const editProfileForm = createEditProfileForm();
-  enableFormValidationOn(editProfileForm);
-  const formPopup = createPopupWithForm(
-    editProfileForm,
-    handleProfileEditSubmit
-  );
-  formPopup.open();
+  renderPopUpWithForm(editProfileForm, handleProfileEditSubmit);
 };
 
 const handleAddCardButtonClick = () => {
   const addCardForm = createAddCardForm();
-  enableFormValidationOn(addCardForm);
-  const formPopup = createPopupWithForm(addCardForm, handleAddCardFormSubmit);
-  formPopup.open();
+  renderPopUpWithForm(addCardForm, handleAddCardFormSubmit);
 };
 
-const handleAvatarEditSubmit = (evt) => {
+const handleAvatarEditSubmit = (evt, form, popupWithForm) => {
   evt.preventDefault();
-  const targetForm = evt.target;
-  updateAvatar(targetForm.avatarUrl.value)
-    .then((data) => {
-      renderAvatar(data.avatar);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  form.startLoader();
+  const formElement = form.getFormElement();
+  updateAvatar(formElement.avatarUrl.value).then((data) => {
+    renderAvatar(data.avatar);
+    form.stopLoader();
+    popupWithForm.close();
+  });
 };
 
-const handleProfileEditSubmit = (evt) => {
+const handleProfileEditSubmit = (evt, form, popupWithForm) => {
   evt.preventDefault();
-  const targetForm = evt.target;
-  updateUserInfo(targetForm.name.value, targetForm.aboutMe.value)
-    .then((data) => {
+  form.startLoader();
+  const formElement = form.getFormElement();
+  updateUserInfo(formElement.name.value, formElement.aboutMe.value).then(
+    (data) => {
       renderUserInfo(data.name, data.about);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      form.stopLoader();
+      popupWithForm.close();
+    }
+  );
 };
 
-const handleAddCardFormSubmit = (evt) => {
+const handleAddCardFormSubmit = (evt, form, popupWithForm) => {
   evt.preventDefault();
-  const targetForm = evt.target;
-  const cardInfo = {
-    link: targetForm.imageUrl.value,
-    name: targetForm.title.value,
-  };
-  addCard(cardInfo)
-    .then((data) => {
-      renderCards(
-        [data],
-        handleDeleteCardButtonClick,
-        handleLikeCardButtonClick
-      );
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  form.startLoader();
+  const formElement = form.getFormElement();
+  addCard(formElement.title.value, formElement.imageUrl.value).then((data) => {
+    renderCards([data], handleDeleteCardButtonClick, handleLikeCardButtonClick);
+    form.stopLoader();
+    popupWithForm.close();
+  });
 };
 
 const handleDeleteCardButtonClick = (evt, card) => {
+  evt.preventDefault();
   const deleteCardForm = createDeleteCardForm();
-  const formPopup = createPopupWithForm(deleteCardForm, (evt) => {
-    evt.preventDefault();
-    deleteCard(card.getCardId())
-      .then(() => {
-        removeHTMLElement(card.getCardElement());
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  renderPopUpWithForm(deleteCardForm, (submitEvt, form, popupWithForm) => {
+    handleDeleteCardSubmit(submitEvt, card, form, popupWithForm);
   });
-  formPopup.open();
+};
+
+const handleDeleteCardSubmit = (evt, card, form, popupWithForm) => {
+  evt.preventDefault();
+  form.startLoader();
+  deleteCard(card.getCardId()).then(() => {
+    form.stopLoader();
+    removeHTMLElement(card.getCardElement());
+    popupWithForm.close();
+  });
 };
 
 const handleLikeCardButtonClick = (evt, card) => {

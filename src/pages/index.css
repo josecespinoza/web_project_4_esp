@@ -40,6 +40,7 @@
 @import url("../blocks/button/_location/button_location_destination-photo.css");
 @import url("../blocks/button/_location/button_location_form.css");
 @import url("../blocks/button/_status/button_status_inactive.css");
+@import url("../blocks/button/_status/button_status_loading.css");
 @import url("../blocks/button/__icon/button__icon.css");
 @import url("../blocks/button/__icon/_action/button__icon_action_edit.css");
 @import url("../blocks/button/__icon/_location/button__icon_location-profile-avatar.css");
