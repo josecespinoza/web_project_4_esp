@@ -38,6 +38,14 @@ class PopupWithForm extends Popup {
     this._getContentContainer().append(this._formElement);
   }
 
+  _focusOnForm() {
+    if (this._formElement.querySelector(".form__input").value) {
+      this._formElement.querySelector(".button").focus();
+    } else {
+      this._formElement.querySelector(".form__input").focus();
+    }
+  }
+
   close() {
     super.close();
     this._formElement.reset();
@@ -46,6 +54,7 @@ class PopupWithForm extends Popup {
   open() {
     super.open();
     this._setForm();
+    this._focusOnForm();
   }
 }
 
