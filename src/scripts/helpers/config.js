@@ -36,6 +36,7 @@ const formConfig = {
   formInputSetSelector: ".form__input-set",
   formInputSelector: ".form__input",
   formInputsAreaSelector: ".form__inputs",
+  submitLoadingClass: "button_status_loading",
 };
 
 const inputSetConfig = {

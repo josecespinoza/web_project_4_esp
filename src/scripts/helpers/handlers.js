@@ -27,9 +27,7 @@ import {
 
 const handleEditAvatarButtonClick = () => {
   const editAvatarForm = createEditAvatarForm();
-  enableFormValidationOn(editAvatarForm);
-  const formPopup = createPopupWithForm(editAvatarForm, handleAvatarEditSubmit);
-  formPopup.open();
+  renderPopUpWithForm(editAvatarForm, handleAvatarEditSubmit);
 };
 
 const handleEditProfileButtonClick = () => {
@@ -39,16 +37,17 @@ const handleEditProfileButtonClick = () => {
 
 const handleAddCardButtonClick = () => {
   const addCardForm = createAddCardForm();
-  enableFormValidationOn(addCardForm);
-  const formPopup = createPopupWithForm(addCardForm, handleAddCardFormSubmit);
-  formPopup.open();
+  renderPopUpWithForm(addCardForm, handleAddCardFormSubmit);
 };
 
-const handleAvatarEditSubmit = (evt) => {
+const handleAvatarEditSubmit = (evt, form, popupWithForm) => {
   evt.preventDefault();
-  const targetForm = evt.target;
-  updateAvatar(targetForm.avatarUrl.value).then((data) => {
+  form.startLoader();
+  const formElement = form.getFormElement();
+  updateAvatar(formElement.avatarUrl.value).then((data) => {
     renderAvatar(data.avatar);
+    form.stopLoader();
+    popupWithForm.close();
   });
 };
 
@@ -65,27 +64,33 @@ const handleProfileEditSubmit = (evt, form, popupWithForm) => {
   );
 };
 
-const handleAddCardFormSubmit = (evt) => {
+const handleAddCardFormSubmit = (evt, form, popupWithForm) => {
   evt.preventDefault();
-  const targetForm = evt.target;
-  const cardInfo = {
-    link: targetForm.imageUrl.value,
-    name: targetForm.title.value,
-  };
-  addCard(cardInfo).then((data) => {
+  form.startLoader();
+  const formElement = form.getFormElement();
+  addCard(formElement.title.value, formElement.imageUrl.value).then((data) => {
     renderCards([data], handleDeleteCardButtonClick, handleLikeCardButtonClick);
+    form.stopLoader();
+    popupWithForm.close();
   });
 };
 
 const handleDeleteCardButtonClick = (evt, card) => {
+  evt.preventDefault();
   const deleteCardForm = createDeleteCardForm();
-  const formPopup = createPopupWithForm(deleteCardForm, (evt) => {
-    evt.preventDefault();
-    deleteCard(card.getCardId()).then(() => {
-      removeHTMLElement(card.getCardElement());
-    });
+  renderPopUpWithForm(deleteCardForm, (submitEvt, form, popupWithForm) => {
+    handleDeleteCardSubmit(submitEvt, card, form, popupWithForm);
   });
-  formPopup.open();
+};
+
+const handleDeleteCardSubmit = (evt, card, form, popupWithForm) => {
+  evt.preventDefault();
+  form.startLoader();
+  deleteCard(card.getCardId()).then(() => {
+    form.stopLoader();
+    removeHTMLElement(card.getCardElement());
+    popupWithForm.close();
+  });
 };
 
 const handleLikeCardButtonClick = (evt, card) => {

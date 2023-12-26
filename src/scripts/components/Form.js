@@ -17,6 +17,7 @@ class Form {
 
   startLoader() {
     this._getSubmitButton().textContent = "Guardando...";
+    this._getSubmitButton().classList.add(this._config.submitLoadingClass);
   }
 
   stopLoader() {
