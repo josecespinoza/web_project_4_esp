@@ -36,8 +36,7 @@ const createEditProfileForm = () => {
   inputSetName.setInputValue(userInfo.getUserInfo().userName);
   inputSetAboutMe.setInputValue(userInfo.getUserInfo().userJob);
   const newForm = new Form("Editar Perfil", "Guardar", inputSets);
-
-  return newForm.buildForm();
+  return newForm;
 };
 
 const createAddCardForm = () => {

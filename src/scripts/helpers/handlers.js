@@ -10,7 +10,12 @@ import {
   createAddCardForm,
   createDeleteCardForm,
 } from "./forms.js";
-import { renderAvatar, renderUserInfo, renderCards } from "./renders.js";
+import {
+  renderAvatar,
+  renderUserInfo,
+  renderCards,
+  renderPopUpWithForm,
+} from "./renders.js";
 import {
   addCard,
   deleteCard,
@@ -29,12 +34,7 @@ const handleEditAvatarButtonClick = () => {
 
 const handleEditProfileButtonClick = () => {
   const editProfileForm = createEditProfileForm();
-  enableFormValidationOn(editProfileForm);
-  const formPopup = createPopupWithForm(
-    editProfileForm,
-    handleProfileEditSubmit
-  );
-  formPopup.open();
+  renderPopUpWithForm(editProfileForm, handleProfileEditSubmit);
 };
 
 const handleAddCardButtonClick = () => {
@@ -52,12 +52,15 @@ const handleAvatarEditSubmit = (evt) => {
   });
 };
 
-const handleProfileEditSubmit = (evt) => {
+const handleProfileEditSubmit = (evt, form, popupWithForm) => {
   evt.preventDefault();
-  const targetForm = evt.target;
-  updateUserInfo(targetForm.name.value, targetForm.aboutMe.value).then(
+  form.startLoader();
+  const formElement = form.getFormElement();
+  updateUserInfo(formElement.name.value, formElement.aboutMe.value).then(
     (data) => {
       renderUserInfo(data.name, data.about);
+      form.stopLoader();
+      popupWithForm.close();
     }
   );
 };

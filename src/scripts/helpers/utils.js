@@ -24,7 +24,7 @@ const createPopupWithForm = (form, submitHandler) => {
     form
   );
   popUpWithForm.buildPopup();
-  popUpWithForm.setEventListeners();
+  popUpWithForm.setEventListeners(true);
   return popUpWithForm;
 };
 
