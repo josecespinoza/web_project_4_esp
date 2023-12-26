@@ -1,9 +1,4 @@
-import { cardConfig } from "./config.js";
-import {
-  enableFormValidationOn,
-  createPopupWithForm,
-  removeHTMLElement,
-} from "./utils.js";
+import { removeHTMLElement } from "./utils.js";
 import {
   createEditAvatarForm,
   createEditProfileForm,
