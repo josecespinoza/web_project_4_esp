@@ -1,4 +1,4 @@
-import { popupConfig } from "../helpers/config.js";
+import { popupConfig, formConfig } from "../helpers/config.js";
 import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {
@@ -39,10 +39,16 @@ class PopupWithForm extends Popup {
   }
 
   _focusOnForm() {
-    if (this._formElement.querySelector(".form__input").value) {
-      this._formElement.querySelector(".button").focus();
+    const firstInput = this._formElement.querySelector(
+      formConfig.formInputSelector
+    );
+    const firstButton = this._formElement.querySelector(
+      formConfig.formButtonSelector
+    );
+    if (firstInput.value) {
+      firstButton.focus();
     } else {
-      this._formElement.querySelector(".form__input").focus();
+      firstInput.focus();
     }
   }
 
