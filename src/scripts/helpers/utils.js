@@ -1,6 +1,5 @@
 import { globalConfig } from "./config.js";
 import { page } from "./constants.js";
-import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
 
@@ -15,17 +14,6 @@ const getCurrentUserId = () => {
 const enableFormValidationOn = (form) => {
   const formValidator = new FormValidator(form);
   formValidator.enableValidation();
-};
-
-const createPopupWithForm = (form, submitHandler) => {
-  const popUpWithForm = new PopupWithForm(
-    globalConfig.popupSelector,
-    submitHandler,
-    form
-  );
-  popUpWithForm.buildPopup();
-  popUpWithForm.setEventListeners(true);
-  return popUpWithForm;
 };
 
 const createPopupWithImage = (imageUrl, description) => {
@@ -62,7 +50,6 @@ export {
   setPageButtonHandler,
   removeHTMLElement,
   enableFormValidationOn,
-  createPopupWithForm,
   createPopupWithImage,
   isCardLiked,
   isCardOwner,
