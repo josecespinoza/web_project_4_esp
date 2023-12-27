@@ -2,47 +2,47 @@ import { popupConfig, formConfig } from "../helpers/config.js";
 import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {
+  #submitEventHandler;
+  #formElement;
+
   constructor(popupSelector, submitEventHandler, formElement) {
     super(popupSelector, popupConfig);
-    this._submitEventHandler = submitEventHandler;
-    this._submitEventHandler = this._submitEventHandler.bind(this);
-    this._postSubmitEventHandler = this._postSubmitEventHandler.bind(this);
-    this._formElement = formElement;
+    this.#submitEventHandler = submitEventHandler;
+    this.#formElement = formElement;
   }
 
-  _getInputValues() {
-    return this._formElement.inputValues;
-  }
-
-  _modifyContentContainer() {
+  #modifyContentContainer() {
     super._modifyContentContainer(popupConfig.popupModifierFormClass);
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._formElement.addEventListener("submit", this._submitEventHandler);
-    this._formElement.addEventListener("submit", this._postSubmitEventHandler);
+    this.#formElement.addEventListener("submit", this.#submitEventHandler);
+    this.#formElement.addEventListener(
+      "submit",
+      this.#postSubmitEventHandler.bind(this)
+    );
   }
 
-  _postSubmitEventHandler(evt) {
-    this._formElement.removeEventListener("submit", this._submitEventHandler);
-    this._formElement.removeEventListener(
+  #postSubmitEventHandler(evt) {
+    this.#formElement.removeEventListener("submit", this.#submitEventHandler);
+    this.#formElement.removeEventListener(
       "submit",
-      this._postSubmitEventHandler
+      this.#postSubmitEventHandler
     );
     this.close();
   }
 
-  _setForm() {
-    this._modifyContentContainer();
-    this._getContentContainer().append(this._formElement);
+  #setForm() {
+    this.#modifyContentContainer();
+    super._getContentContainer().append(this.#formElement);
   }
 
-  _focusOnForm() {
-    const firstInput = this._formElement.querySelector(
+  #focusOnForm() {
+    const firstInput = this.#formElement.querySelector(
       formConfig.formInputSelector
     );
-    const firstButton = this._formElement.querySelector(
+    const firstButton = this.#formElement.querySelector(
       formConfig.formButtonSelector
     );
     if (!firstInput || firstInput.value) {
@@ -54,13 +54,13 @@ class PopupWithForm extends Popup {
 
   close() {
     super.close();
-    this._formElement.reset();
+    this.#formElement.reset();
   }
 
   open() {
     super.open();
-    this._setForm();
-    this._focusOnForm();
+    this.#setForm();
+    this.#focusOnForm();
   }
 }
 

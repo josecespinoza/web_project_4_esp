@@ -2,73 +2,76 @@ import { page } from "../helpers/constants.js";
 import { popupConfig } from "../helpers/config.js";
 
 class Popup {
+  #config;
+  #popupSelector;
+  #popup;
+  #isClosing;
+
   constructor(popupSelector, config = popupConfig) {
-    this._config = config;
-    this._popupSelector = popupSelector;
-    this._popup = null;
-    this._isClosing = null;
-    this._handleEscClose = this._handleEscClose.bind(this);
-    this._handleClickClose = this._handleClickClose.bind(this);
+    this.#config = config;
+    this.#popupSelector = popupSelector;
+    this.#popup = null;
+    this.#isClosing = null;
   }
 
-  _getTemplate() {
+  #getTemplate() {
     return page
-      .querySelector(this._config.popupTemplateSelector)
+      .querySelector(this.#config.popupTemplateSelector)
       .cloneNode(true).content;
   }
 
-  _getModalBackdrop() {
-    return this._popup.querySelector(this._config.popupBackdropSelector);
+  #getModalBackdrop() {
+    return this.#popup.querySelector(this.#config.popupBackdropSelector);
   }
 
-  _getCloseButton() {
-    return this._popup.querySelector(this._config.popupCloseButtonSelector);
+  #getCloseButton() {
+    return this.#popup.querySelector(this.#config.popupCloseButtonSelector);
   }
 
-  _togglePopup() {
-    if (!this._popup.classList.contains(this._config.popupOpenedStateClass)) {
-      this._popup.classList.add(this._config.popupOpenedStateClass);
-      this._popup.classList.remove(this._config.popupClosedStateClass);
+  #togglePopup() {
+    if (!this.#popup.classList.contains(this.#config.popupOpenedStateClass)) {
+      this.#popup.classList.add(this.#config.popupOpenedStateClass);
+      this.#popup.classList.remove(this.#config.popupClosedStateClass);
     } else {
-      this._popup.classList.add(this._config.popupClosedStateClass);
-      this._popup.classList.remove(this._config.popupOpenedStateClass);
+      this.#popup.classList.add(this.#config.popupClosedStateClass);
+      this.#popup.classList.remove(this.#config.popupOpenedStateClass);
     }
   }
 
-  _playClosingAnimation() {
-    this._isClosing = true;
+  #playClosingAnimation() {
+    this.#isClosing = true;
     setTimeout(() => {
-      this._popup.remove();
-      this._isClosing = false;
-    }, this._config.popupClosingTimeInMs);
+      this.#popup.remove();
+      this.#isClosing = false;
+    }, this.#config.popupClosingTimeInMs);
   }
 
-  _closeOnClick(element) {
-    element.addEventListener("click", this._handleClickClose);
+  #closeOnClick(element) {
+    element.addEventListener("click", this.#handleClickClose.bind(this));
   }
 
-  _closeOnEscape(element) {
-    element.addEventListener("keydown", this._handleEscClose);
+  #closeOnEscape(element) {
+    element.addEventListener("keydown", this.#handleEscClose.bind(this));
   }
 
-  _handleClickClose(evt) {
+  #handleClickClose(evt) {
     evt.type.toLowerCase() === "click" && this.close();
   }
 
-  _handleEscClose(evt) {
+  #handleEscClose(evt) {
     evt.key?.toLowerCase() === "escape" && this.close();
   }
 
-  _isOpened() {
-    return page.querySelector(this.popupSelector);
+  #isOpened() {
+    return page.querySelector(this.#popupSelector);
   }
 
   getContentSelector() {
-    return this._config.popupContentSelector;
+    return this.#config.popupContentSelector;
   }
 
   _getContentContainer() {
-    return this._popup.querySelector(this._config.popupContentSelector);
+    return this.#popup.querySelector(this.#config.popupContentSelector);
   }
 
   _modifyContentContainer(contentClass) {
@@ -76,28 +79,28 @@ class Popup {
   }
 
   open() {
-    if (!this._isOpened()) {
-      this._togglePopup();
-      page.prepend(this._popup);
+    if (!this.#isOpened()) {
+      this.#togglePopup();
+      page.prepend(this.#popup);
     }
-    this._popup.focus();
+    this.#popup.focus();
   }
 
   close() {
-    if (!this._isClosing) {
-      this._togglePopup();
-      this._playClosingAnimation();
+    if (!this.#isClosing) {
+      this.#togglePopup();
+      this.#playClosingAnimation();
     }
   }
 
   setEventListeners() {
-    this._closeOnClick(this._getModalBackdrop());
-    this._closeOnClick(this._getCloseButton());
-    this._closeOnEscape(this._popup);
+    this.#closeOnClick(this.#getModalBackdrop());
+    this.#closeOnClick(this.#getCloseButton());
+    this.#closeOnEscape(this.#popup);
   }
 
   buildPopup() {
-    this._popup = this._getTemplate().querySelector(this._popupSelector);
+    this.#popup = this.#getTemplate().querySelector(this.#popupSelector);
   }
 }
 

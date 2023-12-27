@@ -3,53 +3,62 @@ import { page } from "../helpers/constants.js";
 import Popup from "./Popup.js";
 
 class PopupWithImage extends Popup {
+  #imageUrl;
+  #description;
+  #image;
+  #caption;
+  #imageComponent;
+
   constructor(popupSelector, { imageUrl, description }) {
     super(popupSelector, popupConfig);
-    this._imageUrl = imageUrl;
-    this._description = description;
-    this._image = null;
-    this._caption = null;
+    this.#imageUrl = imageUrl;
+    this.#description = description;
+    this.#image = null;
+    this.#caption = null;
     this.open = this.open.bind(this);
   }
-  _modifyContentContainer() {
+  #modifyContentContainer() {
     super._modifyContentContainer(popupConfig.popupModifierImageClass);
   }
 
-  _getImageTemplate() {
-    return page.querySelector("#popupImage-template").cloneNode(true).content;
+  #getImageTemplate() {
+    return page.querySelector(popupConfig.popupImageTplSelector).cloneNode(true)
+      .content;
   }
 
-  _setImage(imageUrl, description) {
-    this._image = this._getImageComponent().querySelector(".popup__photo");
-    this._image.setAttribute("src", imageUrl);
-    this._image.setAttribute("alt", description);
-  }
-
-  _setCaption(description) {
-    this._caption = this._getImageComponent().querySelector(
-      ".popup__description"
+  #setImage(imageUrl, description) {
+    this.#image = this.#getImageComponent().querySelector(
+      popupConfig.popupPhotoSelector
     );
-    this._caption.textContent = description;
+    this.#image.setAttribute("src", imageUrl);
+    this.#image.setAttribute("alt", description);
   }
 
-  _setImageComponent() {
-    if (!this._imageComponent) {
-      this._imageComponent = this._getImageTemplate();
-      this._setImage(this._imageUrl, this._description);
-      this._setCaption(this._description);
-      this._modifyContentContainer();
-      this._getContentContainer().append(this._image);
-      this._getContentContainer().append(this._caption);
+  #setCaption(description) {
+    this.#caption = this.#getImageComponent().querySelector(
+      popupConfig.popupDescSelector
+    );
+    this.#caption.textContent = description;
+  }
+
+  #setImageComponent() {
+    if (!this.#imageComponent) {
+      this.#imageComponent = this.#getImageTemplate();
+      this.#setImage(this.#imageUrl, this.#description);
+      this.#setCaption(this.#description);
+      this.#modifyContentContainer();
+      super._getContentContainer().append(this.#image);
+      super._getContentContainer().append(this.#caption);
     }
   }
 
-  _getImageComponent() {
-    return this._imageComponent;
+  #getImageComponent() {
+    return this.#imageComponent;
   }
 
   open() {
     super.open();
-    this._setImageComponent();
+    this.#setImageComponent();
   }
 
   close() {

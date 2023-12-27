@@ -2,49 +2,58 @@ import { page } from "../helpers/constants.js";
 import { inputSetConfig } from "../helpers/config.js";
 
 class InputSet {
+  #type;
+  #name;
+  #placeholder;
+  #isRequired;
+  #maxlength;
+  #minlength;
+  #config;
+  #inputSet;
+  #input;
   constructor(data, config = inputSetConfig) {
-    this._type = data.type;
-    this._name = data.name;
-    this._placeholder = data.placeholder;
-    this._isRequired = data.isRequired;
-    this._maxlength = data.maxlength;
-    this._minlength = data.minlength;
-    this._config = config;
-    this._inputSet = null;
-    this._input = null;
+    this.#type = data.type;
+    this.#name = data.name;
+    this.#placeholder = data.placeholder;
+    this.#isRequired = data.isRequired;
+    this.#maxlength = data.maxlength;
+    this.#minlength = data.minlength;
+    this.#config = config;
+    this.#inputSet = null;
+    this.#input = null;
   }
 
-  _getTemplate() {
+  #getTemplate() {
     return page
-      .querySelector(this._config.inputTemplateSelector)
+      .querySelector(this.#config.inputTemplateSelector)
       .cloneNode(true).content;
   }
 
-  _mapInputAttributes() {
-    this._input.setAttribute("type", this._type);
-    this._input.setAttribute("name", this._name);
-    this._input.setAttribute("placeholder", this._placeholder);
-    this._input.setAttribute("maxlength", this._maxlength);
-    this._input.setAttribute("minlength", this._minlength);
-    this._input.setAttribute("required", this._isRequired);
+  #mapInputAttributes() {
+    this.#input.setAttribute("type", this.#type);
+    this.#input.setAttribute("name", this.#name);
+    this.#input.setAttribute("placeholder", this.#placeholder);
+    this.#input.setAttribute("maxlength", this.#maxlength);
+    this.#input.setAttribute("minlength", this.#minlength);
+    this.#input.setAttribute("required", this.#isRequired);
   }
 
   setInputValue(value) {
-    this._input.value = value;
+    this.#input.value = value;
   }
 
   inputFocus() {
-    this._input.focus();
-    this._input.select();
+    this.#input.focus();
+    this.#input.select();
   }
 
   buildFormInputSet() {
-    this._inputSet = this._getTemplate().querySelector(
-      this._config.inputSetSelector
+    this.#inputSet = this.#getTemplate().querySelector(
+      this.#config.inputSetSelector
     );
-    this._input = this._inputSet.querySelector(this._config.inputSelector);
-    this._mapInputAttributes();
-    return this._inputSet;
+    this.#input = this.#inputSet.querySelector(this.#config.inputSelector);
+    this.#mapInputAttributes();
+    return this.#inputSet;
   }
 }
 
