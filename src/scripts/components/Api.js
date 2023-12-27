@@ -1,68 +1,72 @@
 class Api {
+  #baseUrl;
+  #headers;
+  #body;
+  #requestOptions;
+  #method;
+
   constructor(options) {
-    this._baseUrl = options.baseUrl;
-    this._headers = options.headers || null;
-    this._body = options.body || null;
+    this.#baseUrl = options.baseUrl;
+    this.#headers = options.headers || null;
+    this.#body = options.body || null;
     this.get = this.get.bind(this);
     this.post = this.post.bind(this);
     this.put = this.put.bind(this);
     this.patch = this.patch.bind(this);
     this.delete = this.delete.bind(this);
-    this._buildRequestOptions = this._buildRequestOptions.bind(this);
-    this._getRequestOptions = this._getRequestOptions.bind(this);
-    this._requestOptions = {};
+    this.#requestOptions = {};
   }
 
-  _setMethod(method) {
-    this._method = method;
+  #setMethod(method) {
+    this.#method = method;
   }
 
-  _buildRequestOptions() {
-    if (this._headers) {
-      this._requestOptions.headers = this._headers;
+  #buildRequestOptions() {
+    if (this.#headers) {
+      this.#requestOptions.headers = this.#headers;
     }
-    if (this._body) {
-      this._requestOptions.body = JSON.stringify(this._body);
+    if (this.#body) {
+      this.#requestOptions.body = JSON.stringify(this.#body);
     }
-    if (this._method) {
-      this._requestOptions.method = this._method;
+    if (this.#method) {
+      this.#requestOptions.method = this.#method;
     }
   }
 
-  _getRequestOptions() {
-    return this._requestOptions;
+  #getRequestOptions() {
+    return this.#requestOptions;
   }
 
-  _doRequest() {
-    this._buildRequestOptions();
-    return fetch(this._baseUrl, this._getRequestOptions()).then((res) =>
+  #doRequest() {
+    this.#buildRequestOptions();
+    return fetch(this.#baseUrl, this.#getRequestOptions()).then((res) =>
       res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
     );
   }
 
   get() {
-    this._setMethod("GET");
-    return this._doRequest();
+    this.#setMethod("GET");
+    return this.#doRequest();
   }
 
   post() {
-    this._setMethod("POST");
-    return this._doRequest();
+    this.#setMethod("POST");
+    return this.#doRequest();
   }
 
   put() {
-    this._setMethod("PUT");
-    return this._doRequest();
+    this.#setMethod("PUT");
+    return this.#doRequest();
   }
 
   patch() {
-    this._setMethod("PATCH");
-    return this._doRequest();
+    this.#setMethod("PATCH");
+    return this.#doRequest();
   }
 
   delete() {
-    this._setMethod("DELETE");
-    return this._doRequest();
+    this.#setMethod("DELETE");
+    return this.#doRequest();
   }
 }
 
