@@ -35,6 +35,13 @@ class Api {
     return JSON.parse(JSON.stringify(this.#requestOptions));
   }
 
+  _updateOptions(options) {
+    this.#baseUrl = options.baseUrl;
+    this.#headers = options.headers || null;
+    this.#body = options.body || null;
+    this.#buildRequestOptions();
+  }
+
   #doRequest() {
     const requestOptions = this.#buildRequestOptions();
     return fetch(this.#baseUrl, requestOptions).then((res) =>
@@ -68,4 +75,14 @@ class Api {
   }
 }
 
-export default Api;
+let instance;
+
+const getInstance = (options) => {
+  if (!instance) {
+    instance = new Api(options);
+  }
+  instance._updateOptions(options);
+  return instance;
+};
+
+export { getInstance };

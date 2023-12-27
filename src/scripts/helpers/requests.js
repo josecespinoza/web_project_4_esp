@@ -1,5 +1,5 @@
 import { apiConfig } from "./config.js";
-import Api from "../components/Api.js";
+import * as apiHandler from "../components/Api.js";
 
 const getUserInfo = () => {
   const { baseUrl, userInfoResource, getMethod } = apiConfig;
@@ -69,7 +69,7 @@ const dislikeCard = (userId) => {
 
 const apiRequestsHandler = (baseUrl, resource, method, body) => {
   const { token } = apiConfig;
-  const api = new Api({
+  const api = apiHandler.getInstance({
     baseUrl: `${baseUrl}${resource}`,
     headers: {
       authorization: `${token}`,
