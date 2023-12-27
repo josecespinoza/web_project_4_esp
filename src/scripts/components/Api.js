@@ -31,15 +31,13 @@ class Api {
     if (this.#method) {
       this.#requestOptions.method = this.#method;
     }
-  }
 
-  #getRequestOptions() {
-    return this.#requestOptions;
+    return JSON.parse(JSON.stringify(this.#requestOptions));
   }
 
   #doRequest() {
-    this.#buildRequestOptions();
-    return fetch(this.#baseUrl, this.#getRequestOptions()).then((res) =>
+    const requestOptions = this.#buildRequestOptions();
+    return fetch(this.#baseUrl, requestOptions).then((res) =>
       res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
     );
   }
