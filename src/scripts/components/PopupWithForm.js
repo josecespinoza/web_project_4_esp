@@ -39,7 +39,6 @@ class PopupWithForm extends Popup {
   }
 
   _focusOnForm() {
-    debugger;
     const firstInput = this._formElement.querySelector(
       formConfig.formInputSelector
     );

@@ -1,80 +1,87 @@
 import { validationConfig } from "../helpers/config.js";
 
 class FormValidator {
+  #form;
+  #config;
+
   constructor(form, config = validationConfig) {
-    this._form = form;
-    this._config = config;
-    this._inputValidationHandler = this._inputValidationHandler.bind(this);
-    this._formPreSubmitValidationHandler =
-      this._formPreSubmitValidationHandler.bind(this);
+    this.#form = form;
+    this.#config = config;
   }
 
-  _formIsValid() {
+  #formIsValid() {
     const inputs = Array.from(
-      this._form.querySelectorAll(this._config.inputSelector)
+      this.#form.querySelectorAll(this.#config.inputSelector)
     );
     return inputs.every((input) => {
       return input.validity.valid;
     });
   }
 
-  _toggleButtonStatus() {
-    const saveButton = this._form.querySelector(
-      this._config.submitButtonSelector
+  #toggleButtonStatus() {
+    const saveButton = this.#form.querySelector(
+      this.#config.submitButtonSelector
     );
-    if (this._formIsValid()) {
-      saveButton.classList.remove(this._config.inactiveButtonClass);
+    if (this.#formIsValid()) {
+      saveButton.classList.remove(this.#config.inactiveButtonClass);
     } else {
-      saveButton.classList.add(this._config.inactiveButtonClass);
+      saveButton.classList.add(this.#config.inactiveButtonClass);
     }
   }
 
-  _inputValidationHandler(evt) {
+  #inputValidationHandler(evt) {
     const inputElement = evt.target;
     const inputErrorElement = inputElement.nextElementSibling;
     inputErrorElement.textContent = evt.target.validationMessage;
-    this._toggleButtonStatus();
+    this.#toggleButtonStatus();
   }
 
-  _formPreSubmitValidationHandler(evt) {
+  #formPreSubmitValidationHandler(evt) {
     const isSubmitEvent =
       evt.type.toLowerCase() === "click" || evt.key?.toLowerCase() === "enter";
-    if (!this._formIsValid() && isSubmitEvent) {
+
+    if (!this.#formIsValid() && isSubmitEvent) {
       evt.preventDefault();
     }
   }
 
-  _getSubmitButton() {
-    return this._form.querySelector(this._config.submitButtonSelector);
+  #getSubmitButton() {
+    return this.#form.querySelector(this.#config.submitButtonSelector);
   }
 
-  _setFormValidationEventListeners() {
-    this._form.addEventListener("input", this._inputValidationHandler);
-    this._form.addEventListener(
-      "keydown",
-      this._formPreSubmitValidationHandler
+  #setFormValidationEventListeners() {
+    this.#form.addEventListener(
+      "input",
+      this.#inputValidationHandler.bind(this)
     );
-    this._getSubmitButton().addEventListener(
+    this.#form.addEventListener(
+      "keydown",
+      this.#formPreSubmitValidationHandler.bind(this)
+    );
+    this.#getSubmitButton().addEventListener(
       "click",
-      this._formPreSubmitValidationHandler
+      this.#formPreSubmitValidationHandler.bind(this)
     );
   }
 
   removeFormValidationEventListeners() {
-    this._form.removeEventListener("input", this._inputValidationHandler);
-    this._form.removeEventListener(
-      "keydown",
-      this._formPreSubmitValidationHandler
+    this.#form.removeEventListener(
+      "input",
+      this.#inputValidationHandler.bind(this)
     );
-    this._getSubmitButton().removeEventListener(
+    this.#form.removeEventListener(
+      "keydown",
+      this.#formPreSubmitValidationHandler.bind(this)
+    );
+    this.#getSubmitButton().removeEventListener(
       "click",
-      this._formPreSubmitValidationHandler
+      this.#formPreSubmitValidationHandler.bind(this)
     );
   }
 
   enableValidation() {
-    this._toggleButtonStatus();
-    this._setFormValidationEventListeners(this._form, this._config);
+    this.#toggleButtonStatus();
+    this.#setFormValidationEventListeners();
   }
 }
 

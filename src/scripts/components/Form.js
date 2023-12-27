@@ -2,68 +2,74 @@ import { page } from "../helpers/constants.js";
 import { formConfig } from "../helpers/config.js";
 
 class Form {
+  #config;
+  #formTitle;
+  #buttonLabel;
+  #inputSetList;
+  #form;
+
   constructor(
     formTitle,
     buttonLabel,
     inputSetList = null,
     config = formConfig
   ) {
-    this._config = config;
-    this._formTitle = formTitle;
-    this._buttonLabel = buttonLabel;
-    this._inputSetList = inputSetList;
-    this._form = null;
+    this.#config = config;
+    this.#formTitle = formTitle;
+    this.#buttonLabel = buttonLabel;
+    this.#inputSetList = inputSetList;
+    this.#form = null;
   }
 
   startLoader() {
-    this._getSubmitButton().textContent = "Guardando...";
-    this._getSubmitButton().classList.add(this._config.submitLoadingClass);
+    this.#getSubmitButton().textContent = "Guardando...";
+    this.#getSubmitButton().classList.add(this.#config.submitLoadingClass);
   }
 
   stopLoader() {
-    this._getSubmitButton().textContent = "Guardado";
+    this.#getSubmitButton().textContent = "Guardado";
   }
 
-  _getSubmitButton() {
-    return this._form.querySelector(this._config.formButtonSelector);
+  #getSubmitButton() {
+    return this.#form.querySelector(this.#config.formButtonSelector);
   }
 
-  _getTemplate() {
-    return page.querySelector(this._config.formTemplateSelector).cloneNode(true)
+  #getTemplate() {
+    return page.querySelector(this.#config.formTemplateSelector).cloneNode(true)
       .content;
   }
 
-  _getInputsArea() {
-    return this._form.querySelector(this._config.formInputsAreaSelector);
+  #getInputsArea() {
+    return this.#form.querySelector(this.#config.formInputsAreaSelector);
   }
 
-  _setTitle(title) {
-    this._form.querySelector(this._config.formTitleSelector).textContent =
+  #setTitle(title) {
+    this.#form.querySelector(this.#config.formTitleSelector).textContent =
       title;
   }
 
-  _setButtonLabel(label) {
-    this._getSubmitButton().textContent = label;
+  #setButtonLabel(label) {
+    this.#getSubmitButton().textContent = label;
   }
 
-  _setInputs(inputSetList) {
+  #setInputs(inputSetList) {
     inputSetList.forEach((inputSet) => {
-      this._getInputsArea().append(inputSet);
+      this.#getInputsArea().append(inputSet);
     });
   }
 
   getFormElement() {
-    return this._form;
+    return this.#form;
   }
 
   buildForm() {
-    this._form = this._getTemplate().querySelector(this._config.formSelector);
-    this._setTitle(this._formTitle);
-    this._setButtonLabel(this._buttonLabel);
-    if (this._inputSetList) {
-      this._setInputs(this._inputSetList);
+    this.#form = this.#getTemplate().querySelector(this.#config.formSelector);
+    this.#setTitle(this.#formTitle);
+    this.#setButtonLabel(this.#buttonLabel);
+    if (this.#inputSetList) {
+      this.#setInputs(this.#inputSetList);
     }
-    return this._form;
+    return this.#form;
   }
 }
 export default Form;

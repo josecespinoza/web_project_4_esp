@@ -89,7 +89,6 @@ const handleDeleteCardSubmit = (evt, card, form, popupWithForm) => {
 };
 
 const handleLikeCardButtonClick = (evt, card) => {
-  debugger;
   if (card.status === "liked") {
     dislikeCard(card.getCardId())
       .then((data) => {
