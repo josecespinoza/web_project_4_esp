@@ -1,36 +1,39 @@
 class UserInfo {
+  #userNameSelector;
+  #userJobSelector;
+
   constructor(userNameSelector, userJobSelector) {
-    this._userNameSelector = userNameSelector;
-    this._userJobSelector = userJobSelector;
+    this.#userNameSelector = userNameSelector;
+    this.#userJobSelector = userJobSelector;
   }
 
-  _getUserNameContainer() {
-    return document.querySelector(this._userNameSelector);
+  #getUserNameContainer() {
+    return document.querySelector(this.#userNameSelector);
   }
 
-  _getUserName() {
-    return this._getUserNameContainer().textContent;
+  #getUserName() {
+    return this.#getUserNameContainer().textContent;
   }
 
-  _getUserJobContainer() {
-    return document.querySelector(this._userJobSelector);
+  #getUserJobContainer() {
+    return document.querySelector(this.#userJobSelector);
   }
 
-  _getUserJob() {
-    return this._getUserJobContainer().textContent;
+  #getUserJob() {
+    return this.#getUserJobContainer().textContent;
   }
 
   getUserInfo() {
     const userInfo = {
-      userName: this._getUserName(),
-      userJob: this._getUserJob(),
+      userName: this.#getUserName(),
+      userJob: this.#getUserJob(),
     };
     return userInfo;
   }
 
   setUserInfo(userName, userJob) {
-    this._getUserNameContainer().textContent = userName;
-    this._getUserJobContainer().textContent = userJob;
+    this.#getUserNameContainer().textContent = userName;
+    this.#getUserJobContainer().textContent = userJob;
   }
 }
 

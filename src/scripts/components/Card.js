@@ -2,6 +2,17 @@ import { page } from "../helpers/constants.js";
 import { cardConfig } from "../helpers/config.js";
 
 class Card {
+  #id;
+  #name;
+  #imageUrl;
+  #likesCounter;
+  #config;
+  #cardElement;
+  #popUpCard;
+  #handleCardClick;
+  #handleCardLike;
+  #handleCardDelete;
+
   constructor(
     id,
     name,
@@ -10,153 +21,138 @@ class Card {
     handleCardClick,
     config = cardConfig
   ) {
-    this._id = id;
-    this._name = name;
-    this._imageUrl = imageUrl;
-    this._status = null;
-    this._likesCounter = likesCounter;
-    this._config = config;
-    this._cardElement = null;
-    this._popUpCard = null;
-    this._handleCardClick = handleCardClick;
+    this.#id = id;
+    this.#name = name;
+    this.#imageUrl = imageUrl;
+    this.status = null;
+    this.#likesCounter = likesCounter;
+    this.#config = config;
+    this.#cardElement = null;
+    this.#popUpCard = null;
+    this.#handleCardClick = handleCardClick;
     this.buildCard = this.buildCard.bind(this);
   }
 
   getCardElement() {
-    return this._cardElement;
+    return this.#cardElement;
   }
 
   getCardId() {
-    return this._id;
+    return this.#id;
   }
 
-  _setCardName(name) {
-    this._cardElement.querySelector(this._config.cardNameSelector).textContent =
+  #setCardName(name) {
+    this.#cardElement.querySelector(this.#config.cardNameSelector).textContent =
       name;
   }
 
-  _setCardImage(alt, imageUrl) {
-    const image = this._cardElement.querySelector(
-      this._config.cardImageSelector
+  #setCardImage(alt, imageUrl) {
+    const image = this.#cardElement.querySelector(
+      this.#config.cardImageSelector
     );
     image.setAttribute("alt", alt);
     image.setAttribute("src", imageUrl);
   }
 
-  _setPopUpDescription(description) {
-    this._popUpCard.querySelector(this._config.popUpDescSelector).textContent =
-      description;
-  }
-
   setLikesCounter(counter) {
-    this._cardElement.querySelector(
-      this._config.likeCounterSelector
+    this.#cardElement.querySelector(
+      this.#config.likeCounterSelector
     ).textContent = counter;
   }
 
-  _getTemplate() {
+  #getTemplate() {
     return page
-      .querySelector(this._config.cardTemplateSelector)
+      .querySelector(this.#config.cardTemplateSelector)
       .content.cloneNode(true);
   }
 
-  _getImage() {
-    return this._cardElement.querySelector(this._config.cardImageSelector);
+  #getImage() {
+    return this.#cardElement.querySelector(this.#config.cardImageSelector);
   }
 
-  _getLikeButton() {
-    return this._cardElement.querySelector(this._config.likeButtonSelector);
+  #getLikeButton() {
+    return this.#cardElement.querySelector(this.#config.likeButtonSelector);
   }
 
-  _getDeleteButton() {
-    return this._cardElement.querySelector(this._config.deleteButtonSelector);
-  }
-
-  _getPopUpTemplate() {
-    return page
-      .querySelector(this._config.popUpTemplateSelector)
-      .content.cloneNode(true);
-  }
-
-  _getPopUpImage() {
-    return this._popUpCard.querySelector(this._config.popUpPhotoSelector);
+  #getDeleteButton() {
+    return this.#cardElement.querySelector(this.#config.deleteButtonSelector);
   }
 
   setLikeButtonHandler(handler) {
-    this._handleCardLike = handler;
-    this._getLikeButton().addEventListener("click", (evt) => {
-      this._handleCardLike(evt, this);
+    this.#handleCardLike = handler;
+    this.#getLikeButton().addEventListener("click", (evt) => {
+      this.#handleCardLike(evt, this);
     });
   }
 
   setDeleteButtonHandler(handler) {
-    this._handleCardDelete = handler;
-    this._getDeleteButton().addEventListener("click", (evt) => {
-      this._handleCardDelete(evt, this);
+    this.#handleCardDelete = handler;
+    this.#getDeleteButton().addEventListener("click", (evt) => {
+      this.#handleCardDelete(evt, this);
     });
   }
 
   toggleDeleteButton() {
-    if (this._getDeleteButton().hidden) {
-      this._getDeleteButton().hidden = false;
+    if (this.#getDeleteButton().hidden) {
+      this.#getDeleteButton().hidden = false;
     } else {
-      this._getDeleteButton().hidden = true;
+      this.#getDeleteButton().hidden = true;
     }
   }
 
   setStatus(status) {
-    this._status = status;
+    this.status = status;
   }
 
-  _setCardListeners() {
-    this._getImage().addEventListener("click", this._handleCardClick);
-    this._getDeleteButton().addEventListener("click", this._handleCardDelete);
+  #setCardListeners() {
+    this.#getImage().addEventListener("click", this.#handleCardClick);
+    this.#getDeleteButton().addEventListener("click", this.#handleCardDelete);
   }
 
-  _removeCardListeners() {
-    this._getImage().removeEventListener("click", this._handleCardClick);
+  #removeCardListeners() {
+    this.#getImage().removeEventListener("click", this.#handleCardClick);
   }
 
   toggleLikeButton() {
-    this._isLiked() ? this._unlike() : this._like();
+    this.#isLiked() ? this.#unlike() : this.#like();
   }
 
   removeDeleteButton() {
-    this._getDeleteButton().remove();
+    this.#getDeleteButton().remove();
   }
 
-  _like() {
-    this._status = this._config.likedStatus;
-    const likeIcon = this._getLikeButton().querySelector(
-      this._config.likeButtonIconSelector
+  #like() {
+    this.status = this.#config.likedStatus;
+    const likeIcon = this.#getLikeButton().querySelector(
+      this.#config.likeButtonIconSelector
     );
-    likeIcon.classList.remove(this._config.notLikedButtonClass);
-    likeIcon.classList.add(this._config.isLikedButtonClass);
+    likeIcon.classList.remove(this.#config.notLikedButtonClass);
+    likeIcon.classList.add(this.#config.isLikedButtonClass);
   }
 
-  _unlike() {
-    this._status = this._config.unlikedStatus;
-    this._getLikeButton().setAttribute("value", false);
-    const likeIcon = this._getLikeButton().querySelector(
-      this._config.likeButtonIconSelector
+  #unlike() {
+    this.status = this.#config.unlikedStatus;
+    this.#getLikeButton().setAttribute("value", false);
+    const likeIcon = this.#getLikeButton().querySelector(
+      this.#config.likeButtonIconSelector
     );
-    likeIcon.classList.remove(this._config.isLikedButtonClass);
-    likeIcon.classList.add(this._config.notLikedButtonClass);
+    likeIcon.classList.remove(this.#config.isLikedButtonClass);
+    likeIcon.classList.add(this.#config.notLikedButtonClass);
   }
 
-  _isLiked() {
-    return this._status === this._config.likedStatus ? true : false;
+  #isLiked() {
+    return this.status === this.#config.likedStatus ? true : false;
   }
 
   buildCard() {
-    this._cardElement = this._getTemplate().querySelector(
-      this._config.cardSelector
+    this.#cardElement = this.#getTemplate().querySelector(
+      this.#config.cardSelector
     );
-    this._setCardName(this._name);
-    this._setCardImage(this._name, this._imageUrl);
-    this.setLikesCounter(this._likesCounter);
-    this._setCardListeners();
-    return this._cardElement;
+    this.#setCardName(this.#name);
+    this.#setCardImage(this.#name, this.#imageUrl);
+    this.setLikesCounter(this.#likesCounter);
+    this.#setCardListeners();
+    return this.#cardElement;
   }
 }
 

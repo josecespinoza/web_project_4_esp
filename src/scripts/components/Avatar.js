@@ -1,18 +1,20 @@
 class Avatar {
+  #avatarSelector;
+
   constructor(avatarSelector) {
-    this._avatarSelector = avatarSelector;
+    this.#avatarSelector = avatarSelector;
   }
 
-  _getAvatarContainer() {
-    return document.querySelector(this._avatarSelector);
+  #getAvatarContainer() {
+    return document.querySelector(this.#avatarSelector);
   }
 
   getAvatarImageUrl() {
-    return this._getAvatarContainer().getAttribute("src");
+    return this.#getAvatarContainer().getAttribute("src");
   }
 
   setAvatarImageUrl(imageUrl) {
-    this._getAvatarContainer().setAttribute("src", imageUrl);
+    this.#getAvatarContainer().setAttribute("src", imageUrl);
   }
 }
 
