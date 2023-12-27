@@ -39,13 +39,14 @@ class PopupWithForm extends Popup {
   }
 
   _focusOnForm() {
+    debugger;
     const firstInput = this._formElement.querySelector(
       formConfig.formInputSelector
     );
     const firstButton = this._formElement.querySelector(
       formConfig.formButtonSelector
     );
-    if (firstInput.value) {
+    if (!firstInput || firstInput.value) {
       firstButton.focus();
     } else {
       firstInput.focus();
