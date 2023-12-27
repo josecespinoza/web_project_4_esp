@@ -2,31 +2,21 @@ import { apiConfig } from "./config.js";
 import Api from "../components/Api.js";
 
 const getUserInfo = () => {
-  return apiRequestsHandler(
-    apiConfig.baseUrl,
-    apiConfig.userInfoResource,
-    apiConfig.getMethod
-  );
+  const { baseUrl, userInfoResource, getMethod } = apiConfig;
+  return apiRequestsHandler(baseUrl, userInfoResource, getMethod);
 };
 
 const getCards = () => {
-  return apiRequestsHandler(
-    apiConfig.baseUrl,
-    apiConfig.cardResource,
-    apiConfig.getMethod
-  );
+  const { baseUrl, cardResource, getMethod } = apiConfig;
+  return apiRequestsHandler(baseUrl, cardResource, getMethod);
 };
 
 const addCard = (name, link) => {
-  return apiRequestsHandler(
-    apiConfig.baseUrl,
-    apiConfig.cardResource,
-    apiConfig.postMethod,
-    {
-      name,
-      link,
-    }
-  )
+  const { baseUrl, cardResource, postMethod } = apiConfig;
+  return apiRequestsHandler(baseUrl, cardResource, postMethod, {
+    name,
+    link,
+  })
     .then((data) => {
       return data;
     })
@@ -36,22 +26,15 @@ const addCard = (name, link) => {
 };
 
 const deleteCard = (cardId) => {
-  return apiRequestsHandler(
-    apiConfig.baseUrl,
-    `${apiConfig.cardResource}/${cardId}`,
-    apiConfig.deleteMethod
-  );
+  const { baseUrl, cardResource, deleteMethod } = apiConfig;
+  return apiRequestsHandler(baseUrl, `${cardResource}/${cardId}`, deleteMethod);
 };
 
 const updateAvatar = (imageUrl) => {
-  return apiRequestsHandler(
-    apiConfig.baseUrl,
-    apiConfig.avatarResource,
-    apiConfig.patchMethod,
-    {
-      avatar: imageUrl,
-    }
-  )
+  const { baseUrl, avatarResource, patchMethod } = apiConfig;
+  return apiRequestsHandler(baseUrl, avatarResource, patchMethod, {
+    avatar: imageUrl,
+  })
     .then((data) => {
       return data;
     })
@@ -61,15 +44,11 @@ const updateAvatar = (imageUrl) => {
 };
 
 const updateUserInfo = (name, about) => {
-  return apiRequestsHandler(
-    apiConfig.baseUrl,
-    apiConfig.userInfoResource,
-    apiConfig.patchMethod,
-    {
-      name,
-      about,
-    }
-  )
+  const { baseUrl, userInfoResource, patchMethod } = apiConfig;
+  return apiRequestsHandler(baseUrl, userInfoResource, patchMethod, {
+    name,
+    about,
+  })
     .then((data) => {
       return data;
     })
@@ -79,26 +58,21 @@ const updateUserInfo = (name, about) => {
 };
 
 const likeCard = (userId) => {
-  return apiRequestsHandler(
-    apiConfig.baseUrl,
-    `${apiConfig.likeResource}/${userId}`,
-    apiConfig.putMethod
-  );
+  const { baseUrl, likeResource, putMethod } = apiConfig;
+  return apiRequestsHandler(baseUrl, `${likeResource}/${userId}`, putMethod);
 };
 
 const dislikeCard = (userId) => {
-  return apiRequestsHandler(
-    apiConfig.baseUrl,
-    `${apiConfig.likeResource}/${userId}`,
-    apiConfig.deleteMethod
-  );
+  const { baseUrl, likeResource, deleteMethod } = apiConfig;
+  return apiRequestsHandler(baseUrl, `${likeResource}/${userId}`, deleteMethod);
 };
 
 const apiRequestsHandler = (baseUrl, resource, method, body) => {
+  const { token } = apiConfig;
   const api = new Api({
     baseUrl: `${baseUrl}${resource}`,
     headers: {
-      authorization: `${apiConfig.token}`,
+      authorization: `${token}`,
       "Content-Type": "application/json",
     },
     body,
