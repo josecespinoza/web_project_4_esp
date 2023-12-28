@@ -30,7 +30,6 @@ class PopupWithForm extends Popup {
       "submit",
       this.#postSubmitEventHandler
     );
-    this.close();
   }
 
   #setForm() {
