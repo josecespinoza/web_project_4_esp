@@ -1,16 +1,19 @@
 import { apiConfig } from "./config.js";
 import * as apiHandler from "../components/Api.js";
 
+//Gets name and occupation of the current user
 const getUserInfo = () => {
   const { baseUrl, userInfoResource, getMethod } = apiConfig;
   return apiRequestsHandler(baseUrl, userInfoResource, getMethod);
 };
 
+//Gets all stored cards
 const getCards = () => {
   const { baseUrl, cardResource, getMethod } = apiConfig;
   return apiRequestsHandler(baseUrl, cardResource, getMethod);
 };
 
+//Creates a new card with the provided name and link
 const addCard = (name, link) => {
   const { baseUrl, cardResource, postMethod } = apiConfig;
   return apiRequestsHandler(baseUrl, cardResource, postMethod, {
@@ -25,6 +28,7 @@ const addCard = (name, link) => {
     });
 };
 
+//Deletes one card with the provided id
 const deleteCard = (cardId) => {
   const { baseUrl, cardResource, deleteMethod } = apiConfig;
   return apiRequestsHandler(baseUrl, `${cardResource}/${cardId}`, deleteMethod);
@@ -43,6 +47,7 @@ const updateAvatar = (imageUrl) => {
     });
 };
 
+//Updates the name and about description of the current user
 const updateUserInfo = (name, about) => {
   const { baseUrl, userInfoResource, patchMethod } = apiConfig;
   return apiRequestsHandler(baseUrl, userInfoResource, patchMethod, {
@@ -57,17 +62,20 @@ const updateUserInfo = (name, about) => {
     });
 };
 
+//Likes a card
 const likeCard = (userId) => {
   const { baseUrl, likeResource, putMethod } = apiConfig;
   return apiRequestsHandler(baseUrl, `${likeResource}/${userId}`, putMethod);
 };
 
+//Dislikes a card
 const dislikeCard = (userId) => {
   const { baseUrl, likeResource, deleteMethod } = apiConfig;
   return apiRequestsHandler(baseUrl, `${likeResource}/${userId}`, deleteMethod);
 };
 
-const apiRequestsHandler = (baseUrl, resource, method, body) => {
+//Abstracts Api requests to facilitate reusability
+const apiRequestsHandler = (baseUrl, resource, method, body = null) => {
   const { token } = apiConfig;
   const api = apiHandler.getInstance({
     baseUrl: `${baseUrl}${resource}`,
@@ -89,7 +97,7 @@ const apiRequestsHandler = (baseUrl, resource, method, body) => {
   return apiMethods[method]();
 };
 
-export {
+const requests = {
   getUserInfo,
   getCards,
   addCard,
@@ -99,3 +107,5 @@ export {
   updateAvatar,
   updateUserInfo,
 };
+
+export default requests;

@@ -4,7 +4,7 @@ import {
   setCurrentUserId,
   getCurrentUserId,
 } from "./scripts/helpers/utils.js";
-import { getUserInfo, getCards } from "./scripts/helpers/requests.js";
+import requests from "./scripts/helpers/requests.js";
 import { globalConfig, sectionConfig } from "./scripts/helpers/config.js";
 import {
   renderUserInfo,
@@ -19,7 +19,8 @@ import {
   handleLikeCardButtonClick,
 } from "./scripts/helpers/handlers.js";
 
-getUserInfo()
+requests
+  .getUserInfo()
   .then((userData) => {
     setCurrentUserId(userData._id);
     renderUserInfo(userData.name, userData.about);
@@ -29,7 +30,8 @@ getUserInfo()
     console.log(err);
   });
 
-getCards()
+requests
+  .getCards()
   .then((cardData) => {
     renderCards(
       cardData,
